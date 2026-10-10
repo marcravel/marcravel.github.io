@@ -20,93 +20,99 @@ const gridClassDesktop =
 
 const texts = {
     en: {
-        title: "Marc | Engineering Portfolio",
+        title: "Marc Ravelontsalama | Embedded Systems Engineer",
         description:
-            "Marc's engineering portfolio of electronics, embedded systems, robotics, computer vision, and artificial intelligence projects.",
-        portfolio: "👋 Welcome to my engineering portfolio",
+            "Embedded systems, firmware, electronics, PCB design and control projects by Marc Ravelontsalama.",
+        portfolio:
+            "EEE student · Embedded systems, power electronics & control · Linux · Building things that work on real hardware",
         greeting: "Hi, I'm Marc.",
-        subtitle: "Electronics, Embedded Systems & Robotics",
-        intro: "I'm a 3rd-year Electrical and Electronics Engineering student at Selçuk University, working across robotics, computer vision, AI, and embedded systems. I'm mostly software-side (Python, C/C++, and Linux) but I get my hands on the hardware when needed.",
+        subtitle: "Embedded Systems Engineer | Firmware, Electronics & Control",
+        intro:
+            "I'm a final-year Electrical-Electronics Engineering student at Selçuk University (Konya, Turkey), currently on Erasmus+ at Riga Technical University. I design and program embedded systems: I build the hardware, then write the firmware that runs it. My work sits between electronics, control and software, with Linux as my daily environment. I'm currently designing a digitally controlled buck converter, from the custom PCB to the firmware and Linux telemetry. I also run Code & Copper, a YouTube channel documenting technical projects. I'm looking for an embedded or electronics internship in the EU.",
         view_projects: "View Projects",
         download_cv: "Download CV",
         skills: "Skills Overview",
         programming: {
-            title: "Programming",
-            desc: "C/C++, Python, OpenCV, PyTorch. AI/ML workflows, scripting, Linux tooling.",
+            title: "Embedded Firmware",
+            desc: "C/C++ on microcontrollers. STM32, ESP32, PIC, Arduino, bare-metal and HAL firmware.",
         },
         embedded: {
-            title: "Embedded Systems",
-            desc: "STM32, ESP32, PIC — bare-metal & HAL. UART, SPI, I²C, timers, interrupts, low-level C firmware.",
+            title: "Electronics & PCB Design",
+            desc: "Schematic and PCB design, circuit design, power stages, sensor and actuator interfacing.",
         },
         electronics: {
-            title: "Electronics",
-            desc: "Analog & digital circuit design, PCB prototyping, sensor/actuator interfacing, power stages.",
+            title: "Control",
+            desc: "Digital control loops, sensors and actuators, PID and fuzzy logic.",
         },
         robotics: {
-            title: "Robotics & Control",
-            desc: "Autonomous systems, PID control, mechatronics integration. Competition experience.",
+            title: "Linux & Tooling",
+            desc: "Linux development environment, Python, Git, serial and device interfaces, telemetry and frontend/API glue. Familiar with ML fundamentals and OpenCV.",
         },
         selected_projects: "Selected Projects",
         view_all: "View All",
         in_development: "Additional systems in active development.",
     },
     fr: {
-        title: "Marc | Portfolio d'ingénierie",
+        title: "Marc Ravelontsalama | Ingénieur systèmes embarqués",
         description:
-            "Le portfolio d'ingénierie de Marc consacré à l'électronique, aux systèmes embarqués, à la robotique, à la vision par ordinateur et à l'intelligence artificielle.",
-        portfolio: "👋 Bienvenue sur mon portfolio d'ingénierie",
+            "Projets de Marc Ravelontsalama en systèmes embarqués, firmware, électronique, conception de circuits imprimés et contrôle.",
+        portfolio:
+            "Étudiant en EEE · Systèmes embarqués, électronique de puissance et contrôle · Linux · Construire des systèmes qui fonctionnent sur du vrai matériel",
         greeting: "Bonjour, je suis Marc.",
-        subtitle: "Électronique, Systèmes Embarqués & Robotique",
-        intro: "Je suis étudiant en 3ème année de génie électrique et électronique à l'Université de Selçuk, travaillant dans la robotique, la vision par ordinateur, l'IA et les systèmes embarqués. Je suis principalement orienté vers les logiciels (Python, C/C++ et Linux) mais je mets la main à la pâte avec le matériel quand c'est nécessaire.",
+        subtitle: "Ingénieur systèmes embarqués | Firmware, électronique et contrôle",
+        intro:
+            "Je suis étudiant en dernière année de génie électrique et électronique à l'Université de Selçuk (Konya, Turquie), actuellement en Erasmus+ à la Riga Technical University. Je conçois et programme des systèmes embarqués : je construis le matériel, puis j'écris le firmware qui le fait fonctionner. Mon travail se situe entre l'électronique, le contrôle et le logiciel, avec Linux comme environnement quotidien. Je conçois actuellement un convertisseur buck à commande numérique, du circuit imprimé personnalisé au firmware et à la télémétrie Linux. Je dirige également Code & Copper, une chaîne YouTube qui documente des projets techniques. Je recherche un stage en systèmes embarqués ou en électronique dans l'Union européenne.",
         view_projects: "Voir les projets",
         download_cv: "Télécharger CV",
         skills: "Aperçu des compétences",
         programming: {
-            title: "Programmation",
-            desc: "C/C++, Python, OpenCV, PyTorch. Workflows IA/ML, scripts, outils Linux.",
+            title: "Firmware embarqué",
+            desc: "C/C++ sur microcontrôleurs. STM32, ESP32, PIC, Arduino, firmware bare-metal et HAL.",
         },
         embedded: {
-            title: "Systèmes Embarqués",
-            desc: "STM32, ESP32, PIC — bare-metal & HAL. UART, SPI, I²C, timers, interruptions, firmware C bas niveau.",
+            title: "Électronique et conception de circuits imprimés",
+            desc: "Schémas et conception de circuits imprimés, conception de circuits, étages de puissance, interfaces capteurs et actionneurs.",
         },
         electronics: {
-            title: "Électronique",
-            desc: "Conception de circuits, prototypage PCB, interfaçage capteurs/actionneurs, étages de puissance.",
+            title: "Contrôle",
+            desc: "Boucles de contrôle numériques, capteurs et actionneurs, PID et logique floue.",
         },
         robotics: {
-            title: "Robotique & Contrôle",
-            desc: "Systèmes autonomes, contrôle PID, intégration mécatronique. Expérience en compétition.",
+            title: "Linux et outils",
+            desc: "Environnement de développement Linux, Python, Git, interfaces série et périphériques, télémétrie et intégration frontend/API. Connaissances des fondamentaux du ML et d'OpenCV.",
         },
         selected_projects: "Projets Sélectionnés",
         view_all: "Voir tout",
         in_development: "Systèmes supplémentaires en cours de développement.",
     },
     tr: {
-        title: "Marc | Mühendislik Portföyü",
+        title: "Marc Ravelontsalama | Gömülü Sistemler Mühendisi",
         description:
-            "Marc'ın elektronik, gömülü sistemler, robotik, bilgisayarlı görü ve yapay zeka projelerinden oluşan mühendislik portföyü.",
-        portfolio: "👋 Mühendislik portföyüme hoş geldiniz",
+            "Marc Ravelontsalama'nın gömülü sistemler, firmware, elektronik, PCB tasarımı ve kontrol projeleri.",
+        portfolio:
+            "EEE öğrencisi · Gömülü sistemler, güç elektroniği ve kontrol · Linux · Gerçek donanım üzerinde çalışan sistemler geliştiriyorum",
         greeting: "Merhaba, ben Marc.",
-        subtitle: "Elektronik, Gömülü Sistemler ve Robotik",
-        intro: "Selçuk Üniversitesi'nde 3. sınıf Elektrik ve Elektronik Mühendisliği öğrencisiyim, robotik, görüntü işleme, yapay zeka ve gömülü sistemler üzerinde çalışıyorum. Çoğunlukla yazılım tarafındayım (Python, C/C++ ve Linux) ancak gerektiğinde donanımla da ilgileniyorum.",
+        subtitle: "Gömülü Sistemler Mühendisi | Firmware, Elektronik ve Kontrol",
+        intro:
+            "Selçuk Üniversitesi'nde (Konya, Türkiye) son sınıf Elektrik-Elektronik Mühendisliği öğrencisiyim ve şu anda Riga Technical University'de Erasmus+ yapıyorum. Gömülü sistemler tasarlıyor ve programlıyorum: donanımı kuruyor, ardından sistemi çalıştıran firmware'i yazıyorum. Çalışmalarım elektronik, kontrol ve yazılımın kesişiminde; günlük geliştirme ortamım Linux. Şu anda özel PCB'den firmware'e ve Linux telemetrisine kadar dijital kontrollü bir buck dönüştürücü tasarlıyorum. Ayrıca teknik projeleri belgeleyen Code & Copper adlı bir YouTube kanalı yürütüyorum. Avrupa Birliği'nde gömülü sistemler veya elektronik alanında staj arıyorum.",
         view_projects: "Projeleri Gör",
         download_cv: "CV İndir",
         skills: "Yeteneklere Genel Bakış",
         programming: {
-            title: "Programlama",
-            desc: "C/C++, Python, OpenCV, PyTorch. YZ/ML iş akışları, betik, Linux araçları.",
+            title: "Gömülü Firmware",
+            desc: "Mikrodenetleyiciler üzerinde C/C++. STM32, ESP32, PIC, Arduino, bare-metal ve HAL firmware.",
         },
         embedded: {
-            title: "Gömülü Sistemler",
-            desc: "STM32, ESP32, PIC — bare-metal & HAL. UART, SPI, I²C, zamanlayıcılar, kesme, düşük seviye C.",
+            title: "Elektronik ve PCB Tasarımı",
+            desc: "Şematik ve PCB tasarımı, devre tasarımı, güç katları, sensör ve aktüatör arayüzleri.",
         },
         electronics: {
-            title: "Elektronik",
-            desc: "Devre tasarımı, PCB prototipleme, sensör/aktüatör arayüzü, güç katları.",
+            title: "Kontrol",
+            desc: "Dijital kontrol döngüleri, sensörler ve aktüatörler, PID ve bulanık mantık.",
         },
         robotics: {
-            title: "Robotik & Kontrol",
-            desc: "Otonom sistemler, PID kontrol, mekatronik entegrasyon. Yarışma deneyimi.",
+            title: "Linux ve Araçlar",
+            desc: "Linux geliştirme ortamı, Python, Git, seri ve cihaz arayüzleri, telemetri ve frontend/API entegrasyonu. ML temelleri ve OpenCV hakkında bilgi sahibi.",
         },
         selected_projects: "Seçili Projeler",
         view_all: "Tümünü Gör",
@@ -126,7 +132,9 @@ const t = texts[lang];
             "https://github.com/marcravel",
             "https://www.linkedin.com/in/marc-anjaniaina-ravelontsalama/",
         ],
-        jobTitle: "Electrical and Electronics Engineering Student",
+        jobTitle: "Embedded Systems Engineer",
+        description:
+            "Final-year Electrical-Electronics Engineering student focused on embedded firmware, electronics, PCB design and control.",
         worksFor: {
             "@type": "EducationalOrganization",
             name: "Selçuk University",
@@ -134,9 +142,10 @@ const t = texts[lang];
         knowsAbout: [
             "Electronics",
             "Embedded Systems",
-            "Robotics",
-            "Computer Vision",
-            "Artificial Intelligence",
+            "Firmware",
+            "PCB Design",
+            "Control",
+            "Linux",
         ],
     })} />
     <!-- ===================== HERO SECTION ===================== -->
