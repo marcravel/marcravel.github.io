@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectCard from "../ProjectCard.astro";
 import projectsData from "../../data/projects.json";
+import homeContent from "../../data/home.json";
 import { useTranslatedPath } from "../../i18n/ui";
 
 export interface Props {
@@ -16,18 +17,13 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/")
 const activeProjects = projectsData.filter((project) => project.active === 1);
 const gridClassDesktop =
     activeProjects.length === 2 ? "lg-grid-cols-2" : "lg-grid-cols-3";
+const hero = homeContent[lang];
 
 const texts = {
     en: {
         title: "Marc Ravelontsalama | Embedded Systems Engineer",
         description:
             "Embedded systems, firmware, electronics, PCB design and control projects by Marc Ravelontsalama.",
-        portfolio:
-            "Embedded Systems · Firmware · Electronics · Control · Linux",
-        greeting: "Hi, I'm Marc.",
-        subtitle: "Embedded Systems Engineer | Firmware & Electronics",
-        intro:
-            "I'm a final-year Electrical-Electronics Engineering student at Selçuk University, currently on Erasmus+ at Riga Technical University. I build embedded systems from custom PCBs to firmware, combining electronics, control, and Linux-based tools. I also document my engineering projects on Code & Copper. I'm seeking an embedded systems or electronics internship.",
         view_projects: "View Projects",
         download_cv: "Download CV",
         skills: "Skills Overview",
@@ -55,12 +51,6 @@ const texts = {
         title: "Marc Ravelontsalama | Ingénieur systèmes embarqués",
         description:
             "Projets de Marc Ravelontsalama en systèmes embarqués, firmware, électronique, conception de circuits imprimés et contrôle.",
-        portfolio:
-            "Systèmes embarqués · Firmware · Électronique · Contrôle · Linux",
-        greeting: "Bonjour, je suis Marc.",
-        subtitle: "Ingénieur systèmes embarqués | Firmware et électronique",
-        intro:
-            "Je suis étudiant en dernière année de génie électrique et électronique à l'Université de Selçuk, actuellement en Erasmus+ à la Riga Technical University. Je construis des systèmes embarqués, des circuits imprimés personnalisés au firmware, en combinant électronique, contrôle et outils basés sur Linux. Je documente également mes projets d'ingénierie sur Code & Copper. Je recherche un stage en systèmes embarqués ou en électronique.",
         view_projects: "Voir les projets",
         download_cv: "Télécharger CV",
         skills: "Aperçu des compétences",
@@ -88,12 +78,6 @@ const texts = {
         title: "Marc Ravelontsalama | Gömülü Sistemler Mühendisi",
         description:
             "Marc Ravelontsalama'nın gömülü sistemler, firmware, elektronik, PCB tasarımı ve kontrol projeleri.",
-        portfolio:
-            "Gömülü Sistemler · Firmware · Elektronik · Kontrol · Linux",
-        greeting: "Merhaba, ben Marc.",
-        subtitle: "Gömülü Sistemler Mühendisi | Firmware ve Elektronik",
-        intro:
-            "Selçuk Üniversitesi'nde son sınıf Elektrik-Elektronik Mühendisliği öğrencisiyim ve şu anda Riga Technical University'de Erasmus+ yapıyorum. Özel PCB'lerden firmware'e kadar gömülü sistemler geliştiriyor, elektronik, kontrol ve Linux tabanlı araçları bir araya getiriyorum. Ayrıca mühendislik projelerimi Code & Copper'da belgeliyorum. Gömülü sistemler veya elektronik alanında staj arıyorum.",
         view_projects: "Projeleri Gör",
         download_cv: "CV İndir",
         skills: "Yeteneklere Genel Bakış",
@@ -162,19 +146,19 @@ const t = texts[lang];
                         class="d-inline-block mb-3 px-3 py-2 small"
                         style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 9999px; font-weight: 500; color: var(--color-text-primary);"
                     >
-                        {t.portfolio}
+                        {hero.tagline}
                     </div>
                     <h1 class="mb-3" style="font-size: 4rem;">
-                        <span class="gradient-text">{t.greeting}</span>
+                        <span class="gradient-text">{hero.greeting}</span>
                     </h1>
                     <h2
                         class="mb-4 fw-light"
                         style="font-size: 1.75rem; color: var(--color-text-secondary);"
                     >
-                        {t.subtitle}
+                        {hero.headline}
                     </h2>
                     <p class="lead mb-5">
-                        {t.intro}
+                        {hero.intro}
                     </p>
                     <div class="d-flex flex-wrap gap-3">
                         <a

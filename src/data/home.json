@@ -1,0 +1,20 @@
+{
+  "en": {
+    "tagline": "Embedded Systems · Firmware · Electronics · Control · Linux",
+    "greeting": "Hi, I'm Marc.",
+    "headline": "Embedded Systems Engineer | Firmware & Electronics",
+    "intro": "I'm a final-year Electrical-Electronics Engineering student at Selçuk University, currently on Erasmus+ at Riga Technical University. I build embedded systems from custom PCBs to firmware, combining electronics, control, and Linux-based tools. I also document my engineering projects on Code & Copper. I'm seeking an embedded systems or electronics internship."
+  },
+  "fr": {
+    "tagline": "Systèmes embarqués · Firmware · Électronique · Contrôle · Linux",
+    "greeting": "Bonjour, je suis Marc.",
+    "headline": "Ingénieur systèmes embarqués | Firmware et électronique",
+    "intro": "Je suis étudiant en dernière année de génie électrique et électronique à l'Université de Selçuk, actuellement en Erasmus+ à la Riga Technical University. Je construis des systèmes embarqués, des circuits imprimés personnalisés au firmware, en combinant électronique, contrôle et outils basés sur Linux. Je documente également mes projets d'ingénierie sur Code & Copper. Je recherche un stage en systèmes embarqués ou en électronique."
+  },
+  "tr": {
+    "tagline": "Gömülü Sistemler · Firmware · Elektronik · Kontrol · Linux",
+    "greeting": "Merhaba, ben Marc.",
+    "headline": "Gömülü Sistemler Mühendisi | Firmware ve Elektronik",
+    "intro": "Selçuk Üniversitesi'nde son sınıf Elektrik-Elektronik Mühendisliği öğrencisiyim ve şu anda Riga Technical University'de Erasmus+ yapıyorum. Özel PCB'lerden firmware'e kadar gömülü sistemler geliştiriyor, elektronik, kontrol ve Linux tabanlı araçları bir araya getiriyorum. Ayrıca mühendislik projelerimi Code & Copper'da belgeliyorum. Gömülü sistemler veya elektronik alanında staj arıyorum."
+  }
+}
