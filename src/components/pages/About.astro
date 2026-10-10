@@ -346,7 +346,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                     class="small mb-0 ps-3"
                                     style="color: var(--color-text-secondary); line-height: 1.6;"
                                 >
-                                    <li class:list={["mb-2", !entry.li2 && !entry.li3 && "mb-0"]}>{entry.li1}</li>
+                                    <li class={entry.li2 || entry.li3 ? "mb-2" : ""}>{entry.li1}</li>
                                     {entry.li2 && <li class="mb-2">{entry.li2}</li>}
                                     {entry.li3 && <li>{entry.li3}</li>}
                                 </ul>
