@@ -87,11 +87,11 @@ const t = { ...texts[lang], ...aboutContent[lang] };
         <div class="container animate-fade-up">
             <h1 class="section-title"><span>{t.h1}</span></h1>
 
-            <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-2 gap-5">
+            <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-2 gap-5 about-columns">
                 <!-- Left Column: Bio & Skills -->
                 <div>
                     <!-- Professional Summary -->
-                    <div class="glass p-4 p-md-5 mb-5">
+                    <div class="glass p-4 p-md-5 mb-5 about-summary">
                         <h3
                             class="mb-3"
                             style="color: var(--color-accent-1); font-size: 1.5rem;"
@@ -107,7 +107,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                     </div>
 
                     <!-- Technical Skills Matrix -->
-                    <div class="glass p-4 p-md-5 mb-5">
+                    <div class="glass p-4 p-md-5 mb-5 about-skills">
                         <h3
                             class="mb-4"
                             style="color: var(--color-accent-2); font-size: 1.5rem;"
@@ -180,7 +180,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                     </div>
 
                     <!-- Languages -->
-                    <div class="glass p-4 p-md-5 mb-5">
+                    <div class="glass p-4 p-md-5 mb-5 about-languages">
                         <h3
                             class="mb-4"
                             style="color: var(--color-accent-1); font-size: 1.5rem;"
@@ -275,13 +275,13 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                 <!-- Right Column: Education & Experience -->
                 <div>
                     <h3
-                        class="mb-4"
+                        class="mb-4 about-education"
                         style="color: var(--color-accent-2); font-size: 1.5rem;"
                     >
                         {t.eduHonors}
                     </h3>{t.educationEntries.map((entry, index) => (
                             <>                             <Fragment set:html={`<!-- Education Card ${entry.cardLabel} -->`} />
-                            <div class="glass p-4 mb-4 edu-card">
+                            <div class="glass p-4 mb-4 edu-card about-education">
                                 <h5
                                     class="fw-bold mb-2"
                                     style="color: var(--color-text-primary);"
@@ -317,13 +317,13 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                         ))}
 
                     <h3
-                        class="mb-4 mt-5"
+                        class="mb-4 mt-5 about-experience"
                         style="color: var(--color-accent-1); font-size: 1.5rem;"
                     >
                         {t.experience}
                     </h3>{t.experienceEntries.map((entry, index) => (
                             <> <Fragment set:html={`<!-- Experience Card ${entry.cardLabel} -->`} />
-                            <div class={`glass p-4 ${index === t.experienceEntries.length - 1 ? "mb-5" : "mb-4"} edu-card`}>
+                            <div class={`glass p-4 ${index === t.experienceEntries.length - 1 ? "mb-5" : "mb-4"} edu-card about-experience`}>
                                 <h5
                                     class="fw-bold mb-2"
                                     style="color: var(--color-text-primary);"
@@ -354,7 +354,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                         ))}
 
                     <h3
-                        class="mb-4 mt-5"
+                        class="mb-4 mt-5 about-courses"
                         style="color: var(--color-accent-2); font-size: 1.5rem;"
                     >
                         {t.courses}
@@ -365,7 +365,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                         href={courseLinks.course1}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-decoration-none course-link d-block"
+                        class="text-decoration-none course-link d-block about-courses"
                     >
                         <div class="glass p-4 mb-4 edu-card">
                             <div class="cert-overlay">
@@ -404,7 +404,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                         href={courseLinks.course2}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-decoration-none course-link d-block"
+                        class="text-decoration-none course-link d-block about-courses"
                     >
                         <div class="glass p-4 mb-4 edu-card">
                             <div class="cert-overlay">
@@ -444,7 +444,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                         href={courseLinks.course3}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-decoration-none course-link d-block"
+                        class="text-decoration-none course-link d-block about-courses"
                     >
                         <div class="glass p-4 mb-4 edu-card">
                             <div class="cert-overlay">
@@ -482,7 +482,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                         href={courseLinks.course4}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-decoration-none course-link d-block"
+                        class="text-decoration-none course-link d-block about-courses"
                     >
                         <div class="glass p-4 mb-5 edu-card">
                             <div class="cert-overlay">
@@ -516,14 +516,14 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                     </a>
 
                     <h3
-                        class="mb-4 mt-5"
+                        class="mb-4 mt-5 about-community"
                         style="color: var(--color-accent-1); font-size: 1.5rem;"
                     >
                         {t.community}
                     </h3>
 
                     <!-- Community card 1-->
-                    <div class="glass p-4 mb-4 edu-card">
+                    <div class="glass p-4 mb-4 edu-card about-community">
                         <h5
                             class="fw-bold mb-2"
                             style="color: var(--color-text-primary);"
@@ -553,7 +553,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                     </div>
 
                     <!-- Community card 2-->
-                    <div class="glass p-4 mb-4 edu-card">
+                    <div class="glass p-4 mb-4 edu-card about-community">
                         <h5
                             class="fw-bold mb-2"
                             style="color: var(--color-text-primary);"
@@ -587,6 +587,25 @@ const t = { ...texts[lang], ...aboutContent[lang] };
 </BaseLayout>
 
 <style is:global>
+    @media (min-width: 768px) {
+        .about-columns > div {
+            display: contents;
+        }
+
+        .about-summary,
+        .about-education,
+        .about-experience,
+        .about-courses,
+        .about-community {
+            grid-column: 1 !important;
+        }
+
+        .about-skills,
+        .about-languages {
+            grid-column: 2 !important;
+        }
+    }
+
     /* Hover Effects for Cards matching ProjectCards */
     .edu-card {
         transition:
