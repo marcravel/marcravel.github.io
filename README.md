@@ -1,43 +1,108 @@
-# Astro Starter Kit: Minimal
+# Engineering Portfolio
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Personal engineering portfolio for Marc Ravelontsalama, focused on embedded
+systems, firmware, electronics, PCB design, robotics, and control.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Live site: <https://marcravel.github.io/>
 
-## 🚀 Project Structure
+## Tech stack
 
-Inside of your Astro project, you'll see the following folders and files:
+- Astro 5 static site
+- TypeScript and Astro components
+- Plain CSS with Bootstrap-inspired utility classes
+- `@astrojs/sitemap`
+- GitHub Pages deployment through GitHub Actions
+
+## Repository structure
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+  assets/                 Source assets processed by Astro
+  components/             Reusable cards and page sections
+  data/projects.json      Localized project records
+  i18n/ui.ts              Shared language names, translations, and routes
+  layouts/BaseLayout.astro Shared document shell and SEO metadata
+  pages/                  EN, FR, and TR route entrypoints
+  styles/global.css       Global styles and utility classes
+  types/project.ts        Project and locale types
+public/
+  docs/                   CV and localized project descriptions
+  img/projects/           Project images
+  robots.txt              Sitemap discovery for crawlers
+  social-preview.jpg      Local Open Graph/Twitter preview image
+.github/workflows/        GitHub Pages deployment workflow
+astro.config.mjs          Root URL, locales, and sitemap configuration
+package.json              Scripts and dependencies
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Commands
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```sh
+npm install
+npm run dev
+npm run build
+npm run preview
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+`npm run dev` starts the local development server. `npm run build` creates the
+static site in `dist/`, and `npm run preview` serves that build locally.
 
-## 🧞 Commands
+## Deployment
 
-All commands are run from the root of the project, from a terminal:
+The `Deploy to GitHub Pages` workflow runs on pushes to `main` and on manual
+dispatch. It uses `withastro/action` to build the site and
+`actions/deploy-pages` to publish it.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+This is the `marcravel.github.io` user site, so `astro.config.mjs` sets
+`site` to `https://marcravel.github.io` and does not define a `base` path.
 
-## 👀 Want to learn more?
+## Internationalization
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+English is the default locale and has no URL prefix:
+
+```text
+/             English
+/fr/          French
+/tr/          Turkish
+```
+
+Shared navigation translations and locale-aware path helpers live in
+`src/i18n/ui.ts`. Page-specific EN/FR/TR copy lives beside each page component
+in `src/components/pages/`.
+
+## Projects
+
+Projects are defined in `src/data/projects.json`. To add or edit one:
+
+- Set `active` to `1` to publish it, or `0` to keep it hidden.
+- Keep `slug` unique; it becomes the detail-page URL.
+- Keep local image paths without a leading slash, for example
+  `img/projects/example/hero.jpg`. Files belong under `public/`.
+- Provide localized `category`, `title`, and `description` fields for `en`,
+  `fr`, and `tr`.
+- Add an optional localized `achievements` object, `gallery` array,
+  `youtubeId`, and `image` as needed.
+- For long localized descriptions, use `.txt` files under `public/docs` and
+  reference them without a leading slash, for example
+  `docs/example_fr.txt`.
+
+Active projects are rendered on the home and projects pages and receive
+localized detail routes. Inactive records remain available for later
+publication.
+
+## SEO
+
+`src/layouts/BaseLayout.astro` renders page titles, descriptions, canonical
+URLs, Open Graph and Twitter metadata, locale alternates, and the document
+language. `@astrojs/sitemap` generates the sitemap during the build.
+`public/robots.txt` points crawlers to the sitemap, and the homepage includes
+Person JSON-LD structured data. `public/social-preview.jpg` is the local
+social-preview image used by Open Graph and Twitter metadata.
+
+## Conventions
+
+- Keep local public asset paths relative and without a leading slash.
+- Add copy in all three supported locales when editing localized content.
+- Prefer existing project data and shared helpers over duplicated route logic.
+- Keep inactive projects at `active: 0` until their detail content is ready.
+- Run `npm run build` before deployment.
