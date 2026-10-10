@@ -106,174 +106,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                         </p>
                     </div>
 
-                    <!-- Technical Skills Matrix -->
-                    <div class="glass p-4 p-md-5 mb-5 about-skills">
-                        <h3
-                            class="mb-4"
-                            style="color: var(--color-accent-2); font-size: 1.5rem;"
-                        >
-                            {t.techMatrix}
-                        </h3>
 
-                        <div class="mb-4">
-                            <h5
-                                class="text-uppercase mb-3 small fw-bold"
-                                style="color: var(--color-text-secondary); letter-spacing: 1px;"
-                            >
-                                {t.hwEmb}
-                            </h5>
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[0]}></span>
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[1]}></span>
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[2]}></span>
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[3]}></span>
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[4]}></span>
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[5]}></span>
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[6]}></span>
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[7]}></span>
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <h5
-                                class="text-uppercase mb-3 small fw-bold"
-                                style="color: var(--color-text-secondary); letter-spacing: 1px;"
-                            >
-                                {t.softAi}
-                            </h5>
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="badge px-3 py-2" style="border-color: rgba(59, 130, 246, 0.5); color: #60a5fa;" set:html={t.skillItems.control[0]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(59, 130, 246, 0.5); color: #60a5fa;" set:html={t.skillItems.control[1]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(59, 130, 246, 0.5); color: #60a5fa;" set:html={t.skillItems.control[2]}></span>
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <h5
-                                class="text-uppercase mb-3 small fw-bold"
-                                style="color: var(--color-text-secondary); letter-spacing: 1px;"
-                            >
-                                {t.toolsMulti}
-                            </h5>
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="badge px-3 py-2" style="border-color: rgba(139, 92, 246, 0.5); color: #c084fc;" set:html={t.skillItems.tools[0]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(139, 92, 246, 0.5); color: #c084fc;" set:html={t.skillItems.tools[1]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(139, 92, 246, 0.5); color: #c084fc;" set:html={t.skillItems.tools[2]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(139, 92, 246, 0.5); color: #c084fc;" set:html={t.skillItems.tools[3]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(139, 92, 246, 0.5); color: #c084fc;" set:html={t.skillItems.tools[4]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(139, 92, 246, 0.5); color: #c084fc;" set:html={t.skillItems.tools[5]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(139, 92, 246, 0.5); color: #c084fc;" set:html={t.skillItems.tools[6]}></span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h5
-                                class="text-uppercase mb-3 small fw-bold"
-                                style="color: var(--color-text-secondary); letter-spacing: 1px;"
-                            >
-                                {t.supportingSoftware}
-                            </h5>
-                            <p class="small text-muted mb-0">
-                                {t.supportingSoftwareDesc}
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Languages -->
-                    <div class="glass p-4 p-md-5 mb-5 about-languages">
-                        <h3
-                            class="mb-4"
-                            style="color: var(--color-accent-1); font-size: 1.5rem;"
-                        >
-                            {t.languages}
-                        </h3>
-                        <div class="d-flex flex-column gap-3">
-                            <div
-                                class="d-flex align-items-center justify-content-between"
-                            >
-                                <strong
-                                    style="color: var(--color-text-primary);"
-                                    >{t.spokenLanguages[0].name}</strong
-                                >
-                                <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
-                                >
-                                </div>
-                                <span
-                                    style="color: var(--color-text-secondary);"
-                                    >{t.spokenLanguages[0].level}</span
-                                >
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between"
-                            >
-                                <strong
-                                    style="color: var(--color-text-primary);"
-                                    >{t.spokenLanguages[1].name}</strong
-                                >
-                                <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
-                                >
-                                </div>
-                                <span
-                                    style="color: var(--color-text-secondary);"
-                                    >{t.spokenLanguages[1].level}</span
-                                >
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between"
-                            >
-                                <strong
-                                    style="color: var(--color-text-primary);"
-                                    >{t.spokenLanguages[2].name}</strong
-                                >
-                                <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
-                                >
-                                </div>
-                                <span
-                                    style="color: var(--color-text-secondary);"
-                                    >{t.spokenLanguages[2].level}</span
-                                >
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between"
-                            >
-                                <strong
-                                    style="color: var(--color-text-primary);"
-                                    >{t.spokenLanguages[3].name}</strong
-                                >
-                                <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
-                                >
-                                </div>
-                                <span
-                                    style="color: var(--color-text-secondary);"
-                                    >{t.spokenLanguages[3].level}</span
-                                >
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between"
-                            >
-                                <strong
-                                    style="color: var(--color-text-primary);"
-                                    >{t.spokenLanguages[4].name}</strong
-                                >
-                                <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
-                                >
-                                </div>
-                                <span
-                                    style="color: var(--color-text-secondary);"
-                                    >{t.spokenLanguages[4].level}</span
-                                >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Column: Education & Experience -->
-                <div>
                     <h3
                         class="mb-4 about-education"
                         style="color: var(--color-accent-2); font-size: 1.5rem;"
@@ -580,6 +413,179 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                             <li>{t.communityEntries[1].li2}</li>
                         </ul>
                     </div>
+
+                </div>
+
+                <!-- Right Column: Education & Experience -->
+                <div>
+
+                    <!-- Technical Skills Matrix -->
+                    <div class="glass p-4 p-md-5 mb-5 about-skills">
+                        <h3
+                            class="mb-4"
+                            style="color: var(--color-accent-2); font-size: 1.5rem;"
+                        >
+                            {t.techMatrix}
+                        </h3>
+
+                        <div class="mb-4">
+                            <h5
+                                class="text-uppercase mb-3 small fw-bold"
+                                style="color: var(--color-text-secondary); letter-spacing: 1px;"
+                            >
+                                {t.hwEmb}
+                            </h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[0]}></span>
+                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[1]}></span>
+                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[2]}></span>
+                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[3]}></span>
+                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[4]}></span>
+                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[5]}></span>
+                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[6]}></span>
+                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[7]}></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5
+                                class="text-uppercase mb-3 small fw-bold"
+                                style="color: var(--color-text-secondary); letter-spacing: 1px;"
+                            >
+                                {t.softAi}
+                            </h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge px-3 py-2" style="border-color: rgba(59, 130, 246, 0.5); color: #60a5fa;" set:html={t.skillItems.control[0]}></span>
+                                <span class="badge px-3 py-2" style="border-color: rgba(59, 130, 246, 0.5); color: #60a5fa;" set:html={t.skillItems.control[1]}></span>
+                                <span class="badge px-3 py-2" style="border-color: rgba(59, 130, 246, 0.5); color: #60a5fa;" set:html={t.skillItems.control[2]}></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5
+                                class="text-uppercase mb-3 small fw-bold"
+                                style="color: var(--color-text-secondary); letter-spacing: 1px;"
+                            >
+                                {t.toolsMulti}
+                            </h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge px-3 py-2" style="border-color: rgba(139, 92, 246, 0.5); color: #c084fc;" set:html={t.skillItems.tools[0]}></span>
+                                <span class="badge px-3 py-2" style="border-color: rgba(139, 92, 246, 0.5); color: #c084fc;" set:html={t.skillItems.tools[1]}></span>
+                                <span class="badge px-3 py-2" style="border-color: rgba(139, 92, 246, 0.5); color: #c084fc;" set:html={t.skillItems.tools[2]}></span>
+                                <span class="badge px-3 py-2" style="border-color: rgba(139, 92, 246, 0.5); color: #c084fc;" set:html={t.skillItems.tools[3]}></span>
+                                <span class="badge px-3 py-2" style="border-color: rgba(139, 92, 246, 0.5); color: #c084fc;" set:html={t.skillItems.tools[4]}></span>
+                                <span class="badge px-3 py-2" style="border-color: rgba(139, 92, 246, 0.5); color: #c084fc;" set:html={t.skillItems.tools[5]}></span>
+                                <span class="badge px-3 py-2" style="border-color: rgba(139, 92, 246, 0.5); color: #c084fc;" set:html={t.skillItems.tools[6]}></span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h5
+                                class="text-uppercase mb-3 small fw-bold"
+                                style="color: var(--color-text-secondary); letter-spacing: 1px;"
+                            >
+                                {t.supportingSoftware}
+                            </h5>
+                            <p class="small text-muted mb-0">
+                                {t.supportingSoftwareDesc}
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <!-- Languages -->
+                    <div class="glass p-4 p-md-5 mb-5 about-languages">
+                        <h3
+                            class="mb-4"
+                            style="color: var(--color-accent-1); font-size: 1.5rem;"
+                        >
+                            {t.languages}
+                        </h3>
+                        <div class="d-flex flex-column gap-3">
+                            <div
+                                class="d-flex align-items-center justify-content-between"
+                            >
+                                <strong
+                                    style="color: var(--color-text-primary);"
+                                    >{t.spokenLanguages[0].name}</strong
+                                >
+                                <div
+                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
+                                >
+                                </div>
+                                <span
+                                    style="color: var(--color-text-secondary);"
+                                    >{t.spokenLanguages[0].level}</span
+                                >
+                            </div>
+                            <div
+                                class="d-flex align-items-center justify-content-between"
+                            >
+                                <strong
+                                    style="color: var(--color-text-primary);"
+                                    >{t.spokenLanguages[1].name}</strong
+                                >
+                                <div
+                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
+                                >
+                                </div>
+                                <span
+                                    style="color: var(--color-text-secondary);"
+                                    >{t.spokenLanguages[1].level}</span
+                                >
+                            </div>
+                            <div
+                                class="d-flex align-items-center justify-content-between"
+                            >
+                                <strong
+                                    style="color: var(--color-text-primary);"
+                                    >{t.spokenLanguages[2].name}</strong
+                                >
+                                <div
+                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
+                                >
+                                </div>
+                                <span
+                                    style="color: var(--color-text-secondary);"
+                                    >{t.spokenLanguages[2].level}</span
+                                >
+                            </div>
+                            <div
+                                class="d-flex align-items-center justify-content-between"
+                            >
+                                <strong
+                                    style="color: var(--color-text-primary);"
+                                    >{t.spokenLanguages[3].name}</strong
+                                >
+                                <div
+                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
+                                >
+                                </div>
+                                <span
+                                    style="color: var(--color-text-secondary);"
+                                    >{t.spokenLanguages[3].level}</span
+                                >
+                            </div>
+                            <div
+                                class="d-flex align-items-center justify-content-between"
+                            >
+                                <strong
+                                    style="color: var(--color-text-primary);"
+                                    >{t.spokenLanguages[4].name}</strong
+                                >
+                                <div
+                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
+                                >
+                                </div>
+                                <span
+                                    style="color: var(--color-text-secondary);"
+                                    >{t.spokenLanguages[4].level}</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -588,21 +594,12 @@ const t = { ...texts[lang], ...aboutContent[lang] };
 
 <style is:global>
     @media (min-width: 768px) {
-        .about-columns > div {
-            display: contents;
+        .about-columns > div:first-child {
+            grid-column: 1;
         }
 
-        .about-summary,
-        .about-education,
-        .about-experience,
-        .about-courses,
-        .about-community {
-            grid-column: 1 !important;
-        }
-
-        .about-skills,
-        .about-languages {
-            grid-column: 2 !important;
+        .about-columns > div:last-child {
+            grid-column: 2;
         }
     }
 
