@@ -10,6 +10,9 @@ import {
 } from "../i18n/ui";
 
 const { title = "Marc | Engineering Portfolio" } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL.endsWith("/")
+    ? import.meta.env.BASE_URL
+    : `${import.meta.env.BASE_URL}/`;
 const currentPath = Astro.url.pathname;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -28,24 +31,20 @@ const route = getRouteFromUrl(Astro.url);
         <link
             rel="icon"
             type="image/svg+xml"
-            href={`${import.meta.env.BASE_URL}/favicon.svg`}
+            href={`${baseUrl}favicon.svg`}
         />
 
         <!-- Google Fonts are now imported in global.css -->
 
         <!-- Client-side Routing and Language Auto-Detection -->
-        <script is:inline>
+        <script define:vars={{ baseUrl }}>
             (function () {
                 try {
                     const storedLang = localStorage.getItem("preferredLang");
                     const browserLang = navigator.language.split("-")[0];
                     const supportedLangs = ["en", "fr", "tr"];
                     const defaultLang = "en";
-                    // BASE_URL is injected at build time by Astro — no hardcoding needed
-                    const basePath = import.meta.env.BASE_URL.replace(
-                        /\/$/,
-                        "",
-                    );
+                    const basePath = baseUrl.replace(/\/$/, "");
 
                     const currentPath = window.location.pathname;
                     let pathWithoutBase =
@@ -348,7 +347,6 @@ const route = getRouteFromUrl(Astro.url);
         </style>
 
         <!-- ===================== SCRIPTS ===================== -->
-        <script src="/assets/js/main.js" is:inline></script>
         <script is:inline>
             document.getElementById("currentYear").textContent =
                 new Date().getFullYear();

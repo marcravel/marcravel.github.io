@@ -10,6 +10,9 @@ export interface Props {
 }
 const { lang } = Astro.props;
 const translatePath = useTranslatedPath(lang);
+const baseUrl = import.meta.env.BASE_URL.endsWith("/")
+    ? import.meta.env.BASE_URL
+    : `${import.meta.env.BASE_URL}/`;
 
 const activeProjects = projectsData.filter((project) => project.active);
 const gridClassDesktop =
@@ -142,7 +145,7 @@ const t = texts[lang];
                             {t.view_projects}
                         </a>
                         <a
-                            href={`${import.meta.env.BASE_URL}/docs/cv.pdf`}
+                            href={`${baseUrl}docs/cv.pdf`}
                             class="btn btn-outline disabled"
                             target="_blank"
                             style="opacity: 0.5; pointer-events: none;"
