@@ -4,6 +4,7 @@ import fs from "fs/promises";
 import path from "path";
 import { useTranslatedPath } from "../../i18n/ui";
 import type { Project, Lang } from "../../types/project";
+import { getOptimizedImagePath } from "../../utils/images";
 
 export interface Props {
     lang: Lang;
@@ -18,7 +19,7 @@ if (heroImage && !heroImage.startsWith("http")) {
     const baseUrl = import.meta.env.BASE_URL.endsWith("/")
         ? import.meta.env.BASE_URL
         : import.meta.env.BASE_URL + "/";
-    heroImage = `${baseUrl}${heroImage}`;
+    heroImage = `${baseUrl}${getOptimizedImagePath(heroImage)}`;
 }
 
 let descriptionContent = project.longDescription
@@ -187,6 +188,7 @@ const t_galleryImage = {
                                     {project.gallery.map((galleryImg, index) => {
                                         // Handle correct routing for gallery images
                                         let imgPath = galleryImg;
+                                        let fullImgPath = galleryImg;
                                         if (!imgPath.startsWith("http")) {
                                             const bUrl =
                                                 import.meta.env.BASE_URL.endsWith(
@@ -195,7 +197,8 @@ const t_galleryImage = {
                                                     ? import.meta.env.BASE_URL
                                                     : import.meta.env.BASE_URL +
                                                       "/";
-                                            imgPath = `${bUrl}${imgPath}`;
+                                            imgPath = `${bUrl}${getOptimizedImagePath(imgPath, "thumbnail")}`;
+                                            fullImgPath = `${bUrl}${getOptimizedImagePath(fullImgPath)}`;
                                         }
                                         return (
                                             <div
@@ -204,6 +207,9 @@ const t_galleryImage = {
                                             >
                                                 <img
                                                     src={imgPath}
+                                                    data-full-src={fullImgPath}
+                                                    width="400"
+                                                    height="400"
                                                     class="h-100 w-100 gallery-image"
                                                     style="object-fit: cover; transition: transform 0.3s ease; display: block;"
                                                     alt={
@@ -215,6 +221,7 @@ const t_galleryImage = {
                                                         )
                                                     }
                                                     loading="lazy"
+                                                    decoding="async"
                                                 />
                                             </div>
                                         );
@@ -247,6 +254,11 @@ const t_galleryImage = {
                                 heroImage && (
                                     <img
                                         src={heroImage}
+                                        width="1600"
+                                        height="1000"
+                                        loading="eager"
+                                        fetchpriority="high"
+                                        decoding="async"
                                         alt={`${project.title[lang]} – ${t_image[lang]}`}
                                         class="w-100"
                                         style="object-fit: cover; max-height: 500px; display: block;"
@@ -282,7 +294,7 @@ const t_galleryImage = {
                 tabindex="0"
                 aria-label={lang === "en" ? "Close image viewer" : lang === "fr" ? "Fermer la visionneuse d’images" : "Görsel görüntüleyiciyi kapat"}
             >&times;</span>
-            <img id="customModalImage" src="" alt="" />
+            <img id="customModalImage" src="" alt="" width="1600" height="1000" />
         </div>
     </div>
 </BaseLayout>
@@ -375,7 +387,7 @@ const t_galleryImage = {
     galleryImages.forEach((img) => {
         img.addEventListener("click", function () {
             if (modal && modalImg) {
-                modalImg.src = this.src;
+                modalImg.src = this.dataset.fullSrc || this.src;
                 modalImg.alt = this.alt;
                 modal.classList.add("show");
                 document.body.style.overflow = "hidden"; // Prevent scrolling

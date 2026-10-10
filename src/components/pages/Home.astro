@@ -2,7 +2,6 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectCard from "../ProjectCard.astro";
 import projectsData from "../../data/projects.json";
-import profileImg from "../../assets/profile.jpeg";
 import { useTranslatedPath } from "../../i18n/ui";
 
 export interface Props {
@@ -201,7 +200,11 @@ const t = texts[lang];
                         style="border-radius: 24px; max-width: 400px; width: 100%;"
                     >
                         <img
-                            src={profileImg.src}
+                            src={`${baseUrl}img/profile.webp`}
+                            width="800"
+                            height="800"
+                            fetchpriority="high"
+                            decoding="async"
                             class="img-fluid profile-img-hero w-100"
                             alt={lang === "en" ? "Marc Ravelontsalama" : lang === "fr" ? "Marc Ravelontsalama, portrait" : "Marc Ravelontsalama portresi"}
                             style="border-radius: 16px; display: block;"

@@ -1,6 +1,7 @@
 ---
 import { useTranslatedPath } from "../i18n/ui";
 import type { Project, Lang } from "../types/project";
+import { getOptimizedImagePath } from "../utils/images";
 
 export interface Props {
     lang: Lang;
@@ -43,7 +44,7 @@ if (project.image) {
         const baseUrl = import.meta.env.BASE_URL.endsWith("/")
             ? import.meta.env.BASE_URL
             : import.meta.env.BASE_URL + "/";
-        imageUrl = `${baseUrl}${project.image}`;
+        imageUrl = `${baseUrl}${getOptimizedImagePath(project.image)}`;
     }
 }
 
@@ -66,12 +67,17 @@ const wrapperProps = isActive
         style="min-height: 400px; display: flex; flex-direction: column;"
     >
         <!-- Card Background / Image section -->
-        <div
-            class="position-relative"
-            role="img"
-            aria-label={`${project.title[lang]} – ${uiTexts[lang].image}`}
-            style={`background-image: url('${imageUrl}'); background-size: cover; background-position: center; height: 200px;`}
-        >
+        <div class="position-relative" style="height: 200px;">
+            <img
+                src={imageUrl}
+                width="1600"
+                height="900"
+                loading="lazy"
+                decoding="async"
+                alt={`${project.title[lang]} – ${uiTexts[lang].image}`}
+                class="position-absolute w-100 h-100"
+                style="object-fit: cover; object-position: center;"
+            />
             <div
                 class="position-absolute w-100 h-100"
                 style="background: linear-gradient(to bottom, transparent, var(--color-bg-elevated)); top: 0; left: 0;"

@@ -78,6 +78,9 @@ Projects are defined in `src/data/projects.json`. To add or edit one:
 - Keep `slug` unique; it becomes the detail-page URL.
 - Keep local image paths without a leading slash, for example
   `img/projects/example/hero.jpg`. Files belong under `public/`.
+- Keep the source path in `projects.json`; active project images are served
+  from generated `.webp` derivatives, with `-thumb.webp` files used for
+  gallery thumbnails.
 - Provide localized `category`, `title`, and `description` fields for `en`,
   `fr`, and `tr`.
 - Add an optional localized `achievements` object, `gallery` array,
