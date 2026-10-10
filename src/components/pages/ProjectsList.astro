@@ -8,7 +8,7 @@ export interface Props {
 }
 const { lang } = Astro.props;
 
-const activeProjects = projectsData.filter((project) => project.active);
+const activeProjects = projectsData.filter((project) => project.active === 1);
 const gridClassDesktop = activeProjects.length === 2 ? 'lg-grid-cols-2' : 'lg-grid-cols-3';
 
 const texts = {
