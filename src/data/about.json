@@ -29,12 +29,21 @@
     },
     "educationEntries": [
       {
+        "cardLabel": "1",
+        "title": "Erasmus+ Exchange Semester (Electrical-Electronics Engineering, host university; home university: Selçuk University)",
+        "year": "September 2026 – January 2027",
+        "loc": "Riga Technical University (RTU) | Riga, Latvia"
+      },
+      {
+        "cardLabel": "1",
         "title": "Bachelor of Electrical and Electronics Engineering",
         "year": "2023 – Present • Final-Year Student",
         "loc": "Faculty of Technology, Selçuk Üniversitesi | Konya, Türkiye",
-        "badge": "🏆 Turkish Government Scholarship Awardee"
+        "badge": "🏆 Turkish Government Scholarship Awardee",
+        "badgeStyle": "scholarship"
       },
       {
+        "cardLabel": "2",
         "title": "High School Diploma (Scientific)",
         "year": "2017 – 2021",
         "loc": "Lycée Privé Saint Joseph | Antsirabe, Madagascar",
@@ -43,6 +52,14 @@
     ],
     "experienceEntries": [
       {
+        "cardLabel": "1",
+        "title": "Intern, Data Science & Software Development",
+        "year": "June 22 – August 15, 2026",
+        "loc": "Autodidactic Technologies | Boğaziçi Teknopark, Istanbul, Türkiye",
+        "li1": "Two back-to-back internships. First, worked on an image-classification pipeline for crop disease detection (ResNet-18, PlantVillage dataset) in a Linux/Python environment. Then built a FastAPI serving layer around it."
+      },
+      {
+        "cardLabel": "1",
         "title": "Programmer and Robotics Trainee",
         "year": "Nov 2021 – Jun 2022",
         "loc": "ITRAS Group | Antananarivo, Madagascar",
@@ -150,12 +167,21 @@
     },
     "educationEntries": [
       {
+        "cardLabel": "1",
+        "title": "Semestre d'échange Erasmus+ (Génie électrique et électronique, université d'accueil ; université d'origine : Université de Selçuk)",
+        "year": "Septembre 2026 – Janvier 2027",
+        "loc": "Riga Technical University (RTU) | Riga, Lettonie"
+      },
+      {
+        "cardLabel": "1",
         "title": "Licence en Génie Électrique et Électronique",
         "year": "2023 – Présent • Étudiant en dernière année",
         "loc": "Faculté de Technologie, Selçuk Üniversitesi | Konya, Turquie",
-        "badge": "🏆 Boursier du Gouvernement Turc"
+        "badge": "🏆 Boursier du Gouvernement Turc",
+        "badgeStyle": "scholarship"
       },
       {
+        "cardLabel": "2",
         "title": "Diplôme d'Études Secondaires (Scientifique)",
         "year": "2017 – 2021",
         "loc": "Lycée Privé Saint Joseph | Antsirabe, Madagascar",
@@ -164,6 +190,14 @@
     ],
     "experienceEntries": [
       {
+        "cardLabel": "1",
+        "title": "Stagiaire, Data Science et Développement logiciel",
+        "year": "22 juin – 15 août 2026",
+        "loc": "Autodidactic Technologies | Boğaziçi Teknopark, Istanbul, Turquie",
+        "li1": "Deux stages consécutifs. D'abord, travail sur un pipeline de classification d'images pour la détection des maladies des cultures (ResNet-18, jeu de données PlantVillage) dans un environnement Linux/Python. Ensuite, création d'une couche de service FastAPI autour de celui-ci."
+      },
+      {
+        "cardLabel": "1",
         "title": "Stagiaire Programmeur et Robotique",
         "year": "Nov 2021 – Juin 2022",
         "loc": "Groupe ITRAS | Antananarivo, Madagascar",
@@ -271,12 +305,21 @@
     },
     "educationEntries": [
       {
+        "cardLabel": "1",
+        "title": "Erasmus+ Değişim Dönemi (Elektrik-Elektronik Mühendisliği, ev sahibi üniversite; ana üniversite: Selçuk Üniversitesi)",
+        "year": "Eylül 2026 – Ocak 2027",
+        "loc": "Riga Teknik Üniversitesi (RTU) | Riga, Letonya"
+      },
+      {
+        "cardLabel": "1",
         "title": "Elektrik ve Elektronik Mühendisliği Lisans",
         "year": "2023 – Günümüz • Son Sınıf Öğrencisi",
         "loc": "Teknoloji Fakültesi, Selçuk Üniversitesi | Konya, Türkiye",
-        "badge": "🏆 Türkiye Bursları Bursiyeri"
+        "badge": "🏆 Türkiye Bursları Bursiyeri",
+        "badgeStyle": "scholarship"
       },
       {
+        "cardLabel": "2",
         "title": "Lise Diploması (Sayısal)",
         "year": "2017 – 2021",
         "loc": "Lycée Privé Saint Joseph | Antsirabe, Madagaskar",
@@ -285,6 +328,14 @@
     ],
     "experienceEntries": [
       {
+        "cardLabel": "1",
+        "title": "Stajyer, Veri Bilimi ve Yazılım Geliştirme",
+        "year": "22 Haziran – 15 Ağustos 2026",
+        "loc": "Autodidactic Technologies | Boğaziçi Teknopark, İstanbul, Türkiye",
+        "li1": "Arka arkaya iki staj. İlkinde Linux/Python ortamında ürün hastalıklarının tespiti için bir görüntü sınıflandırma pipeline'ı (ResNet-18, PlantVillage veri seti) üzerinde çalışıldı. Ardından bunun etrafında bir FastAPI servis katmanı oluşturuldu."
+      },
+      {
+        "cardLabel": "1",
         "title": "Yazılım ve Robotik Stajyeri",
         "year": "Kas 2021 – Haz 2022",
         "loc": "ITRAS Group | Antananarivo, Madagaskar",

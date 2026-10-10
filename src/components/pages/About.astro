@@ -280,8 +280,8 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                     >
                         {t.eduHonors}
                     </h3>{t.educationEntries.map((entry, index) => (
-                            <> <Fragment set:html={`<!-- Education Card ${index + 1} -->`} />
-                                <div class={`glass p-4 ${index === 0 ? "mb-4" : "mb-5"} edu-card`}>
+                            <>                             <Fragment set:html={`<!-- Education Card ${entry.cardLabel} -->`} />
+                            <div class={`glass p-4 ${entry.badgeStyle === "scholarship" ? "mb-4" : "mb-5"} edu-card`}>
                                 <h5
                                     class="fw-bold mb-2"
                                     style="color: var(--color-text-primary);"
@@ -300,16 +300,18 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                 >
                                     {entry.loc}
                                 </p>
-                                {index === 0 ? (
+                                {entry.badge && (
+                                    entry.badgeStyle === "scholarship" ? (
                                     showScholarship && (
                                         <div class="mt-2">
                                             <span class="badge px-3 py-2" style="background: rgba(59, 130, 246, 0.1); color: #60a5fa; border-color: rgba(59, 130, 246, 0.3);">{entry.badge}</span>
                                         </div>
                                     )
-                                ) : (
+                                    ) : (
                                     <div class="mt-2">
                                         <span class="badge px-3 py-2" style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1);">{entry.badge}</span>
                                         </div>
+                                    )
                                 )}
                                 </div></>
                         ))}
@@ -320,7 +322,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                     >
                         {t.experience}
                     </h3>{t.experienceEntries.map((entry) => (
-                            <> <Fragment set:html={`<!-- Experience Card 1 -->`} />
+                            <> <Fragment set:html={`<!-- Experience Card ${entry.cardLabel} -->`} />
                             <div class="glass p-4 mb-5 edu-card">
                                 <h5
                                     class="fw-bold mb-2"
@@ -345,8 +347,8 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                     style="color: var(--color-text-secondary); line-height: 1.6;"
                                 >
                                     <li class="mb-2">{entry.li1}</li>
-                                    <li class="mb-2">{entry.li2}</li>
-                                    <li>{entry.li3}</li>
+                                    {entry.li2 && <li class="mb-2">{entry.li2}</li>}
+                                    {entry.li3 && <li>{entry.li3}</li>}
                                 </ul>
                             </div></>
                         ))}
