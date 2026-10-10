@@ -321,9 +321,9 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                         style="color: var(--color-accent-1); font-size: 1.5rem;"
                     >
                         {t.experience}
-                    </h3>{t.experienceEntries.map((entry) => (
+                    </h3>{t.experienceEntries.map((entry, index) => (
                             <> <Fragment set:html={`<!-- Experience Card ${entry.cardLabel} -->`} />
-                            <div class="glass p-4 mb-5 edu-card">
+                            <div class={`glass p-4 ${index === t.experienceEntries.length - 1 ? "mb-5" : "mb-4"} edu-card`}>
                                 <h5
                                     class="fw-bold mb-2"
                                     style="color: var(--color-text-primary);"
