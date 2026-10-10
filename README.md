@@ -70,6 +70,16 @@ Shared navigation translations and locale-aware path helpers live in
 `src/i18n/ui.ts`. Page-specific EN/FR/TR copy lives beside each page component
 in `src/components/pages/`.
 
+## Editing content
+
+- `src/data/home.json` contains the localized home hero copy.
+- `src/data/about.json` contains the localized bio, skills, education,
+  experience, courses, community entries, and spoken languages.
+- Every editable field in these files must include `en`, `fr`, and `tr`.
+- Add an experience, course, or skill by appending its object or name while
+  preserving the existing order and field shape.
+- Projects remain in `src/data/projects.json`; see the Projects section below.
+
 ## Projects
 
 Projects are defined in `src/data/projects.json`. To add or edit one:
