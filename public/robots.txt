@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://marcravel.github.io/engineering_portfolio/sitemap-index.xml
+Sitemap: https://marcravel.github.io/sitemap-index.xml

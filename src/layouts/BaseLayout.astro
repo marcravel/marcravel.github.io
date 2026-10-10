@@ -78,7 +78,7 @@ const localeUrls = {
                     const browserLang = navigator.language.split("-")[0];
                     const supportedLangs = ["en", "fr", "tr"];
                     const defaultLang = "en";
-                    const basePath = baseUrl.replace(/\/$/, "");
+                    const basePath = baseUrl === "/" ? "" : baseUrl.replace(/\/$/, "");
 
                     const currentPath = window.location.pathname;
                     let pathWithoutBase =
