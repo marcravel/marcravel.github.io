@@ -11,6 +11,7 @@ const translatePath = useTranslatedPath(lang);
 const texts = {
     en: {
         title: "Contact - Marc",
+        description: "Contact Marc about embedded systems, artificial intelligence, robotics, or internship opportunities.",
         h1: "Get in Touch",
         subtitle:
             "Always open to discussing embedded systems, AI, or potential internship opportunities. Feel free to reach out.",
@@ -30,6 +31,7 @@ const texts = {
     },
     fr: {
         title: "Contact - Marc",
+        description: "Contactez Marc au sujet des systèmes embarqués, de l'intelligence artificielle, de la robotique ou d'opportunités de stage.",
         h1: "Contactez-moi",
         subtitle:
             "Toujours disposé à échanger sur les systèmes embarqués, l'IA ou de potentielles opportunités de stage. N'hésitez pas à me contacter.",
@@ -49,6 +51,7 @@ const texts = {
     },
     tr: {
         title: "İletişim - Marc",
+        description: "Gömülü sistemler, yapay zeka, robotik veya staj fırsatları hakkında Marc ile iletişime geçin.",
         h1: "İletişime Geçin",
         subtitle:
             "Gömülü sistemler, yapay zeka veya potansiyel staj fırsatları üzerine konuşmaya her zaman açığım. İletişime geçmekten çekinmeyin.",
@@ -72,7 +75,7 @@ const texts = {
 const t = texts[lang];
 ---
 
-<BaseLayout title={t.title}>
+<BaseLayout title={t.title} description={t.description}>
     <section class="section">
         <div class="container animate-fade-up">
             <h1 class="section-title"><span>{t.h1}</span></h1>

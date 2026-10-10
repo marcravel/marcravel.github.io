@@ -9,15 +9,33 @@ import {
     flags,
 } from "../i18n/ui";
 
-const { title = "Marc | Engineering Portfolio" } = Astro.props;
+export interface Props {
+    title?: string;
+    description?: string;
+}
+
+const {
+    title = "Marc | Engineering Portfolio",
+    description = "Marc's engineering portfolio covering electronics, embedded systems, robotics, computer vision, and artificial intelligence.",
+} = Astro.props;
 const baseUrl = import.meta.env.BASE_URL.endsWith("/")
     ? import.meta.env.BASE_URL
     : `${import.meta.env.BASE_URL}/`;
-const currentPath = Astro.url.pathname;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 const route = getRouteFromUrl(Astro.url);
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const socialImageUrl = new URL(`${baseUrl}social-preview.jpg`, Astro.site);
+const localizedUrl = (locale: "en" | "fr" | "tr") => {
+    const path = translatePath(route, locale);
+    return new URL(path.endsWith("/") ? path : `${path}/`, Astro.site);
+};
+const localeUrls = {
+    en: localizedUrl("en"),
+    fr: localizedUrl("fr"),
+    tr: localizedUrl("tr"),
+};
 ---
 
 <!doctype html>
@@ -26,6 +44,22 @@ const route = getRouteFromUrl(Astro.url);
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={socialImageUrl} />
+        <meta property="og:locale" content={`${lang}_${lang === "en" ? "US" : lang === "fr" ? "FR" : "TR"}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={socialImageUrl} />
+        {Object.entries(localeUrls).map(([locale, url]) => (
+            <link rel="alternate" hreflang={locale} href={url} />
+        ))}
+        <link rel="alternate" hreflang="x-default" href={localeUrls.en} />
 
         <!-- Favicon -->
         <link

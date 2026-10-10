@@ -75,7 +75,10 @@ const t_gallery = { en: "Gallery", fr: "Galerie", tr: "Galeri" };
 const t_overview = { en: "Overview", fr: "Aperçu", tr: "Genel Bakış" };
 ---
 
-<BaseLayout title={`${project.title[lang]} - Marc Projects`}>
+<BaseLayout
+    title={`${project.title[lang]} - Marc Projects`}
+    description={project.description[lang] || project.description.en}
+>
     <section class="section">
         <div class="container animate-fade-up">
             <!-- Navigation Back -->

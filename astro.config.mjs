@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   // Replace with your actual GitHub username
@@ -14,5 +15,17 @@ export default defineConfig({
     routing: {
         prefixDefaultLocale: false
     }
-  }
+  },
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en-US',
+          fr: 'fr-FR',
+          tr: 'tr-TR'
+        }
+      }
+    })
+  ]
 });

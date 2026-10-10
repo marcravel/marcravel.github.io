@@ -20,6 +20,9 @@ const gridClassDesktop =
 
 const texts = {
     en: {
+        title: "Marc | Engineering Portfolio",
+        description:
+            "Marc's engineering portfolio of electronics, embedded systems, robotics, computer vision, and artificial intelligence projects.",
         portfolio: "👋 Welcome to my engineering portfolio",
         greeting: "Hi, I'm Marc.",
         subtitle: "Electronics, Embedded Systems & Robotics",
@@ -48,6 +51,9 @@ const texts = {
         in_development: "Additional systems in active development.",
     },
     fr: {
+        title: "Marc | Portfolio d'ingénierie",
+        description:
+            "Le portfolio d'ingénierie de Marc consacré à l'électronique, aux systèmes embarqués, à la robotique, à la vision par ordinateur et à l'intelligence artificielle.",
         portfolio: "👋 Bienvenue sur mon portfolio d'ingénierie",
         greeting: "Bonjour, je suis Marc.",
         subtitle: "Électronique, Systèmes Embarqués & Robotique",
@@ -76,6 +82,9 @@ const texts = {
         in_development: "Systèmes supplémentaires en cours de développement.",
     },
     tr: {
+        title: "Marc | Mühendislik Portföyü",
+        description:
+            "Marc'ın elektronik, gömülü sistemler, robotik, bilgisayarlı görü ve yapay zeka projelerinden oluşan mühendislik portföyü.",
         portfolio: "👋 Mühendislik portföyüme hoş geldiniz",
         greeting: "Merhaba, ben Marc.",
         subtitle: "Elektronik, Gömülü Sistemler ve Robotik",
@@ -107,7 +116,29 @@ const texts = {
 const t = texts[lang];
 ---
 
-<BaseLayout title="Marc | Engineering Portfolio">
+<BaseLayout title={t.title} description={t.description}>
+    <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Marc Anjaniaina Ravelontsalama",
+        url: new URL(Astro.url.pathname, Astro.site).toString(),
+        sameAs: [
+            "https://github.com/marcravel",
+            "https://www.linkedin.com/in/marc-anjaniaina-ravelontsalama/",
+        ],
+        jobTitle: "Electrical and Electronics Engineering Student",
+        worksFor: {
+            "@type": "EducationalOrganization",
+            name: "Selçuk University",
+        },
+        knowsAbout: [
+            "Electronics",
+            "Embedded Systems",
+            "Robotics",
+            "Computer Vision",
+            "Artificial Intelligence",
+        ],
+    })} />
     <!-- ===================== HERO SECTION ===================== -->
     <header
         class="section pb-5"

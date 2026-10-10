@@ -21,6 +21,8 @@ const courseLinks = {
 const texts = {
     en: {
         title: "About - Marc",
+        description:
+            "Learn about Marc, a 3rd-year Electrical and Electronics Engineering student focused on AI, computer vision, robotics, and embedded systems.",
         h1: "About Me",
         profSummary: "Professional Summary",
         profDesc:
@@ -101,6 +103,8 @@ const texts = {
     },
     fr: {
         title: "À propos - Marc",
+        description:
+            "Découvrez Marc, étudiant en troisième année de génie électrique et électronique, spécialisé en IA, vision par ordinateur, robotique et systèmes embarqués.",
         h1: "À propos de moi",
         profSummary: "Résumé Professionnel",
         profDesc:
@@ -185,6 +189,8 @@ const texts = {
     },
     tr: {
         title: "Hakkımda - Marc",
+        description:
+            "Yapay zeka, bilgisayarlı görü, robotik ve gömülü sistemlere odaklanan 3. sınıf Elektrik ve Elektronik Mühendisliği öğrencisi Marc hakkında bilgi edinin.",
         h1: "Hakkımda",
         profSummary: "Profesyonel Özet",
         profDesc:
@@ -268,7 +274,7 @@ const texts = {
 const t = texts[lang];
 ---
 
-<BaseLayout title={t.title}>
+<BaseLayout title={t.title} description={t.description}>
     <section class="section">
         <div class="container animate-fade-up">
             <h1 class="section-title"><span>{t.h1}</span></h1>
