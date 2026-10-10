@@ -26,9 +26,9 @@ const { project, lang } = Astro.props;
 const translatePath = useTranslatedPath(lang);
 
 const uiTexts = {
-    en: { soon: "Details available soon" },
-    fr: { soon: "Détails disponibles bientôt" },
-    tr: { soon: "Detaylar yakında" },
+    en: { soon: "Details available soon", image: "Project image" },
+    fr: { soon: "Détails disponibles bientôt", image: "Image du projet" },
+    tr: { soon: "Detaylar yakında", image: "Proje görseli" },
 };
 
 // Determine image URL with fallback handling
@@ -68,6 +68,8 @@ const wrapperProps = isActive
         <!-- Card Background / Image section -->
         <div
             class="position-relative"
+            role="img"
+            aria-label={`${project.title[lang]} – ${uiTexts[lang].image}`}
             style={`background-image: url('${imageUrl}'); background-size: cover; background-position: center; height: 200px;`}
         >
             <div

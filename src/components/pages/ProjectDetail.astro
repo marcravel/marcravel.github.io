@@ -73,6 +73,19 @@ const t_tech = {
 };
 const t_gallery = { en: "Gallery", fr: "Galerie", tr: "Galeri" };
 const t_overview = { en: "Overview", fr: "Aperçu", tr: "Genel Bakış" };
+const t_image = {
+    en: "project image",
+    fr: "image du projet",
+    tr: "proje görseli",
+};
+const t_galleryImage = {
+    en: (title: string, index: number, total: number) =>
+        `${title} – photo ${index} of ${total}`,
+    fr: (title: string, index: number, total: number) =>
+        `${title} – photo ${index} sur ${total}`,
+    tr: (title: string, index: number, total: number) =>
+        `${title} – ${total} fotoğraftan ${index}. fotoğraf`,
+};
 ---
 
 <BaseLayout
@@ -89,6 +102,7 @@ const t_overview = { en: "Overview", fr: "Aperçu", tr: "Genel Bakış" };
                     style="color: var(--color-accent-1);"
                 >
                     <svg
+                        aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
                         height="20"
@@ -170,7 +184,7 @@ const t_overview = { en: "Overview", fr: "Aperçu", tr: "Genel Bakış" };
                                     {t_gallery[lang]}
                                 </h3>
                                 <div class="grid grid-cols-2 gap-3">
-                                    {project.gallery.map((galleryImg) => {
+                                    {project.gallery.map((galleryImg, index) => {
                                         // Handle correct routing for gallery images
                                         let imgPath = galleryImg;
                                         if (!imgPath.startsWith("http")) {
@@ -192,7 +206,14 @@ const t_overview = { en: "Overview", fr: "Aperçu", tr: "Genel Bakış" };
                                                     src={imgPath}
                                                     class="h-100 w-100 gallery-image"
                                                     style="object-fit: cover; transition: transform 0.3s ease; display: block;"
-                                                    alt="Project Gallery Image"
+                                                    alt={
+                                                        project.galleryAlt?.[index]?.[lang] ||
+                                                        t_galleryImage[lang](
+                                                            project.title[lang],
+                                                            index + 1,
+                                                            project.gallery.length,
+                                                        )
+                                                    }
                                                     loading="lazy"
                                                 />
                                             </div>
@@ -226,7 +247,7 @@ const t_overview = { en: "Overview", fr: "Aperçu", tr: "Genel Bakış" };
                                 heroImage && (
                                     <img
                                         src={heroImage}
-                                        alt={project.title[lang]}
+                                        alt={`${project.title[lang]} – ${t_image[lang]}`}
                                         class="w-100"
                                         style="object-fit: cover; max-height: 500px; display: block;"
                                     />
@@ -255,8 +276,13 @@ const t_overview = { en: "Overview", fr: "Aperçu", tr: "Genel Bakış" };
     <!-- Custom Modal -->
     <div id="customImageModal" class="custom-modal">
         <div class="custom-modal-content">
-            <span class="custom-modal-close">&times;</span>
-            <img id="customModalImage" src="" alt="Large project image view" />
+            <span
+                class="custom-modal-close"
+                role="button"
+                tabindex="0"
+                aria-label={lang === "en" ? "Close image viewer" : lang === "fr" ? "Fermer la visionneuse d’images" : "Görsel görüntüleyiciyi kapat"}
+            >&times;</span>
+            <img id="customModalImage" src="" alt="" />
         </div>
     </div>
 </BaseLayout>
@@ -350,6 +376,7 @@ const t_overview = { en: "Overview", fr: "Aperçu", tr: "Genel Bakış" };
         img.addEventListener("click", function () {
             if (modal && modalImg) {
                 modalImg.src = this.src;
+                modalImg.alt = this.alt;
                 modal.classList.add("show");
                 document.body.style.overflow = "hidden"; // Prevent scrolling
             }
@@ -364,6 +391,13 @@ const t_overview = { en: "Overview", fr: "Aperçu", tr: "Genel Bakış" };
     };
 
     if (closeBtn) closeBtn.addEventListener("click", closeModal);
+    if (closeBtn)
+        closeBtn.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                closeModal();
+            }
+        });
 
     if (modal) {
         modal.addEventListener("click", (e) => {

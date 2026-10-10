@@ -203,7 +203,7 @@ const t = texts[lang];
                         <img
                             src={profileImg.src}
                             class="img-fluid profile-img-hero w-100"
-                            alt="Marc Ravelontsalama"
+                            alt={lang === "en" ? "Marc Ravelontsalama" : lang === "fr" ? "Marc Ravelontsalama, portrait" : "Marc Ravelontsalama portresi"}
                             style="border-radius: 16px; display: block;"
                         />
                     </div>

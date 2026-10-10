@@ -18,4 +18,5 @@ export interface Project {
     longDescription?: LocalizedString | string;
     youtubeId?: string | null;
     gallery?: string[] | null;
+    galleryAlt?: LocalizedString[] | null;
 }
