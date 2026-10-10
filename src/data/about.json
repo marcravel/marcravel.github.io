@@ -30,7 +30,7 @@
     "educationEntries": [
       {
         "cardLabel": "1",
-        "title": "Erasmus+ Exchange Semester (Electrical-Electronics Engineering, host university; home university: Selçuk University)",
+        "title": "Erasmus+ Exchange Semester – Electrical-Electronics Engineering",
         "year": "September 2026 – January 2027",
         "loc": "Riga Technical University (RTU) | Riga, Latvia"
       },
@@ -53,10 +53,10 @@
     "experienceEntries": [
       {
         "cardLabel": "1",
-        "title": "Intern, Data Science & Software Development",
+        "title": "Data Science & Software Development Intern",
         "year": "June 22 – August 15, 2026",
         "loc": "Autodidactic Technologies | Boğaziçi Teknopark, Istanbul, Türkiye",
-        "li1": "Two back-to-back internships. First, worked on an image-classification pipeline for crop disease detection (ResNet-18, PlantVillage dataset) in a Linux/Python environment. Then built a FastAPI serving layer around it."
+        "li1": "Worked on an image-classification pipeline for crop disease detection (ResNet-18, PlantVillage dataset) in a Linux/Python environment, and built a FastAPI serving layer around it."
       },
       {
         "cardLabel": "1",
@@ -168,7 +168,7 @@
     "educationEntries": [
       {
         "cardLabel": "1",
-        "title": "Semestre d'échange Erasmus+ (Génie électrique et électronique, université d'accueil ; université d'origine : Université de Selçuk)",
+        "title": "Semestre d'échange Erasmus+ – Génie électrique et électronique",
         "year": "Septembre 2026 – Janvier 2027",
         "loc": "Riga Technical University (RTU) | Riga, Lettonie"
       },
@@ -191,10 +191,10 @@
     "experienceEntries": [
       {
         "cardLabel": "1",
-        "title": "Stagiaire, Data Science et Développement logiciel",
+        "title": "Stagiaire en Data Science et Développement logiciel",
         "year": "22 juin – 15 août 2026",
         "loc": "Autodidactic Technologies | Boğaziçi Teknopark, Istanbul, Turquie",
-        "li1": "Deux stages consécutifs. D'abord, travail sur un pipeline de classification d'images pour la détection des maladies des cultures (ResNet-18, jeu de données PlantVillage) dans un environnement Linux/Python. Ensuite, création d'une couche de service FastAPI autour de celui-ci."
+        "li1": "Travail sur un pipeline de classification d'images pour la détection des maladies des cultures (ResNet-18, jeu de données PlantVillage) dans un environnement Linux/Python, et création d'une couche de service FastAPI autour de celui-ci."
       },
       {
         "cardLabel": "1",
@@ -306,7 +306,7 @@
     "educationEntries": [
       {
         "cardLabel": "1",
-        "title": "Erasmus+ Değişim Dönemi (Elektrik-Elektronik Mühendisliği, ev sahibi üniversite; ana üniversite: Selçuk Üniversitesi)",
+        "title": "Erasmus+ Değişim Dönemi – Elektrik-Elektronik Mühendisliği",
         "year": "Eylül 2026 – Ocak 2027",
         "loc": "Riga Teknik Üniversitesi (RTU) | Riga, Letonya"
       },
@@ -329,10 +329,10 @@
     "experienceEntries": [
       {
         "cardLabel": "1",
-        "title": "Stajyer, Veri Bilimi ve Yazılım Geliştirme",
+        "title": "Veri Bilimi ve Yazılım Geliştirme Stajyeri",
         "year": "22 Haziran – 15 Ağustos 2026",
         "loc": "Autodidactic Technologies | Boğaziçi Teknopark, İstanbul, Türkiye",
-        "li1": "Arka arkaya iki staj. İlkinde Linux/Python ortamında ürün hastalıklarının tespiti için bir görüntü sınıflandırma pipeline'ı (ResNet-18, PlantVillage veri seti) üzerinde çalışıldı. Ardından bunun etrafında bir FastAPI servis katmanı oluşturuldu."
+        "li1": "Linux/Python ortamında bitki hastalıklarının tespiti için bir görüntü sınıflandırma pipeline'ı (ResNet-18, PlantVillage veri seti) üzerinde çalışıldı ve bunun etrafında bir FastAPI servis katmanı oluşturuldu."
       },
       {
         "cardLabel": "1",
