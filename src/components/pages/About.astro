@@ -84,6 +84,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
 ---
 
 <BaseLayout title={t.title} description={t.description}>
+<div class="about-page">
     <section class="section">
         <div class="container animate-fade-up">
             <h1 class="section-title"><span>{t.h1}</span></h1>
@@ -91,15 +92,15 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                 <img
                     src={profileImage.src}
                     alt="Marc"
-                    style="display: block; width: 300px; height: 300px; margin: 3rem auto 5rem; object-fit: cover; border-radius: 50%;
+                    style="display: block; width: 300px; height: 300px; margin: 0 auto calc(var(--section-gap) / 2); object-fit: cover; border-radius: 50%;
                     padding: 0.25rem;"
                 />
             </div>
 
-            <div class="grid grid-cols-1 md-grid-cols-3 lg-grid-cols-3 gap-3 about-columns mb-5">
+            <div class="grid grid-cols-1 md-grid-cols-3 lg-grid-cols-3 gap-3 about-columns">
                 <!-- Professional Summary -->
                 <div class="surface p-4 p-md-5 about-summary">
-                    <h3 class="mb-3" style="color: var(--color-accent-1); font-size: 1.5rem;">
+                    <h3 class="mb-4" style="color: var(--color-accent-1); font-size: 1.5rem;">
                         {t.profSummary}
                     </h3>
                     <p class="lead" style="color: var(--color-text-secondary); font-size: 1.1rem; line-height: 1.8;">
@@ -454,18 +455,30 @@ const t = { ...texts[lang], ...aboutContent[lang] };
         </div>
     </div>
 </section>
+</div>
 </BaseLayout>
 
 <style is:global>
-    /* @media (min-width: 768px) {
-        .about-columns > div:first-child {
-            grid-column: 1;
-        }
+    .about-page .section {
+        padding-block: var(--section-gap);
+    }
 
-        .about-columns > div:last-child {
-            grid-column: 2;
-        }
-    } */
+    .about-page .section + .section {
+        padding-top: 0;
+    }
+
+    .about-page .section-title {
+        margin-bottom: calc(var(--section-gap) / 2);
+    }
+
+    .about-page .grid {
+        gap: 1rem;
+    }
+
+    .about-page .surface > :last-child,
+    .about-page .edu-card > :last-child {
+        margin-bottom: 0;
+    }
 
     /* Hover Effects for Cards matching ProjectCards */
     .edu-card {
