@@ -96,7 +96,7 @@ const t = texts[lang];
                             }
                         }
                     </style>
-                    <div class="glass p-4 p-md-5">
+                    <div class="surface p-4 p-md-5">
                         <h3
                             class="mb-4"
                             style="color: var(--color-accent-1); font-size: 1.5rem;"
@@ -106,17 +106,17 @@ const t = texts[lang];
 
                         <!-- Web3Forms Integration -->
                         <div
-                            class="glass p-3 mb-4 d-none"
+                            class="surface p-3 mb-4 d-none"
                             id="formSuccessMessage"
-                            style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); color: #10b981;"
+                            style="background: var(--color-accent-2); border-color: var(--color-accent-1); color: var(--color-text-primary);"
                         >
                             {t.success}
                         </div>
                         <div
-                            class="glass p-3 mb-4 d-none"
+                            class="surface p-3 mb-4 d-none"
                             id="formErrorMessage"
                             role="alert"
-                            style="background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: #fca5a5;"
+                            style="background: var(--color-accent-2); border-color: var(--color-accent-1); color: var(--color-text-primary);"
                         >
                             {t.error}
                         </div>
@@ -139,7 +139,7 @@ const t = texts[lang];
                                         type="text"
                                         name="name"
                                         id="name"
-                                        class="form-control glass"
+                                        class="form-control surface"
                                         required
                                         placeholder={t.namePlaceholder}
                                     />
@@ -154,7 +154,7 @@ const t = texts[lang];
                                         type="email"
                                         name="email"
                                         id="email"
-                                        class="form-control glass"
+                                        class="form-control surface"
                                         required
                                         placeholder={t.emailPlaceholder}
                                     />
@@ -172,7 +172,7 @@ const t = texts[lang];
                                         type="text"
                                         name="subject"
                                         id="subject"
-                                        class="form-control glass"
+                                        class="form-control surface"
                                         required
                                         placeholder={t.subjectPlaceholder}
                                     />
@@ -190,7 +190,7 @@ const t = texts[lang];
                                         name="message"
                                         id="message"
                                         rows="5"
-                                        class="form-control glass"
+                                        class="form-control surface"
                                         required
                                         placeholder={t.messagePlaceholder}
                                     ></textarea>
@@ -239,11 +239,11 @@ const t = texts[lang];
                             class="text-decoration-none"
                         >
                             <div
-                                class="glass p-3 social-card d-flex align-items-center gap-3"
+                                class="surface p-3 social-card d-flex align-items-center gap-3"
                             >
                                 <div
                                     class="icon-box d-flex justify-content-center align-items-center"
-                                    style="width: 48px; height: 48px; background: rgba(10, 97, 201, 0.1); border-radius: 12px;"
+                                    style="width: 48px; height: 48px; background: var(--color-bg-card); border-radius: 12px;"
                                 >
                                     <svg
                                         aria-hidden="true"
@@ -281,11 +281,11 @@ const t = texts[lang];
                             class="text-decoration-none"
                         >
                             <div
-                                class="glass p-3 social-card d-flex align-items-center gap-3"
+                                class="surface p-3 social-card d-flex align-items-center gap-3"
                             >
                                 <div
                                     class="icon-box d-flex justify-content-center align-items-center"
-                                    style="width: 48px; height: 48px; background: rgba(10, 97, 201, 0.1); border-radius: 12px;"
+                                    style="width: 48px; height: 48px; background: var(--color-bg-card); border-radius: 12px;"
                                 >
                                     <svg
                                         aria-hidden="true"
@@ -323,11 +323,11 @@ const t = texts[lang];
                             class="text-decoration-none"
                         >
                             <div
-                                class="glass p-3 social-card d-flex align-items-center gap-3"
+                                class="surface p-3 social-card d-flex align-items-center gap-3"
                             >
                                 <div
                                     class="icon-box d-flex justify-content-center align-items-center"
-                                    style="width: 48px; height: 48px; background: rgba(10, 97, 201, 0.1); border-radius: 12px;"
+                                    style="width: 48px; height: 48px; background: var(--color-bg-card); border-radius: 12px;"
                                 >
                                     <svg
                                         aria-hidden="true"
@@ -363,11 +363,11 @@ const t = texts[lang];
                             class="text-decoration-none"
                         >
                             <div
-                                class="glass p-3 social-card d-flex align-items-center gap-3"
+                                class="surface p-3 social-card d-flex align-items-center gap-3"
                             >
                                 <div
                                     class="icon-box d-flex justify-content-center align-items-center"
-                                    style="width: 48px; height: 48px; background: rgba(10, 97, 201, 0.1); border-radius: 12px;"
+                                    style="width: 48px; height: 48px; background: var(--color-bg-card); border-radius: 12px;"
                                 >
                                     <svg
                                         aria-hidden="true"
@@ -420,13 +420,12 @@ const t = texts[lang];
         background-color: transparent;
         transition:
             border-color 0.15s ease-in-out,
-            box-shadow 0.15s ease-in-out;
+            ;
     }
 
     .form-control:focus {
         outline: none;
         border-color: var(--color-accent-1);
-        box-shadow: 0 0 0 2px rgba(10, 97, 201, 0.25);
     }
 
     /* Unified Hover Effects for Social Cards */

@@ -36,6 +36,13 @@ const localeUrls = {
     fr: localizedUrl("fr"),
     tr: localizedUrl("tr"),
 };
+
+const navItems = [
+    { path: "/", label: t("nav.home"), active: route === "/" },
+    { path: "/about", label: t("nav.about"), active: route.includes("/about") },
+    { path: "/projects", label: t("nav.projects"), active: route.includes("/projects") },
+    { path: "/contacts", label: t("nav.contact"), active: route.includes("/contacts") },
+];
 ---
 
 <!doctype html>
@@ -67,8 +74,6 @@ const localeUrls = {
             type="image/svg+xml"
             href={`${baseUrl}favicon.svg`}
         />
-
-        <!-- Google Fonts are now imported in global.css -->
 
         <!-- Client-side Routing and Language Auto-Detection -->
         <script define:vars={{ baseUrl }}>
@@ -116,179 +121,105 @@ const localeUrls = {
     </head>
 
     <body class="d-flex flex-column">
-        <!-- ===================== NAVBAR ===================== -->
+        <!-- Sentinel for scroll tracking -->
         <div id="navSentinel" aria-hidden="true"></div>
+
+        <!-- ===================== NAVBAR ===================== -->
         <header class:list={["navbar-wrapper", { "navbar-home": route === "/" }]}>
-            <div class="container py-3">
-                <nav
-                    id="main-nav"
-                    class="navbar-shell glass d-flex align-items-center justify-content-between px-4 py-2"
-                >
-                    <a
-                        class="fw-bold fs-4 text-decoration-none gradient-text"
-                        href={translatePath("/")}
-                        style="font-family: var(--font-display);">Marc</a
-                    >
+            <div class="container navbar-container">
+                <!-- Brand on Left -->
+                <a class="navbar-brand" href={translatePath("/")} aria-label="Marc — Home">
+                    Marc
+                </a>
 
-                    <!-- Desktop Menu -->
-                    <ul
-                        class="nav-links d-none d-lg-flex align-items-center gap-4 m-0"
-                        style="list-style: none;"
-                    >
-                        <li>
-                            <a
-                                class:list={[
-                                    "nav-link",
-                                    { active: route === "/" },
-                                ]}
-                                href={translatePath("/")}>{t("nav.home")}</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                class:list={[
-                                    "nav-link",
-                                    { active: route.includes("/about") },
-                                ]}
-                                href={translatePath("/about")}
-                                >{t("nav.about")}</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                class:list={[
-                                    "nav-link",
-                                    { active: route.includes("/projects") },
-                                ]}
-                                href={translatePath("/projects")}
-                                >{t("nav.projects")}</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                class:list={[
-                                    "nav-link",
-                                    { active: route.includes("/contacts") },
-                                ]}
-                                href={translatePath("/contacts")}
-                                >{t("nav.contact")}</a
-                            >
-                        </li>
-                    </ul>
+                <!-- Right Section: Menu (Desktop) + Language Selector + Hamburger (Mobile) -->
+                <div class="navbar-right">
+                    <!-- Desktop Menu (on the right on big screen) -->
+                    <nav class="desktop-nav d-none d-lg-flex" aria-label="Main menu">
+                        <ul class="nav-links">
+                            {
+                                navItems.map((item) => (
+                                    <li>
+                                        <a
+                                            class:list={["nav-link", { active: item.active }]}
+                                            href={translatePath(item.path)}
+                                            aria-current={item.active ? "page" : undefined}
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </nav>
 
-                    <div class="d-flex align-items-center gap-3">
-                        <!-- Language Switcher -->
-                        <div class="dropdown-wrapper position-relative">
-                            <button
-                                id="langToggle"
-                                class="btn btn-outline py-2 px-3 badge d-flex align-items-center gap-2 m-0"
-                                type="button"
-                                aria-expanded="false"
-                                aria-controls="langMenu"
-                                style="font-size: 1rem; border-radius: 99px;"
-                            >
-                                {flags[lang]}
-                                <svg
-                                    aria-hidden="true"
-                                    width="12"
-                                    height="12"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    ><path d="m6 9 6 6 6-6"></path></svg
-                                >
-                            </button>
-                            <div
-                                id="langMenu"
-                                class="dropdown-menu glass position-absolute d-none flex-column mt-2 p-2"
-                                style="right: 0; min-width: 120px; z-index: 1000;"
-                            >
-                                {
-                                    Object.entries(languages).map(
-                                        ([code, name]) => (
-                                            <a
-                                                class="dropdown-item d-flex align-items-center gap-2 p-2 text-decoration-none"
-                                                href={translatePath(
-                                                    route,
-                                                    code as keyof typeof languages,
-                                                )}
-                                                onclick={`localStorage.setItem('preferredLang', '${code}')`}
-                                            >
-                                                <span>
-                                                    {
-                                                        flags[
-                                                            code as keyof typeof languages
-                                                        ]
-                                                    }
-                                                </span>
-                                                <span>{name}</span>
-                                            </a>
-                                        ),
-                                    )
-                                }
-                            </div>
-                        </div>
-
-                        <!-- Mobile Menu Toggle -->
+                    <!-- Language Selector (next to menu on desktop, next to collapse on mobile) -->
+                    <div class="lang-wrapper">
                         <button
-                            id="mobileMenuToggle"
-                            class="btn btn-outline p-2 d-lg-none"
-                            aria-label="Toggle navigation"
-                            aria-expanded="false"
-                            aria-controls="mobileMenu"
+                            id="langToggle"
+                            class="nav-btn lang-toggle"
                             type="button"
-                            style="border-radius: 8px;"
+                            aria-expanded="false"
+                            aria-controls="langMenu"
+                            aria-haspopup="true"
+                            aria-label={`Language: ${languages[lang]}`}
                         >
-                            <svg
-                                aria-hidden="true"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                ><line x1="4" x2="20" y1="12" y2="12"
-                                ></line><line x1="4" x2="20" y1="6" y2="6"
-                                ></line><line x1="4" x2="20" y1="18" y2="18"
-                                ></line></svg
-                            >
+                            <span class="lang-flag" aria-hidden="true">{flags[lang]}</span>
+                            <span class="lang-code">{lang.toUpperCase()}</span>
+                            <svg class="dropdown-chevron" aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
                         </button>
+                        <div id="langMenu" class="lang-dropdown" hidden role="menu" aria-label="Language options">
+                            {
+                                Object.entries(languages).map(([code, name]) => (
+                                    <a
+                                        class:list={["lang-option", { active: code === lang }]}
+                                        href={translatePath(route, code as keyof typeof languages)}
+                                        data-lang={code}
+                                        role="menuitem"
+                                    >
+                                        <span class="lang-flag" aria-hidden="true">{flags[code as keyof typeof languages]}</span>
+                                        <span class="lang-name">{name}</span>
+                                    </a>
+                                ))
+                            }
+                        </div>
                     </div>
-                </nav>
 
-                <!-- Mobile Menu -->
-                <div
-                    id="mobileMenu"
-                    class="glass mt-2 p-3 d-none flex-column gap-3 d-lg-none animate-fade-up"
-                    aria-label={t("nav.home")}
-                >
-                    <a
-                        class:list={["nav-link", { active: route === "/" }]}
-                        href={translatePath("/")}>{t("nav.home")}</a
+                    <!-- Collapse Menu Toggle Button (on the right on mobile) -->
+                    <button
+                        id="mobileMenuToggle"
+                        class="nav-btn menu-toggle d-lg-none"
+                        type="button"
+                        aria-label="Toggle navigation menu"
+                        aria-expanded="false"
+                        aria-controls="mobileMenu"
                     >
-                    <a
-                        class:list={[
-                            "nav-link",
-                            { active: route.includes("/about") },
-                        ]}
-                        href={translatePath("/about")}>{t("nav.about")}</a
-                    >
-                    <a
-                        class:list={[
-                            "nav-link",
-                            { active: route.includes("/projects") },
-                        ]}
-                        href={translatePath("/projects")}>{t("nav.projects")}</a
-                    >
-                    <a
-                        class:list={[
-                            "nav-link",
-                            { active: route.includes("/contacts") },
-                        ]}
-                        href={translatePath("/contacts")}>{t("nav.contact")}</a
-                    >
+                        <svg class="hamburger-icon" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                            <line class="line-top" x1="4" x2="20" y1="6" y2="6"></line>
+                            <line class="line-mid" x1="4" x2="20" y1="12" y2="12"></line>
+                            <line class="line-bot" x1="4" x2="20" y1="18" y2="18"></line>
+                        </svg>
+                    </button>
                 </div>
+            </div>
+
+            <!-- Mobile Collapse Menu (on the right on mobile) -->
+            <div id="mobileMenu" class="mobile-collapse-menu d-lg-none" hidden aria-label="Mobile navigation">
+                <nav class="mobile-menu-inner">
+                    {
+                        navItems.map((item) => (
+                            <a
+                                class:list={["mobile-nav-link", { active: item.active }]}
+                                href={translatePath(item.path)}
+                                aria-current={item.active ? "page" : undefined}
+                            >
+                                {item.label}
+                            </a>
+                        ))
+                    }
+                </nav>
             </div>
         </header>
 
@@ -298,7 +229,7 @@ const localeUrls = {
 
         <!-- ===================== FOOTER ===================== -->
         <footer
-            class="py-5 mt-auto glass"
+            class="py-5 mt-auto surface"
             style="border-radius: 0; border-bottom: none; border-left: none; border-right: none;"
         >
             <div class="container text-center small text-muted">
@@ -330,154 +261,419 @@ const localeUrls = {
         </footer>
 
         <style>
+            #navSentinel {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                pointer-events: none;
+                visibility: hidden;
+            }
+
+            /* Navbar Wrapper */
             .navbar-wrapper {
                 position: sticky;
                 top: 0;
-                z-index: 50;
-                transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: var(--navbar-height);
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                background-color: var(--color-bg);
+                border-bottom: 1px solid var(--color-border);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+                transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
             }
 
-            .navbar-home {
-                margin-bottom: -76px;
-                background: transparent;
+            /* Home Page at top: Transparent so carousel image is background */
+            .navbar-wrapper.navbar-home {
+                margin-bottom: calc(-1 * var(--navbar-height));
+                background-color: transparent;
+                border-bottom-color: transparent;
+                box-shadow: none;
             }
 
-            .navbar-home .navbar-shell {
-                background: linear-gradient(to bottom, rgba(7, 50, 106, 0.9), transparent);
-                border-color: transparent;
-                backdrop-filter: none;
+            /* Subtle gradient overlay at top of home to guarantee legibility over any photo */
+            .navbar-wrapper.navbar-home::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to bottom, rgba(7, 50, 106, 0.75) 0%, rgba(7, 50, 106, 0.2) 70%, transparent 100%);
+                pointer-events: none;
+                transition: opacity 0.25s ease;
+                z-index: -1;
             }
 
-            .navbar-home.is-scrolled {
-                background: var(--color-deep);
-                box-shadow: 0 4px 18px rgba(7, 50, 106, 0.35);
+            /* When scrolled or mobile menu is open: Plain color background! */
+            .navbar-wrapper.navbar-home.is-scrolled,
+            .navbar-wrapper.navbar-home.menu-open {
+                background-color: var(--color-bg);
+                border-bottom-color: var(--color-border);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
             }
 
-            .navbar-home.is-scrolled .navbar-shell {
-                background: var(--color-deep);
-                border-color: var(--color-border);
-                backdrop-filter: blur(12px);
+            .navbar-wrapper.navbar-home.is-scrolled::before,
+            .navbar-wrapper.navbar-home.menu-open::before {
+                opacity: 0;
             }
 
-            .nav-link {
-                color: var(--color-text-secondary);
-                font-weight: 500;
+            /* Navbar Container */
+            .navbar-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
                 position: relative;
-                text-decoration: none;
-                padding: 0.5rem;
-                display: block;
             }
 
-            .nav-link:hover,
-            .nav-link.active {
+            /* Brand */
+            .navbar-brand {
+                font-family: var(--font-display);
+                font-size: 1.4rem;
+                font-weight: 700;
+                color: var(--color-text-primary);
+                text-decoration: none;
+                letter-spacing: -0.02em;
+                transition: opacity 0.2s ease;
+            }
+
+            .navbar-brand:hover {
+                opacity: 0.85;
                 color: var(--color-text-primary);
             }
 
-            .nav-link::after {
-                content: "";
-                position: absolute;
-                width: 0;
-                height: 2px;
-                bottom: 0;
-                left: 0;
-                background: linear-gradient(
-                    to right,
-                    var(--color-accent-1),
-                    var(--color-accent-2)
-                );
-                transition: width 0.3s;
+            /* Right Section */
+            .navbar-right {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
             }
 
-            .nav-link:hover::after,
-            .nav-link.active::after {
-                width: 100%;
+            @media (min-width: 992px) {
+                .navbar-right {
+                    gap: 1.25rem;
+                }
+            }
+
+            /* Desktop Navigation */
+            .nav-links {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .nav-link {
+                display: inline-flex;
+                align-items: center;
+                padding: 0.45rem 0.9rem;
+                font-size: 0.95rem;
+                font-weight: 500;
+                color: var(--color-text-secondary);
+                text-decoration: none;
+                border-radius: var(--radius-pill);
+                transition: color 0.2s ease, background-color 0.2s ease;
+            }
+
+            .nav-link:hover {
+                color: var(--color-text-primary);
+                background-color: rgba(255, 255, 255, 0.08);
+            }
+
+            .nav-link.active {
+                color: var(--color-text-primary);
+                font-weight: 600;
+                background-color: rgba(255, 255, 255, 0.12);
+            }
+
+            /* Nav Buttons (Language & Hamburger) */
+            .nav-btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-family: inherit;
+                background-color: rgba(255, 255, 255, 0.08);
+                border: 1px solid var(--color-border);
+                color: var(--color-text-primary);
+                cursor: pointer;
+                transition: background-color 0.2s ease, border-color 0.2s ease;
+            }
+
+            .nav-btn:hover {
+                background-color: rgba(255, 255, 255, 0.15);
+                border-color: var(--color-text-primary);
+            }
+
+            .nav-btn:focus-visible {
+                outline: 2px solid var(--color-text-primary);
+                outline-offset: 2px;
+            }
+
+            /* Language Switcher */
+            .lang-wrapper {
+                position: relative;
+            }
+
+            .lang-toggle {
+                gap: 0.35rem;
+                padding: 0.4rem 0.65rem;
+                border-radius: var(--radius-pill);
+                font-size: 0.85rem;
+                font-weight: 600;
+            }
+
+            .lang-flag {
+                font-size: 1.05rem;
+                line-height: 1;
+            }
+
+            .lang-code {
+                letter-spacing: 0.05em;
+            }
+
+            .dropdown-chevron {
+                transition: transform 0.2s ease;
+            }
+
+            .lang-toggle[aria-expanded="true"] .dropdown-chevron {
+                transform: rotate(180deg);
+            }
+
+            .lang-dropdown {
+                position: absolute;
+                top: calc(100% + 0.5rem);
+                right: 0;
+                min-width: 150px;
+                background-color: var(--color-bg);
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-md);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+                padding: 0.35rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.2rem;
+                z-index: 1010;
+                animation: dropFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+
+            .lang-dropdown[hidden] {
+                display: none;
+            }
+
+            .lang-option {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+                color: var(--color-text-secondary);
+                text-decoration: none;
+                border-radius: var(--radius-sm);
+                transition: background-color 0.15s ease, color 0.15s ease;
+            }
+
+            .lang-option:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+                color: var(--color-text-primary);
+            }
+
+            .lang-option.active {
+                color: var(--color-text-primary);
+                font-weight: 600;
+                background-color: rgba(255, 255, 255, 0.08);
+            }
+
+            /* Hamburger Toggle */
+            .menu-toggle {
+                padding: 0.45rem;
+                border-radius: var(--radius-md);
+            }
+
+            .hamburger-icon {
+                display: block;
+            }
+
+            .hamburger-icon line {
+                transition: transform 0.25s ease, opacity 0.25s ease;
+                transform-origin: center;
+            }
+
+            .menu-toggle[aria-expanded="true"] .line-top {
+                transform: translateY(6px) rotate(45deg);
+            }
+
+            .menu-toggle[aria-expanded="true"] .line-mid {
+                opacity: 0;
+            }
+
+            .menu-toggle[aria-expanded="true"] .line-bot {
+                transform: translateY(-6px) rotate(-45deg);
+            }
+
+            /* Mobile Collapse Menu (Anchored on the right) */
+            .mobile-collapse-menu {
+                position: absolute;
+                top: calc(100% + 0.5rem);
+                right: 1rem;
+                width: min(240px, calc(100vw - 2rem));
+                background-color: var(--color-bg);
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-md);
+                box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+                padding: 0.5rem;
+                z-index: 1010;
+                animation: dropFade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+
+            .mobile-collapse-menu[hidden] {
+                display: none;
+            }
+
+            .mobile-menu-inner {
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+
+            .mobile-nav-link {
+                display: flex;
+                align-items: center;
+                padding: 0.65rem 0.9rem;
+                font-size: 1rem;
+                font-weight: 500;
+                color: var(--color-text-secondary);
+                text-decoration: none;
+                border-radius: var(--radius-sm);
+                transition: color 0.15s ease, background-color 0.15s ease;
+            }
+
+            .mobile-nav-link:hover {
+                color: var(--color-text-primary);
+                background-color: rgba(255, 255, 255, 0.08);
+            }
+
+            .mobile-nav-link.active {
+                color: var(--color-text-primary);
+                font-weight: 600;
+                background-color: rgba(255, 255, 255, 0.12);
             }
 
             .hover-accent:hover {
                 color: var(--color-accent-1);
             }
 
-            .dropdown-item {
-                color: var(--color-text-secondary);
-                border-radius: 8px;
-                transition:
-                    background 0.2s,
-                    color 0.2s;
-            }
-
-            .dropdown-item:hover {
-                background: rgba(255, 255, 255, 0.05);
-                color: var(--color-text-primary);
-            }
-
-            .flex-grow-1 {
-                flex-grow: 1;
+            @keyframes dropFade {
+                from {
+                    opacity: 0;
+                    transform: translateY(-8px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
         </style>
 
         <!-- ===================== SCRIPTS ===================== -->
         <script is:inline>
-            document.getElementById("currentYear").textContent =
-                new Date().getFullYear();
+            document.addEventListener("DOMContentLoaded", () => {
+                const year = document.getElementById("currentYear");
+                if (year) year.textContent = new Date().getFullYear();
 
-            // Custom UI interactions
-            document.addEventListener("DOMContentLoaded", function () {
-                const navbar = document.querySelector(".navbar-home");
-                const navSentinel = document.getElementById("navSentinel");
-                if (navbar && navSentinel && "IntersectionObserver" in window) {
-                    const observer = new IntersectionObserver(
-                        ([entry]) => navbar.classList.toggle("is-scrolled", !entry.isIntersecting),
-                        { threshold: 0 },
-                    );
-                    observer.observe(navSentinel);
+                const header = document.querySelector(".navbar-wrapper");
+                if (!header) return;
+
+                // Handle scroll state: plain color background when scrolling
+                const updateScroll = () => {
+                    const isScrolled = window.scrollY > 15;
+                    header.classList.toggle("is-scrolled", isScrolled);
+                };
+                window.addEventListener("scroll", updateScroll, { passive: true });
+                updateScroll();
+
+                const sentinel = document.getElementById("navSentinel");
+                if (header.classList.contains("navbar-home") && sentinel && "IntersectionObserver" in window) {
+                    new IntersectionObserver(
+                        ([entry]) => {
+                            header.classList.toggle("is-scrolled", !entry.isIntersecting || window.scrollY > 15);
+                        },
+                        { threshold: 0 }
+                    ).observe(sentinel);
                 }
 
-                // Mobile Menu
-                const mobileMenuToggle =
-                    document.getElementById("mobileMenuToggle");
-                const mobileMenu = document.getElementById("mobileMenu");
-
-                if (mobileMenuToggle && mobileMenu) {
-                    mobileMenuToggle.addEventListener("click", () => {
-                        const isHidden = mobileMenu.classList.contains("d-none");
-                        if (isHidden) {
-                            mobileMenu.classList.remove("d-none");
-                            mobileMenu.classList.add("d-flex");
-                        } else {
-                            mobileMenu.classList.add("d-none");
-                            mobileMenu.classList.remove("d-flex");
-                        }
-                        mobileMenuToggle.setAttribute("aria-expanded", String(isHidden));
-                    });
-                }
-
-                // Language Dropdown
-                const langToggle = document.getElementById("langToggle");
+                // Mobile collapse menu and language dropdown controls
+                const menuBtn = document.getElementById("mobileMenuToggle");
+                const menu = document.getElementById("mobileMenu");
+                const langBtn = document.getElementById("langToggle");
                 const langMenu = document.getElementById("langMenu");
+                const langWrapper = document.querySelector(".lang-wrapper");
 
-                if (langToggle && langMenu) {
-                    langToggle.addEventListener("click", (e) => {
-                        e.stopPropagation();
-                        if (langMenu.classList.contains("d-none")) {
-                            langMenu.classList.remove("d-none");
-                            langMenu.classList.add("d-flex");
-                            langToggle.setAttribute("aria-expanded", "true");
-                        } else {
-                            langMenu.classList.add("d-none");
-                            langMenu.classList.remove("d-flex");
-                            langToggle.setAttribute("aria-expanded", "false");
-                        }
-                    });
+                const setOpen = (panel, button, open) => {
+                    if (!panel || !button) return;
+                    panel.hidden = !open;
+                    button.setAttribute("aria-expanded", String(open));
+                };
 
-                    // Close dropdown when clicking outside
-                    document.addEventListener("click", () => {
-                        if (!langMenu.classList.contains("d-none")) {
-                            langMenu.classList.add("d-none");
-                            langMenu.classList.remove("d-flex");
-                            langToggle.setAttribute("aria-expanded", "false");
-                        }
-                    });
-                }
+                const closeLang = () => setOpen(langMenu, langBtn, false);
+                const closeMenu = () => {
+                    setOpen(menu, menuBtn, false);
+                    header.classList.remove("menu-open");
+                };
+
+                // Hamburger toggle
+                menuBtn?.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const open = menu.hidden;
+                    closeLang();
+                    setOpen(menu, menuBtn, open);
+                    header.classList.toggle("menu-open", open);
+                });
+
+                menu?.addEventListener("click", (e) => {
+                    if (e.target.closest("a")) closeMenu();
+                });
+
+                // Language dropdown toggle
+                langBtn?.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const open = langMenu.hidden;
+                    closeMenu();
+                    setOpen(langMenu, langBtn, open);
+                });
+
+                langMenu?.addEventListener("click", (e) => {
+                    const link = e.target.closest("a[data-lang]");
+                    if (!link) return;
+                    try {
+                        localStorage.setItem("preferredLang", link.dataset.lang);
+                    } catch {}
+                });
+
+                // Click outside to close
+                document.addEventListener("click", (e) => {
+                    if (!langWrapper?.contains(e.target)) closeLang();
+                    if (!menu?.contains(e.target) && !menuBtn?.contains(e.target)) closeMenu();
+                });
+
+                // Escape key to close
+                document.addEventListener("keydown", (e) => {
+                    if (e.key === "Escape") {
+                        closeLang();
+                        closeMenu();
+                    }
+                });
+
+                // Close mobile menu on desktop resize
+                window.addEventListener("resize", () => {
+                    if (window.innerWidth >= 992) {
+                        closeMenu();
+                    }
+                });
             });
         </script>
     </body>

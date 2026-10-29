@@ -63,7 +63,7 @@ const wrapperProps = isActive
 
 <Wrapper {...wrapperProps}>
     <div
-        class="glass h-100 project-card d-flex flex-column p-0 overflow-hidden"
+        class="surface h-100 project-card d-flex flex-column p-0 overflow-hidden"
         style="min-height: 400px; display: flex; flex-direction: column;"
     >
         <!-- Card Background / Image section -->
@@ -80,7 +80,7 @@ const wrapperProps = isActive
             />
             <div
                 class="position-absolute w-100 h-100"
-                style="background: linear-gradient(to bottom, transparent, var(--color-bg-elevated)); top: 0; left: 0;"
+                style="background: var(--color-bg-elevated); top: 0; left: 0;"
             >
             </div>
 
@@ -88,7 +88,7 @@ const wrapperProps = isActive
                 !isActive && (
                     <div
                         class="position-absolute w-100 h-100 z-2 d-flex justify-content-center align-items-center coming-soon-overlay"
-                        style="background-color: rgba(7, 50, 106, 0.8); top: 0; left: 0;"
+                        style="background-color: var(--color-deep); top: 0; left: 0;"
                     >
                         <span
                             class="badge"
@@ -106,7 +106,7 @@ const wrapperProps = isActive
             >
                 <span
                     class="badge"
-                    style="background: rgba(10, 97, 201, 0.2); border: 1px solid rgba(10, 97, 201, 0.5); color: #fff;"
+                    style="background: var(--color-accent-2); border: 1px solid var(--color-accent-1); color: var(--color-light);"
                     >{project.category[lang]}</span
                 >
             </div>
@@ -133,7 +133,7 @@ const wrapperProps = isActive
                 project.achievements && project.achievements[lang] && (
                     <div
                         class="mt-4 p-3 rounded"
-                        style="background: rgba(6, 64, 137, 0.1); border-left: 3px solid var(--color-accent-2);"
+                        style="background: var(--color-bg); border-left: 3px solid var(--color-accent-2);"
                     >
                         <p
                             class="small mb-0"
@@ -153,13 +153,12 @@ const wrapperProps = isActive
         transition:
             transform 0.3s ease,
             border-color 0.3s ease,
-            box-shadow 0.3s ease;
+            ;
     }
 
     .project-card:hover {
         transform: translateY(-5px);
         border-color: var(--color-accent-1);
-        box-shadow: 0 10px 30px rgba(10, 97, 201, 0.1);
     }
 
     .disabled-wrapper {

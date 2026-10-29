@@ -1,209 +1,385 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap');
+
+/* =========================================================
+   1. IMPORTS
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap');
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+/* =========================================================
+   2. DESIGN TOKENS
+   ========================================================= */
+
 :root {
-  --color-bg: #07326A;
-  --color-bg-elevated: rgba(241, 247, 249, 0.1);
-  --color-bg-card: rgba(241, 247, 249, 0.06);
-  --color-border: rgba(241, 247, 249, 0.24);
-  --color-text-primary: #F1F7F9;
-  --color-text-secondary: #749DC8;
-  --color-accent-1: #0A61C9;
+  color-scheme: dark;
+
+  /* Colors */
+  --color-bg: #07326a;
+  --color-bg-elevated: #064089;
+  --color-bg-card: #064089;
+  --color-border: #749dc8;
+
+  --color-text-primary: #f1f7f9;
+  --color-text-secondary: #a8c3df;
+
+  --color-accent-1: #0a61c9;
   --color-accent-2: #064089;
-  --color-light: #F1F7F9;
-  --color-deep: #07326A;
+  --color-light: #f1f7f9;
+  --color-deep: #07326a;
+
+  /* Typography */
   --font-primary: 'Inter', sans-serif;
   --font-display: 'Outfit', sans-serif;
-  --container-width: 1100px;
+
+  --font-size-base: 1rem;
+  --line-height-base: 1.6;
+  --line-height-heading: 1.2;
+
+  /* Layout */
+  --section-spacing: clamp(3rem, 8vw, 5rem);
+  --navbar-height: 4.75rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.25rem;
+  --radius-pill: 999px;
+
+  /* Effects */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+
+
+  /* Bootstrap integration */
+  --bs-body-font-family: var(--font-primary);
+  --bs-body-font-size: var(--font-size-base);
+  --bs-body-line-height: var(--line-height-base);
+  --bs-body-color: var(--color-text-primary);
+  --bs-body-bg: var(--color-bg);
+  --bs-link-color: var(--color-text-primary);
+  --bs-link-hover-color: var(--color-text-secondary);
+  --bs-border-color: var(--color-border);
 }
 
-* {
+@media (max-width: 991.98px) {
+  :root {
+    --navbar-height: 4.25rem;
+  }
+}
+
+
+/* =========================================================
+   3. RESET & BASE STYLES
+   ========================================================= */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html {
   scroll-behavior: smooth;
-  font-family: var(--font-primary);
+  scroll-padding-top: var(--navbar-height);
   background-color: var(--color-bg);
-  color: var(--color-text-primary);
-  line-height: 1.6;
 }
 
 body {
-  overflow-x: hidden;
-  background-image: radial-gradient(circle at top right, rgba(10, 97, 201, 0.18), transparent 40%),
-                    radial-gradient(circle at bottom left, rgba(6, 64, 137, 0.22), transparent 40%);
   min-height: 100vh;
+  margin: 0;
+  overflow-x: clip;
+
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary);
+
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+::selection {
+  color: var(--color-light);
+  background-color: var(--color-accent-1);
+}
+
+
+/* =========================================================
+   4. TYPOGRAPHY
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+
   font-family: var(--font-display);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: var(--line-height-heading);
+  color: var(--color-text-primary);
+
+  text-wrap: balance;
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.75rem; }
-h4 { font-size: 1.5rem; }
-h5 { font-size: 1.25rem; }
-h6 { font-size: 1rem; }
+h1 {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+}
+
+h2 {
+  font-size: clamp(1.75rem, 3vw, 2rem);
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+p {
+  margin-top: 0;
+}
+
+small,
+.small {
+  font-size: 0.875rem;
+}
+
+.text-secondary {
+  color: var(--color-text-secondary) !important;
+}
+
+
+/* =========================================================
+   5. LINKS
+   ========================================================= */
 
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color var(--transition-base);
 }
 
 a:hover {
-  color: var(--color-accent-1);
+  color: var(--color-text-secondary);
 }
 
-.section {
-  padding: clamp(3rem, 8vw, 5rem) 0;
-}
-
-.section-title {
-  font-size: 3rem;
-  margin-bottom: 3rem;
-  text-align: center;
-}
-
-.section-title span {
-  background: linear-gradient(to right, var(--color-accent-1), var(--color-accent-2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Utilities */
-.glass {
-  background: var(--color-bg-elevated);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, var(--color-accent-1), var(--color-accent-2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.75rem;
-  font-family: var(--font-display);
-  font-weight: 600;
-  border-radius: 99px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, var(--color-accent-1), var(--color-accent-2));
-  color: var(--color-light);
-  box-shadow: 0 10px 20px rgba(10, 97, 201, 0.2);
-}
-
-.btn-primary:hover {
-  color: var(--color-light);
-  transform: translateY(-2px);
-  box-shadow: 0 15px 25px rgba(10, 97, 201, 0.4);
-}
-
-.btn-outline {
-  background: transparent;
-  color: var(--color-text-primary);
-  border: 1px solid var(--color-border);
-  backdrop-filter: blur(4px);
-}
-
-.btn-outline:hover {
-  color: var(--color-text-primary);
-  border-color: var(--color-accent-2);
-  background: rgba(6, 64, 137, 0.05);
-}
-
-/* Animations */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-up {
-  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* --- Layout & Utility additions replacing Bootstrap --- */
-/* Bootstrap utilities provide typography, display, flexbox, spacing, sizing,
-   and responsive breakpoint helpers. */
-
-/* Grid Systems */
-.grid { display: grid; gap: 1.5rem; }
-.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-
-/* Responsive Media Queries */
-@media (max-width: 768px) {
-    .section { padding: 60px 0; }
-    .section-title { font-size: 2rem; }
-    h1 { font-size: clamp(2rem, 10vw, 3rem); }
-}
-
-@media (min-width: 768px) {
-    .md-grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-@media (min-width: 1024px) {
-    .lg-grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .lg-grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .lg-grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
-
-/* Base Component Additions */
-.badge {
-  display: inline-block;
-  padding: 0.35em 0.65em;
-  font-size: 0.75em;
-  font-weight: 700;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: 0.375rem;
-  background-color: var(--color-bg-elevated);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
-}
-
-:focus-visible {
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
   outline: 3px solid var(--color-accent-1);
   outline-offset: 3px;
 }
 
-img, video, iframe {
+
+/* =========================================================
+   6. PORTFOLIO LAYOUT
+   ========================================================= */
+
+.section {
+  padding-block: var(--section-spacing);
+}
+
+.section-title {
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.section-title span {
+  color: var(--color-text-secondary);
+}
+
+
+/* =========================================================
+   7. HERO SECTION
+   ========================================================= */
+
+.hero-title {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.hero-copy {
+  width: 100%;
   max-width: 100%;
 }
 
-button, input, textarea {
-  font: inherit;
+.hero-carousel-content {
+  min-width: 0;
+  text-align: center;
 }
+
+
+/* =========================================================
+   8. SOLID SURFACES
+   ========================================================= */
+
+.surface {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.solid-text {
+  display: inline-block;
+  color: var(--color-text-secondary);
+}
+
+
+/* =========================================================
+   9. BUTTONS
+   Bootstrap handles button layout and interaction states.
+   These rules customize the portfolio's visual appearance.
+   ========================================================= */
+
+.btn {
+  --bs-btn-border-radius: var(--radius-pill);
+
+  font-family: var(--font-display);
+  font-weight: 600;
+  transition:
+    color var(--transition-base),
+    background-color var(--transition-base),
+    border-color var(--transition-base),
+    transform var(--transition-base);
+}
+
+.btn-primary {
+  border: 0;
+  color: var(--color-light);
+  background: var(--color-accent-1);
+}
+
+.btn-primary:hover {
+  color: var(--color-light);
+  background: var(--color-accent-2);
+
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  color: var(--color-text-primary);
+  background: transparent;
+  border: 1px solid var(--color-border);
+
+}
+
+.btn-outline:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-card);
+  border-color: var(--color-text-secondary);
+}
+
+
+/* =========================================================
+   10. BADGES
+   Custom appearance; Bootstrap retains badge structure.
+   ========================================================= */
+
+.badge {
+  display: inline-block;
+  padding: 0.4em 0.7em;
+
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+
+/* =========================================================
+   11. ANIMATIONS
+   ========================================================= */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pulseIndicator {
+  0% {
+    transform: scale(0.95);
+  }
+
+  70% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0.95);
+  }
+}
+
+
+/* =========================================================
+   12. ACCESSIBILITY & MOTION
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
@@ -211,8 +387,4 @@ button, input, textarea {
   }
 }
 
-@keyframes pulseIndicator {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(10, 97, 201, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(10, 97, 201, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(10, 97, 201, 0); }
-}
+html { scroll-padding-top: calc(var(--navbar-height) + 1rem); }

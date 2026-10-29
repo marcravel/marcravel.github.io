@@ -91,7 +91,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                 <!-- Left Column: Bio & Skills -->
                 <div>
                     <!-- Professional Summary -->
-                    <div class="glass p-4 p-md-5 mb-5 about-summary">
+                    <div class="surface p-4 p-md-5 mb-5 about-summary">
                         <h3
                             class="mb-3"
                             style="color: var(--color-accent-1); font-size: 1.5rem;"
@@ -114,7 +114,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                         {t.eduHonors}
                     </h3>{t.educationEntries.map((entry, index) => (
                             <>                             <Fragment set:html={`<!-- Education Card ${entry.cardLabel} -->`} />
-                            <div class="glass p-4 mb-4 edu-card about-education">
+                            <div class="surface p-4 mb-4 edu-card about-education">
                                 <h5
                                     class="fw-bold mb-2"
                                     style="color: var(--color-text-primary);"
@@ -137,12 +137,12 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                     entry.badgeStyle === "scholarship" ? (
                                     showScholarship && (
                                         <div class="mt-2">
-                                            <span class="badge px-3 py-2" style="background: rgba(10, 97, 201, 0.1); color: var(--color-text-secondary); border-color: rgba(10, 97, 201, 0.3);">{entry.badge}</span>
+                                            <span class="badge px-3 py-2" style="background: var(--color-bg-card); color: var(--color-text-secondary); border-color: var(--color-accent-1);">{entry.badge}</span>
                                         </div>
                                     )
                                     ) : (
                                     <div class="mt-2">
-                                        <span class="badge px-3 py-2" style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1);">{entry.badge}</span>
+                                        <span class="badge px-3 py-2" style="background: var(--color-bg-card); border-color: var(--color-border);">{entry.badge}</span>
                                         </div>
                                     )
                                 )}
@@ -156,7 +156,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                         {t.experience}
                     </h3>{t.experienceEntries.map((entry, index) => (
                             <> <Fragment set:html={`<!-- Experience Card ${entry.cardLabel} -->`} />
-                            <div class={`glass p-4 ${index === t.experienceEntries.length - 1 ? "mb-5" : "mb-4"} edu-card about-experience`}>
+                            <div class={`surface p-4 ${index === t.experienceEntries.length - 1 ? "mb-5" : "mb-4"} edu-card about-experience`}>
                                 <h5
                                     class="fw-bold mb-2"
                                     style="color: var(--color-text-primary);"
@@ -200,7 +200,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                         rel="noopener noreferrer"
                         class="text-decoration-none course-link d-block about-courses"
                     >
-                        <div class="glass p-4 mb-4 edu-card">
+                        <div class="surface p-4 mb-4 edu-card">
                             <div class="cert-overlay">
                                 <span class="cert-btn">{t.certTitle}</span>
                             </div>
@@ -239,7 +239,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                         rel="noopener noreferrer"
                         class="text-decoration-none course-link d-block about-courses"
                     >
-                        <div class="glass p-4 mb-4 edu-card">
+                        <div class="surface p-4 mb-4 edu-card">
                             <div class="cert-overlay">
                                 <span class="cert-btn">{t.certTitle}</span>
                             </div>
@@ -279,7 +279,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                         rel="noopener noreferrer"
                         class="text-decoration-none course-link d-block about-courses"
                     >
-                        <div class="glass p-4 mb-4 edu-card">
+                        <div class="surface p-4 mb-4 edu-card">
                             <div class="cert-overlay">
                                 <span class="cert-btn">{t.certTitle}</span>
                             </div>
@@ -317,7 +317,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                         rel="noopener noreferrer"
                         class="text-decoration-none course-link d-block about-courses"
                     >
-                        <div class="glass p-4 mb-5 edu-card">
+                        <div class="surface p-4 mb-5 edu-card">
                             <div class="cert-overlay">
                                 <span class="cert-btn">{t.certTitle}</span>
                             </div>
@@ -356,7 +356,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                     </h3>
 
                     <!-- Community card 1-->
-                    <div class="glass p-4 mb-4 edu-card about-community">
+                    <div class="surface p-4 mb-4 edu-card about-community">
                         <h5
                             class="fw-bold mb-2"
                             style="color: var(--color-text-primary);"
@@ -386,7 +386,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                     </div>
 
                     <!-- Community card 2-->
-                    <div class="glass p-4 mb-4 edu-card about-community">
+                    <div class="surface p-4 mb-4 edu-card about-community">
                         <h5
                             class="fw-bold mb-2"
                             style="color: var(--color-text-primary);"
@@ -420,7 +420,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                 <div>
 
                     <!-- Technical Skills Matrix -->
-                    <div class="glass p-4 p-md-5 mb-5 about-skills">
+                    <div class="surface p-4 p-md-5 mb-5 about-skills">
                         <h3
                             class="mb-4"
                             style="color: var(--color-accent-2); font-size: 1.5rem;"
@@ -455,9 +455,9 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                 {t.softAi}
                             </h5>
                             <div class="d-flex flex-wrap gap-2">
-                                <span class="badge px-3 py-2" style="border-color: rgba(10, 97, 201, 0.5); color: var(--color-text-secondary);" set:html={t.skillItems.control[0]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(10, 97, 201, 0.5); color: var(--color-text-secondary);" set:html={t.skillItems.control[1]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(10, 97, 201, 0.5); color: var(--color-text-secondary);" set:html={t.skillItems.control[2]}></span>
+                                <span class="badge px-3 py-2" style="border-color: var(--color-accent-1); color: var(--color-text-secondary);" set:html={t.skillItems.control[0]}></span>
+                                <span class="badge px-3 py-2" style="border-color: var(--color-accent-1); color: var(--color-text-secondary);" set:html={t.skillItems.control[1]}></span>
+                                <span class="badge px-3 py-2" style="border-color: var(--color-accent-1); color: var(--color-text-secondary);" set:html={t.skillItems.control[2]}></span>
                             </div>
                         </div>
 
@@ -469,13 +469,13 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                 {t.toolsMulti}
                             </h5>
                             <div class="d-flex flex-wrap gap-2">
-                                <span class="badge px-3 py-2" style="border-color: rgba(6, 64, 137, 0.5); color: #064089;" set:html={t.skillItems.tools[0]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(6, 64, 137, 0.5); color: #064089;" set:html={t.skillItems.tools[1]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(6, 64, 137, 0.5); color: #064089;" set:html={t.skillItems.tools[2]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(6, 64, 137, 0.5); color: #064089;" set:html={t.skillItems.tools[3]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(6, 64, 137, 0.5); color: #064089;" set:html={t.skillItems.tools[4]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(6, 64, 137, 0.5); color: #064089;" set:html={t.skillItems.tools[5]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(6, 64, 137, 0.5); color: #064089;" set:html={t.skillItems.tools[6]}></span>
+                                <span class="badge px-3 py-2" style="border-color: var(--color-accent-2); color: var(--color-text-primary);" set:html={t.skillItems.tools[0]}></span>
+                                <span class="badge px-3 py-2" style="border-color: var(--color-accent-2); color: var(--color-text-primary);" set:html={t.skillItems.tools[1]}></span>
+                                <span class="badge px-3 py-2" style="border-color: var(--color-accent-2); color: var(--color-text-primary);" set:html={t.skillItems.tools[2]}></span>
+                                <span class="badge px-3 py-2" style="border-color: var(--color-accent-2); color: var(--color-text-primary);" set:html={t.skillItems.tools[3]}></span>
+                                <span class="badge px-3 py-2" style="border-color: var(--color-accent-2); color: var(--color-text-primary);" set:html={t.skillItems.tools[4]}></span>
+                                <span class="badge px-3 py-2" style="border-color: var(--color-accent-2); color: var(--color-text-primary);" set:html={t.skillItems.tools[5]}></span>
+                                <span class="badge px-3 py-2" style="border-color: var(--color-accent-2); color: var(--color-text-primary);" set:html={t.skillItems.tools[6]}></span>
                             </div>
                         </div>
 
@@ -494,7 +494,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
 
 
                     <!-- Languages -->
-                    <div class="glass p-4 p-md-5 mb-5 about-languages">
+                    <div class="surface p-4 p-md-5 mb-5 about-languages">
                         <h3
                             class="mb-4"
                             style="color: var(--color-accent-1); font-size: 1.5rem;"
@@ -510,7 +510,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                     >{t.spokenLanguages[0].name}</strong
                                 >
                                 <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
+                                    style="flex-grow: 1; border-bottom: 1px dashed var(--color-border); margin: 0 1rem;"
                                 >
                                 </div>
                                 <span
@@ -526,7 +526,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                     >{t.spokenLanguages[1].name}</strong
                                 >
                                 <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
+                                    style="flex-grow: 1; border-bottom: 1px dashed var(--color-border); margin: 0 1rem;"
                                 >
                                 </div>
                                 <span
@@ -542,7 +542,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                     >{t.spokenLanguages[2].name}</strong
                                 >
                                 <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
+                                    style="flex-grow: 1; border-bottom: 1px dashed var(--color-border); margin: 0 1rem;"
                                 >
                                 </div>
                                 <span
@@ -558,7 +558,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                     >{t.spokenLanguages[3].name}</strong
                                 >
                                 <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
+                                    style="flex-grow: 1; border-bottom: 1px dashed var(--color-border); margin: 0 1rem;"
                                 >
                                 </div>
                                 <span
@@ -574,7 +574,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                     >{t.spokenLanguages[4].name}</strong
                                 >
                                 <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed rgba(255,255,255,0.1); margin: 0 1rem;"
+                                    style="flex-grow: 1; border-bottom: 1px dashed var(--color-border); margin: 0 1rem;"
                                 >
                                 </div>
                                 <span
@@ -631,9 +631,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(7, 50, 106, 0.7);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
+        background: var(--color-deep);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -651,7 +649,6 @@ const t = { ...texts[lang], ...aboutContent[lang] };
         font-size: 0.95rem;
         transform: translateY(15px);
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
     .course-link:hover .cert-overlay {

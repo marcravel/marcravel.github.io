@@ -2,342 +2,585 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectCard from "../ProjectCard.astro";
 import projectsData from "../../data/projects.json";
-import homeContent from "../../data/home.json";
 import { useTranslatedPath } from "../../i18n/ui";
-import electronicsOne from "../../assets/carousel/electronics_001.jpg";
-import electronicsTwo from "../../assets/carousel/electronics_002.jpg";
-import electronicsThree from "../../assets/carousel/electronics_003.jpg";
-import electronicsFour from "../../assets/carousel/electronics_004.jpg";
-import electronicsFive from "../../assets/carousel/electronics_005.jpg";
-import electronicsSix from "../../assets/carousel/electronics_006.jpg";
-import electronicsSeven from "../../assets/carousel/electronics_007.jpg";
-import electronicsEight from "../../assets/carousel/electronics_008.jpg";
 
 export interface Props {
     lang: "en" | "fr" | "tr";
 }
+
 const { lang } = Astro.props;
 const translatePath = useTranslatedPath(lang);
-const baseUrl = import.meta.env.BASE_URL.endsWith("/")
-    ? import.meta.env.BASE_URL
-    : `${import.meta.env.BASE_URL}/`;
+
+/* ---------- Data ---------- */
+
+// Loads every JPG in the carousel folder, in filename order.
+// Slide N uses image N (so electronics_001.jpg -> slide 1, and so on).
+const carouselModules = import.meta.glob<{ default: ImageMetadata }>(
+    "../../assets/carousel/*.jpg",
+    { eager: true },
+);
+const carouselImages = Object.entries(carouselModules)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([, mod]) => mod.default);
 
 const activeProjects = projectsData.filter((project) => project.active === 1);
 const gridClassDesktop =
     activeProjects.length === 2 ? "lg-grid-cols-2" : "lg-grid-cols-3";
-const hero = homeContent[lang];
-const carouselImages = [
-    electronicsOne,
-    electronicsTwo,
-    electronicsThree,
-    electronicsFour,
-    electronicsFive,
-    electronicsSix,
-    electronicsSeven,
-    electronicsEight,
-];
+
+/* ---------- Copy ---------- */
+// `slides[].text` accepts inline HTML (<strong>) and is rendered with set:html.
+// It is static content you control, so that is safe.
 
 const texts = {
     en: {
         title: "Marc Ravelontsalama | Embedded Systems Engineer",
         description:
             "Embedded systems, firmware, electronics, PCB design and control projects by Marc Ravelontsalama.",
-        view_projects: "View Projects",
-        download_cv: "Download CV",
-        skills: "Skills Overview",
-        programming: {
-            title: "Embedded Firmware",
-            desc: "C/C++ on microcontrollers. STM32, ESP32, PIC, Arduino, bare-metal and HAL firmware.",
-        },
-        embedded: {
-            title: "Electronics & PCB Design",
-            desc: "Schematic and PCB design, circuit design, power stages, sensor and actuator interfacing.",
-        },
-        electronics: {
-            title: "Control",
-            desc: "Digital control loops, sensors and actuators, PID and fuzzy logic.",
-        },
-        robotics: {
-            title: "Linux & Tooling",
-            desc: "Linux development environment, Python, Git, serial and device interfaces, telemetry and frontend/API glue. Familiar with ML fundamentals and OpenCV.",
-        },
-        selected_projects: "Selected Projects",
-        view_all: "View All",
-        in_development: "Additional systems in active development.",
+        carousel: { prev: "Previous slide", next: "Next slide", slide: "Slide" },
+        slides: [
+            {
+                title: "Hi, I'm Marc Ravelontsalama",
+                text: "Final-year Electrical and Electronics Engineering student passionate about <strong>embedded systems</strong>, firmware, control engineering, and intelligent systems.",
+            },
+            {
+                title: "Where software meets hardware",
+                text: "Firmware, power electronics and control: from <strong>custom PCBs</strong> to the code that runs on them. Currently building a digitally controlled buck converter with Linux telemetry.",
+            },
+            {
+                title: "Open to an internship",
+                text: "On Erasmus+ in Riga until January 2027, and looking for an <strong>embedded systems</strong> internship in Europe.",
+            },
+        ],
+        skillsHeading: "Skills Overview",
+        skills: [
+            {
+                title: "Embedded Firmware",
+                desc: "C/C++ on microcontrollers. STM32, ESP32, PIC, Arduino, bare-metal and HAL firmware.",
+            },
+            {
+                title: "Electronics & PCB Design",
+                desc: "Schematic and PCB design, circuit design, power stages, sensor and actuator interfacing.",
+            },
+            {
+                title: "Control",
+                desc: "Digital control loops, sensors and actuators, PID and fuzzy logic.",
+            },
+            {
+                title: "Linux & Tooling",
+                desc: "Linux development environment, Python, Git, serial and device interfaces, telemetry and frontend/API glue. Familiar with ML fundamentals and OpenCV.",
+            },
+        ],
+        selectedProjects: "Selected Projects",
+        viewAll: "View All",
+        inDevelopment: "Additional systems in active development.",
     },
     fr: {
         title: "Marc Ravelontsalama | Ingénieur systèmes embarqués",
         description:
             "Projets de Marc Ravelontsalama en systèmes embarqués, firmware, électronique, conception de circuits imprimés et contrôle.",
-        view_projects: "Voir les projets",
-        download_cv: "Télécharger CV",
-        skills: "Aperçu des compétences",
-        programming: {
-            title: "Firmware embarqué",
-            desc: "C/C++ sur microcontrôleurs. STM32, ESP32, PIC, Arduino, firmware bare-metal et HAL.",
+        carousel: {
+            prev: "Diapositive précédente",
+            next: "Diapositive suivante",
+            slide: "Diapositive",
         },
-        embedded: {
-            title: "Électronique et conception de circuits imprimés",
-            desc: "Schémas et conception de circuits imprimés, conception de circuits, étages de puissance, interfaces capteurs et actionneurs.",
-        },
-        electronics: {
-            title: "Contrôle",
-            desc: "Boucles de contrôle numériques, capteurs et actionneurs, PID et logique floue.",
-        },
-        robotics: {
-            title: "Linux et outils",
-            desc: "Environnement de développement Linux, Python, Git, interfaces série et périphériques, télémétrie et intégration frontend/API. Connaissances des fondamentaux du ML et d'OpenCV.",
-        },
-        selected_projects: "Projets Sélectionnés",
-        view_all: "Voir tout",
-        in_development: "Systèmes supplémentaires en cours de développement.",
+        slides: [
+            {
+                title: "Bonjour, je suis Marc Ravelontsalama",
+                text: "Étudiant en dernière année de génie électrique et électronique, passionné par les <strong>systèmes embarqués</strong>, le firmware, l'automatique et les systèmes intelligents.",
+            },
+            {
+                title: "Là où le logiciel rencontre le matériel",
+                text: "Firmware, électronique de puissance et contrôle : des <strong>circuits imprimés sur mesure</strong> jusqu'au code qui les fait tourner. Actuellement : un convertisseur buck à commande numérique avec télémétrie Linux.",
+            },
+            {
+                title: "Ouvert à un stage",
+                text: "En Erasmus+ à Riga jusqu'en janvier 2027, je cherche un stage en <strong>systèmes embarqués</strong>.",
+            },
+        ],
+        skillsHeading: "Aperçu des compétences",
+        skills: [
+            {
+                title: "Firmware embarqué",
+                desc: "C/C++ sur microcontrôleurs. STM32, ESP32, PIC, Arduino, firmware bare-metal et HAL.",
+            },
+            {
+                title: "Électronique et conception de circuits imprimés",
+                desc: "Schémas et conception de circuits imprimés, conception de circuits, étages de puissance, interfaces capteurs et actionneurs.",
+            },
+            {
+                title: "Contrôle",
+                desc: "Boucles de contrôle numériques, capteurs et actionneurs, PID et logique floue.",
+            },
+            {
+                title: "Linux et outils",
+                desc: "Environnement de développement Linux, Python, Git, interfaces série et périphériques, télémétrie et intégration frontend/API. Connaissances des fondamentaux du ML et d'OpenCV.",
+            },
+        ],
+        selectedProjects: "Projets Sélectionnés",
+        viewAll: "Voir tout",
+        inDevelopment: "Systèmes supplémentaires en cours de développement.",
     },
     tr: {
         title: "Marc Ravelontsalama | Gömülü Sistemler Mühendisi",
         description:
             "Marc Ravelontsalama'nın gömülü sistemler, firmware, elektronik, PCB tasarımı ve kontrol projeleri.",
-        view_projects: "Projeleri Gör",
-        download_cv: "CV İndir",
-        skills: "Yeteneklere Genel Bakış",
-        programming: {
-            title: "Gömülü Firmware",
-            desc: "Mikrodenetleyiciler üzerinde C/C++. STM32, ESP32, PIC, Arduino, bare-metal ve HAL firmware.",
-        },
-        embedded: {
-            title: "Elektronik ve PCB Tasarımı",
-            desc: "Şematik ve PCB tasarımı, devre tasarımı, güç katları, sensör ve aktüatör arayüzleri.",
-        },
-        electronics: {
-            title: "Kontrol",
-            desc: "Dijital kontrol döngüleri, sensörler ve aktüatörler, PID ve bulanık mantık.",
-        },
-        robotics: {
-            title: "Linux ve Araçlar",
-            desc: "Linux geliştirme ortamı, Python, Git, seri ve cihaz arayüzleri, telemetri ve frontend/API entegrasyonu. ML temelleri ve OpenCV hakkında bilgi sahibi.",
-        },
-        selected_projects: "Seçili Projeler",
-        view_all: "Tümünü Gör",
-        in_development: "Geliştirilme aşamasında olan ek sistemler.",
+        carousel: { prev: "Önceki slayt", next: "Sonraki slayt", slide: "Slayt" },
+        slides: [
+            {
+                title: "Merhaba, ben Marc Ravelontsalama",
+                text: "Elektrik-Elektronik Mühendisliği son sınıf öğrencisi; <strong>gömülü sistemler</strong>, firmware, kontrol mühendisliği ve akıllı sistemler konusunda tutkulu.",
+            },
+            {
+                title: "Yazılımın donanımla buluştuğu yer",
+                text: "Firmware, güç elektroniği ve kontrol: <strong>özel PCB'lerden</strong> üzerinde çalışan koda kadar. Şu anda Linux telemetrili, dijital kontrollü bir buck konvertör üzerinde çalışıyorum.",
+            },
+            {
+                title: "Avrupa'da staja açığım",
+                text: "Ocak 2027'ye kadar Riga'da Erasmus+ kapsamındayım ve Avrupa'da <strong>gömülü sistemler</strong> alanında staj arıyorum.",
+            },
+        ],
+        skillsHeading: "Yeteneklere Genel Bakış",
+        skills: [
+            {
+                title: "Gömülü Firmware",
+                desc: "Mikrodenetleyiciler üzerinde C/C++. STM32, ESP32, PIC, Arduino, bare-metal ve HAL firmware.",
+            },
+            {
+                title: "Elektronik ve PCB Tasarımı",
+                desc: "Şematik ve PCB tasarımı, devre tasarımı, güç katları, sensör ve aktüatör arayüzleri.",
+            },
+            {
+                title: "Kontrol",
+                desc: "Dijital kontrol döngüleri, sensörler ve aktüatörler, PID ve bulanık mantık.",
+            },
+            {
+                title: "Linux ve Araçlar",
+                desc: "Linux geliştirme ortamı, Python, Git, seri ve cihaz arayüzleri, telemetri ve frontend/API entegrasyonu. ML temelleri ve OpenCV hakkında bilgi sahibi.",
+            },
+        ],
+        selectedProjects: "Seçili Projeler",
+        viewAll: "Tümünü Gör",
+        inDevelopment: "Geliştirilme aşamasında olan ek sistemler.",
     },
 };
 const t = texts[lang];
+
+/* ---------- Structured data ---------- */
+
+const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Marc Anjaniaina Ravelontsalama",
+    url: new URL(Astro.url.pathname, Astro.site).toString(),
+    sameAs: [
+        "https://github.com/marcravel",
+        "https://www.linkedin.com/in/marc-anjaniaina-ravelontsalama/",
+    ],
+    jobTitle: "Embedded Systems Engineer",
+    description:
+        "Final-year Electrical-Electronics Engineering student focused on embedded firmware, electronics, PCB design and control.",
+    worksFor: {
+        "@type": "EducationalOrganization",
+        name: "Selçuk University",
+    },
+    knowsAbout: [
+        "Electronics",
+        "Embedded Systems",
+        "Firmware",
+        "PCB Design",
+        "Control",
+        "Linux",
+    ],
+};
 ---
 
 <BaseLayout title={t.title} description={t.description}>
-    <script type="application/ld+json" set:html={JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Person",
-        name: "Marc Anjaniaina Ravelontsalama",
-        url: new URL(Astro.url.pathname, Astro.site).toString(),
-        sameAs: [
-            "https://github.com/marcravel",
-            "https://www.linkedin.com/in/marc-anjaniaina-ravelontsalama/",
-        ],
-        jobTitle: "Embedded Systems Engineer",
-        description:
-            "Final-year Electrical-Electronics Engineering student focused on embedded firmware, electronics, PCB design and control.",
-        worksFor: {
-            "@type": "EducationalOrganization",
-            name: "Selçuk University",
-        },
-        knowsAbout: [
-            "Electronics",
-            "Embedded Systems",
-            "Firmware",
-            "PCB Design",
-            "Control",
-            "Linux",
-        ],
-    })} />
-    <!-- ===================== HERO SECTION ===================== -->
-    <header class="hero-carousel" aria-label="Portfolio introduction">
-        <div class="hero-carousel-slides" aria-hidden="true">
-            {carouselImages.map((image, index) => (
-                <img
-                    class:list={["hero-carousel-slide", { active: index === 0 }]}
-                    src={image.src}
-                    width={image.width}
-                    height={image.height}
-                    alt=""
-                    loading={index === 0 ? "eager" : "lazy"}
-                    fetchpriority={index === 0 ? "high" : "auto"}
-                    decoding="async"
-                />
-            ))}
-        </div>
-        <div class="hero-carousel-overlay"></div>
-        <div class="container hero-carousel-content">
-                <div class="animate-fade-up hero-copy">
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+    <!-- ===================== HERO CAROUSEL ===================== -->
+    <header
+        class="hero-carousel"
+        data-carousel
+        aria-roledescription="carousel"
+        aria-label="Portfolio introduction"
+    >
+        {
+            t.slides.map((slide, index) => {
+                const image = carouselImages[index % carouselImages.length];
+                // Only one <h1> per page; the other slides use <h2>.
+                const Heading = index === 0 ? "h1" : "h2";
+                return (
                     <div
-                        class="d-inline-block mb-3 px-3 py-2 small"
-                        style="background: rgba(241, 247, 249, 0.12); border: 1px solid rgba(241, 247, 249, 0.3); border-radius: 9999px; font-weight: 500; color: var(--color-text-primary);"
+                        class="hero-slide"
+                        data-state={index === 0 ? "active" : "after"}
+                        role="group"
+                        aria-roledescription="slide"
+                        aria-label={`${index + 1} / ${t.slides.length}`}
                     >
-                        {hero.tagline}
+                        <img
+                            class="hero-slide-image"
+                            src={image.src}
+                            width={image.width}
+                            height={image.height}
+                            alt=""
+                            aria-hidden="true"
+                            loading={index === 0 ? "eager" : "lazy"}
+                            fetchpriority={index === 0 ? "high" : "auto"}
+                            decoding="async"
+                        />
+                        <div class="hero-slide-overlay" />
+                        <div class="container hero-slide-content d-flex align-items-center justify-content-center">
+                            <div class:list={["hero-copy", { "animate-fade-up": index === 0 }]}>
+                                <Heading class="mb-3 hero-title">{slide.title}</Heading>
+                                <p class="lead mb-0" set:html={slide.text} />
+                            </div>
+                        </div>
                     </div>
-                    <h1 class="mb-3 hero-title">
-                        HI, I'M MARC RAVELONTSALAMA
-                    </h1>
-                    <h2
-                        class="mb-4 fw-light"
-                        style="font-size: clamp(1.2rem, 3vw, 1.75rem); color: var(--color-text-primary);"
-                    >
-                        {hero.headline}
-                    </h2>
-                    <p class="lead mb-5">
-                        Final-year Electrical and Electronics Engineering student passionate about embedded systems, firmware, control engineering, and intelligent systems.
-                    </p>
-                    <div class="d-flex flex-wrap gap-3">
-                        <a
-                            href={translatePath("/projects")}
-                            class="btn btn-primary"
-                        >
-                            {t.view_projects}
-                        </a>
-                        <a
-                            href={`${baseUrl}docs/cv.pdf`}
-                            class="btn btn-outline"
-                            download
-                        >
-                            {t.download_cv}
-                        </a>
-                    </div>
+                );
+            })
+        }
+
+        <div class="hero-controls">
+            <button type="button" class="hero-arrow" data-prev aria-label={t.carousel.prev}>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </button>
+
+            <div class="hero-dots">
+                {
+                    t.slides.map((_, index) => (
+                        <button
+                            type="button"
+                            class="hero-dot"
+                            data-dot={index}
+                            aria-label={`${t.carousel.slide} ${index + 1}`}
+                            aria-current={index === 0 ? "true" : undefined}
+                        />
+                    ))
+                }
+            </div>
+
+            <button type="button" class="hero-arrow" data-next aria-label={t.carousel.next}>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 18l6-6-6-6" />
+                </svg>
+            </button>
         </div>
     </header>
 
-    <style>
-        .hero-carousel { min-height: min(760px, 88vh); position: relative; display: flex; align-items: center; overflow: hidden; }
-        .hero-carousel-slides, .hero-carousel-overlay { position: absolute; inset: 0; }
-        .hero-carousel-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease; }
-        .hero-carousel-slide.active { opacity: 1; }
-        .hero-carousel-overlay { background: linear-gradient(90deg, rgba(7, 50, 106, 0.96), rgba(7, 50, 106, 0.68) 52%, rgba(10, 97, 201, 0.4)); }
-        .hero-carousel-content { position: relative; z-index: 1; width: 100%; padding-top: 6rem; padding-bottom: 5rem; }
-        .hero-copy { max-width: 760px; }
-        .hero-title { color: var(--color-light); font-size: clamp(2.4rem, 7vw, 5.5rem); line-height: 1.05; max-width: 12ch; }
-
-        .skill-card {
-            transition: transform 0.3s ease;
-            will-change: transform;
-        }
-        .skill-card:hover {
-            transform: translateY(-5px);
-        }
-    </style>
-    <script>
-        const slides = document.querySelectorAll(".hero-carousel-slide");
-        let currentSlide = 0;
-        if (slides.length > 1 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            window.setInterval(() => {
-                slides[currentSlide].classList.remove("active");
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].classList.add("active");
-            }, 6000);
-        }
-    </script>
-
-    <!-- ===================== SKILLS SECTION ===================== -->
-    <section class="section py-5">
+    <!-- ===================== SKILLS ===================== -->
+    <section class="section">
         <div class="container">
-            <h2 class="mb-5 section-title"><span>{t.skills}</span></h2>
+            <h2 class="section-title"><span>{t.skillsHeading}</span></h2>
 
-            <div
-                class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-4 gap-4 animate-fade-up"
-                style="animation-delay: 0.2s;"
-            >
-                <div
-                    class="glass p-4 h-100 skill-card"
-                    style="cursor: default;"
-                >
-                    <h5
-                        class="mb-3"
-                        style="color: var(--color-accent-1); font-weight: 700;"
-                    >
-                        {t.programming.title}
-                    </h5>
-                    <p class="small text-muted mb-0">{t.programming.desc}</p>
-                </div>
-
-                <div
-                    class="glass p-4 h-100 skill-card"
-                    style="cursor: default;"
-                >
-                    <h5
-                        class="mb-3"
-                        style="color: var(--color-accent-2); font-weight: 700;"
-                    >
-                        {t.embedded.title}
-                    </h5>
-                    <p class="small text-muted mb-0">{t.embedded.desc}</p>
-                </div>
-
-                <div
-                    class="glass p-4 h-100 skill-card"
-                    style="cursor: default;"
-                >
-                    <h5
-                        class="mb-3"
-                        style="color: var(--color-accent-1); font-weight: 700;"
-                    >
-                        {t.electronics.title}
-                    </h5>
-                    <p class="small text-muted mb-0">{t.electronics.desc}</p>
-                </div>
-
-                <div
-                    class="glass p-4 h-100 skill-card"
-                    style="cursor: default;"
-                >
-                    <h5
-                        class="mb-3"
-                        style="color: var(--color-accent-2); font-weight: 700;"
-                    >
-                        {t.robotics.title}
-                    </h5>
-                    <p class="small text-muted mb-0">{t.robotics.desc}</p>
-                </div>
+            <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-4 gap-4 animate-fade-up delay-2">
+                {
+                    t.skills.map((skill) => (
+                        <article class="glass p-4 h-100 skill-card">
+                            <h3 class="skill-title mb-3">{skill.title}</h3>
+                            <p class="small text-muted mb-0">{skill.desc}</p>
+                        </article>
+                    ))
+                }
             </div>
         </div>
     </section>
 
     <!-- ===================== PROJECTS PREVIEW ===================== -->
-    <section class="section py-5 mb-5">
+    <section class="section mb-5">
         <div class="container">
-            <div
-                class="d-flex flex-wrap justify-content-between align-items-center mb-5 gap-3"
-            >
-                <h2 class="section-title mb-0" style="margin-bottom: 0;">
-                    <span>{t.selected_projects}</span>
-                </h2>
-                <a
-                    href={translatePath("/projects")}
-                    class="btn btn-outline"
-                    style="padding: 0.5rem 1.25rem;"
-                >
-                    <span class="gradient-text">{t.view_all}</span>
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-5 gap-3">
+                <h2 class="section-title mb-0"><span>{t.selectedProjects}</span></h2>
+                <a href={translatePath("/projects")} class="btn btn-outline view-all">
+                    <span class="gradient-text">{t.viewAll}</span>
                 </a>
             </div>
 
-            <div
-                class={`grid grid-cols-1 md-grid-cols-2 ${gridClassDesktop} gap-4 animate-fade-up`}
-                style="animation-delay: 0.3s;"
-            >
-                {
-                    activeProjects.map((project) => (
-                        <ProjectCard project={project} lang={lang} />
-                    ))
-                }
+            <div class={`grid grid-cols-1 md-grid-cols-2 ${gridClassDesktop} gap-4 animate-fade-up delay-3`}>
+                {activeProjects.map((project) => <ProjectCard project={project} lang={lang} />)}
             </div>
 
-            <div
-                class="mt-5 text-center d-flex align-items-center justify-content-center gap-2 animate-fade-up"
-                style="animation-delay: 0.4s;"
-            >
-                <span
-                    style="display: inline-block; width: 8px; height: 8px; background-color: var(--color-accent-1); border-radius: 50%; box-shadow: 0 0 8px var(--color-accent-1); animation: pulseIndicator 2s infinite;"
-                ></span>
-                <p class="small text-muted mb-0 fst-italic">
-                    {t.in_development}
-                </p>
+            <div class="mt-5 text-center d-flex align-items-center justify-content-center gap-2 animate-fade-up delay-4">
+                <span class="status-dot"></span>
+                <p class="small text-muted mb-0 fst-italic">{t.inDevelopment}</p>
             </div>
         </div>
     </section>
 </BaseLayout>
+
+<style>
+    /* ---------- Hero carousel ---------- */
+
+    /* Grid stacking: every slide sits in the same cell, so the hero is as tall
+       as its tallest slide (long text on mobile never gets clipped). */
+    .hero-carousel {
+        position: relative;
+        display: grid;
+        grid-template-rows: minmax(min(760px, 88vh), auto);
+        overflow: hidden;
+    }
+
+    .hero-slide {
+        position: relative;
+        grid-area: 1 / 1;
+        display: flex;
+        align-items: center;
+        transform: translateX(100%); /* default: waiting on the right */
+        transition: transform var(--slide-ms, 0.8s) ease-in-out;
+    }
+    .hero-slide[data-state="active"] {
+        transform: none;
+    }
+    .hero-slide[data-state="before"] {
+        transform: translateX(-100%); /* already gone, on the left */
+    }
+    .hero-slide.no-transition {
+        transition: none; /* used by the script to reposition silently */
+    }
+
+    .hero-slide-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .hero-slide-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            90deg,
+            rgba(7, 50, 106, 0.96),
+            rgba(7, 50, 106, 0.68) 52%,
+            rgba(10, 97, 201, 0.4)
+        );
+    }
+    .hero-slide-content {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        min-width: 0;
+        padding-block: 6rem;
+        text-align: center;
+    }
+    .hero-copy {
+        width: 100%;
+        max-width: 760px;
+    }
+    .hero-title {
+        font-size: clamp(1.5rem, 4vw, 2.5rem); /* tune the size here */
+        line-height: 1.1;
+        text-transform: uppercase;
+    }
+
+    /* Controls: [ prev ] • • • [ next ] along the bottom */
+    .hero-controls {
+        position: absolute;
+        inset-inline: 0;
+        bottom: 1.25rem;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+    .hero-arrow {
+        display: grid;
+        place-items: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0;
+        color: var(--color-text-primary);
+        background-color: var(--color-bg-elevated);
+        border: 1px solid var(--color-border);
+        border-radius: 50%;
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        transition:
+            background-color var(--transition-base),
+            border-color var(--transition-base);
+    }
+    .hero-arrow:hover {
+        background-color: rgba(241, 247, 249, 0.2);
+        border-color: var(--color-text-secondary);
+    }
+    .hero-dots {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .hero-dot {
+        position: relative;
+        width: 0.625rem;
+        height: 0.625rem;
+        padding: 0;
+        background: transparent;
+        border: 1px solid var(--color-text-primary);
+        border-radius: var(--radius-pill);
+        transition:
+            width var(--transition-base),
+            background-color var(--transition-base);
+    }
+    .hero-dot::after {
+        content: "";
+        position: absolute;
+        inset: -0.5rem; /* bigger tap target */
+    }
+    .hero-dot[aria-current="true"] {
+        width: 1.75rem;
+        background-color: var(--color-text-primary);
+    }
+
+    /* ---------- Skills ---------- */
+
+    .skill-card {
+        transition: transform var(--transition-base);
+    }
+    .skill-card:hover {
+        transform: translateY(-5px);
+    }
+    .skill-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--color-text-primary);
+    }
+
+    /* ---------- Projects ---------- */
+
+    .view-all {
+        padding: 0.5rem 1.25rem;
+    }
+    .status-dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: var(--color-accent-1);
+        box-shadow: 0 0 8px var(--color-accent-1);
+        animation: pulseIndicator 2s infinite;
+    }
+
+    /* ---------- Staggered entrance ---------- */
+
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+</style>
+
+<script>
+    const AUTOPLAY_MS = 8000; // time each slide stays on screen
+    const TRANSITION_MS = 2000; // slide animation length (also drives the CSS)
+
+    const root = document.querySelector<HTMLElement>("[data-carousel]");
+
+    if (root) {
+        const slides = Array.from(root.querySelectorAll<HTMLElement>(".hero-slide"));
+        const dots = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-dot]"));
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        root.style.setProperty("--slide-ms", `${TRANSITION_MS}ms`);
+
+        let current = 0;
+        let locked = false; // ignore clicks while a slide is animating
+        let paused = false; // true while hovered or keyboard-focused
+        let timer: number | undefined;
+
+        // Keep hidden slides out of the tab order and the accessibility tree.
+        const render = () => {
+            slides.forEach((slide, i) => {
+                slide.inert = i !== current;
+                slide.setAttribute("aria-hidden", String(i !== current));
+            });
+            dots.forEach((dot, i) => {
+                if (i === current) dot.setAttribute("aria-current", "true");
+                else dot.removeAttribute("aria-current");
+            });
+        };
+
+        // dir: 1 = forward (new slide enters from the right), -1 = backward.
+        const goTo = (target: number, dir: 1 | -1) => {
+            if (locked || target === current) return;
+            locked = true;
+
+            const outgoing = slides[current];
+            const incoming = slides[target];
+
+            // Park the incoming slide on the correct side without animating...
+            incoming.classList.add("no-transition");
+            incoming.dataset.state = dir === 1 ? "after" : "before";
+            void incoming.offsetWidth; // flush so the browser commits that position
+            incoming.classList.remove("no-transition");
+
+            // ...then animate both slides.
+            outgoing.dataset.state = dir === 1 ? "before" : "after";
+            incoming.dataset.state = "active";
+
+            current = target;
+            render();
+            window.setTimeout(() => (locked = false), TRANSITION_MS);
+        };
+
+        const next = () => goTo((current + 1) % slides.length, 1);
+        const prev = () => goTo((current - 1 + slides.length) % slides.length, -1);
+
+        const stop = () => {
+            window.clearInterval(timer);
+            timer = undefined;
+        };
+        const start = () => {
+            if (reduceMotion || paused || timer !== undefined) return;
+            timer = window.setInterval(next, AUTOPLAY_MS);
+        };
+        const restart = () => {
+            stop();
+            start();
+        };
+
+        // Buttons (reset the 5s countdown after every manual change)
+        root.querySelector("[data-next]")?.addEventListener("click", () => {
+            next();
+            restart();
+        });
+        root.querySelector("[data-prev]")?.addEventListener("click", () => {
+            prev();
+            restart();
+        });
+        dots.forEach((dot, i) =>
+            dot.addEventListener("click", () => {
+                goTo(i, i > current ? 1 : -1);
+                restart();
+            }),
+        );
+
+        // Pause while the user is hovering or navigating by keyboard.
+        root.addEventListener("mouseenter", () => {
+            paused = true;
+            stop();
+        });
+        root.addEventListener("mouseleave", () => {
+            paused = false;
+            start();
+        });
+        root.addEventListener("focusin", () => {
+            if (root.querySelector(":focus-visible")) {
+                paused = true;
+                stop();
+            }
+        });
+        root.addEventListener("focusout", () => {
+            paused = false;
+            start();
+        });
+
+        // Only slide 1 is eager; fetch the rest once the page has loaded.
+        window.addEventListener("load", () => {
+            root.querySelectorAll<HTMLImageElement>(".hero-slide-image").forEach((img) => {
+                img.loading = "eager";
+            });
+        });
+
+        render();
+        start();
+    }
+</script>
