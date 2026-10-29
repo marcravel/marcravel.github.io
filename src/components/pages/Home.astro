@@ -4,6 +4,14 @@ import ProjectCard from "../ProjectCard.astro";
 import projectsData from "../../data/projects.json";
 import homeContent from "../../data/home.json";
 import { useTranslatedPath } from "../../i18n/ui";
+import electronicsOne from "../../assets/carousel/electronics_001.jpg";
+import electronicsTwo from "../../assets/carousel/electronics_002.jpg";
+import electronicsThree from "../../assets/carousel/electronics_003.jpg";
+import electronicsFour from "../../assets/carousel/electronics_004.jpg";
+import electronicsFive from "../../assets/carousel/electronics_005.jpg";
+import electronicsSix from "../../assets/carousel/electronics_006.jpg";
+import electronicsSeven from "../../assets/carousel/electronics_007.jpg";
+import electronicsEight from "../../assets/carousel/electronics_008.jpg";
 
 export interface Props {
     lang: "en" | "fr" | "tr";
@@ -18,6 +26,16 @@ const activeProjects = projectsData.filter((project) => project.active === 1);
 const gridClassDesktop =
     activeProjects.length === 2 ? "lg-grid-cols-2" : "lg-grid-cols-3";
 const hero = homeContent[lang];
+const carouselImages = [
+    electronicsOne,
+    electronicsTwo,
+    electronicsThree,
+    electronicsFour,
+    electronicsFive,
+    electronicsSix,
+    electronicsSeven,
+    electronicsEight,
+];
 
 const texts = {
     en: {
@@ -132,33 +150,41 @@ const t = texts[lang];
         ],
     })} />
     <!-- ===================== HERO SECTION ===================== -->
-    <header
-        class="section pb-5"
-        style="min-height: 80vh; display: flex; align-items: center;"
-    >
-        <div class="container w-100">
-            <div
-                class="grid grid-cols-1 md-grid-cols-2 align-items-center gap-5"
-            >
-                <!-- Text -->
-                <div class="animate-fade-up">
+    <header class="hero-carousel" aria-label="Portfolio introduction">
+        <div class="hero-carousel-slides" aria-hidden="true">
+            {carouselImages.map((image, index) => (
+                <img
+                    class:list={["hero-carousel-slide", { active: index === 0 }]}
+                    src={image.src}
+                    width={image.width}
+                    height={image.height}
+                    alt=""
+                    loading={index === 0 ? "eager" : "lazy"}
+                    fetchpriority={index === 0 ? "high" : "auto"}
+                    decoding="async"
+                />
+            ))}
+        </div>
+        <div class="hero-carousel-overlay"></div>
+        <div class="container hero-carousel-content">
+                <div class="animate-fade-up hero-copy">
                     <div
                         class="d-inline-block mb-3 px-3 py-2 small"
-                        style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 9999px; font-weight: 500; color: var(--color-text-primary);"
+                        style="background: rgba(241, 247, 249, 0.12); border: 1px solid rgba(241, 247, 249, 0.3); border-radius: 9999px; font-weight: 500; color: var(--color-text-primary);"
                     >
                         {hero.tagline}
                     </div>
-                    <h1 class="mb-3" style="font-size: 4rem;">
-                        <span class="gradient-text">{hero.greeting}</span>
+                    <h1 class="mb-3 hero-title">
+                        HI, I'M MARC RAVELONTSALAMA
                     </h1>
                     <h2
                         class="mb-4 fw-light"
-                        style="font-size: 1.75rem; color: var(--color-text-secondary);"
+                        style="font-size: clamp(1.2rem, 3vw, 1.75rem); color: var(--color-text-primary);"
                     >
                         {hero.headline}
                     </h2>
                     <p class="lead mb-5">
-                        {hero.intro}
+                        Final-year Electrical and Electronics Engineering student passionate about embedded systems, firmware, control engineering, and intelligent systems.
                     </p>
                     <div class="d-flex flex-wrap gap-3">
                         <a
@@ -175,71 +201,18 @@ const t = texts[lang];
                             {t.download_cv}
                         </a>
                     </div>
-                </div>
-
-                <!-- Profile image -->
-                <div class="d-flex justify-content-center">
-                    <div
-                        class="glass p-2 floating-container"
-                        style="border-radius: 24px; max-width: 400px; width: 100%;"
-                    >
-                        <img
-                            src={`${baseUrl}img/profile.webp`}
-                            width="800"
-                            height="800"
-                            fetchpriority="high"
-                            decoding="async"
-                            class="img-fluid profile-img-hero w-100"
-                            alt={lang === "en" ? "Marc Ravelontsalama" : lang === "fr" ? "Marc Ravelontsalama, portrait" : "Marc Ravelontsalama portresi"}
-                            style="border-radius: 16px; display: block;"
-                        />
-                    </div>
-                </div>
-            </div>
         </div>
     </header>
 
     <style>
-        @keyframes rotate3In {
-            0% {
-                transform: perspective(1200px) rotateY(-30deg) rotateX(15deg)
-                    translateZ(-100px) scale(0.9);
-                opacity: 0;
-                box-shadow: 0 0 0 rgba(59, 130, 246, 0);
-            }
-
-            100% {
-                transform: perspective(1000px) rotateY(-8deg) rotateX(5deg)
-                    scale(1.05);
-                opacity: 1;
-                box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
-            }
-        }
-
-        @keyframes floating3D {
-            0%,
-            100% {
-                transform: translateY(0) rotateY(0deg) rotateX(0deg);
-            }
-            50% {
-                transform: translateY(-15px) rotateY(3deg) rotateX(-2deg);
-            }
-        }
-
-        .floating-container {
-            animation: floating3D 6s ease-in-out 1.5s infinite;
-            will-change: transform;
-        }
-
-        .profile-img-hero {
-            animation: rotate3In 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)
-                both;
-            transform-origin: center;
-            backface-visibility: hidden;
-            transform: perspective(1000px) rotateY(-8deg) rotateX(5deg)
-                scale(1.05);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
-        }
+        .hero-carousel { min-height: min(760px, 88vh); position: relative; display: flex; align-items: center; overflow: hidden; }
+        .hero-carousel-slides, .hero-carousel-overlay { position: absolute; inset: 0; }
+        .hero-carousel-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease; }
+        .hero-carousel-slide.active { opacity: 1; }
+        .hero-carousel-overlay { background: linear-gradient(90deg, rgba(7, 50, 106, 0.96), rgba(7, 50, 106, 0.68) 52%, rgba(10, 97, 201, 0.4)); }
+        .hero-carousel-content { position: relative; z-index: 1; width: 100%; padding-top: 6rem; padding-bottom: 5rem; }
+        .hero-copy { max-width: 760px; }
+        .hero-title { color: var(--color-light); font-size: clamp(2.4rem, 7vw, 5.5rem); line-height: 1.05; max-width: 12ch; }
 
         .skill-card {
             transition: transform 0.3s ease;
@@ -249,6 +222,17 @@ const t = texts[lang];
             transform: translateY(-5px);
         }
     </style>
+    <script>
+        const slides = document.querySelectorAll(".hero-carousel-slide");
+        let currentSlide = 0;
+        if (slides.length > 1 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            window.setInterval(() => {
+                slides[currentSlide].classList.remove("active");
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add("active");
+            }, 6000);
+        }
+    </script>
 
     <!-- ===================== SKILLS SECTION ===================== -->
     <section class="section py-5">

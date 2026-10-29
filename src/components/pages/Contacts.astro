@@ -17,6 +17,7 @@ const texts = {
             "Always open to discussing embedded systems, electronics, firmware, control, or potential internship opportunities. Feel free to reach out.",
         sendMessage: "Send a Message",
         success: "Thanks for reaching out! I'll get back to you shortly.",
+        error: "Your message could not be sent. Please try again or email me directly.",
         nameLabel: "Name",
         namePlaceholder: "John Doe",
         emailLabel: "Email",
@@ -37,6 +38,7 @@ const texts = {
             "Toujours disposé à échanger sur les systèmes embarqués, l'IA ou de potentielles opportunités de stage. N'hésitez pas à me contacter.",
         sendMessage: "Envoyer un message",
         success: "Merci de m'avoir contacté ! Je vous répondrai sous peu.",
+        error: "Votre message n'a pas pu être envoyé. Réessayez ou contactez-moi directement par e-mail.",
         nameLabel: "Nom",
         namePlaceholder: "Jean Dupont",
         emailLabel: "E-mail",
@@ -58,6 +60,7 @@ const texts = {
         sendMessage: "Mesaj Gönder",
         success:
             "Ulaştığınız için teşekkürler! Kısa süre içinde size döneceğim.",
+        error: "Mesajınız gönderilemedi. Lütfen tekrar deneyin veya doğrudan e-posta gönderin.",
         nameLabel: "İsim",
         namePlaceholder: "Ahmet Yılmaz",
         emailLabel: "E-posta",
@@ -108,6 +111,14 @@ const t = texts[lang];
                             style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); color: #10b981;"
                         >
                             {t.success}
+                        </div>
+                        <div
+                            class="glass p-3 mb-4 d-none"
+                            id="formErrorMessage"
+                            role="alert"
+                            style="background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: #fca5a5;"
+                        >
+                            {t.error}
                         </div>
                         <form id="contactForm">
                             <!-- Access Key -->
@@ -232,7 +243,7 @@ const t = texts[lang];
                             >
                                 <div
                                     class="icon-box d-flex justify-content-center align-items-center"
-                                    style="width: 48px; height: 48px; background: rgba(59, 130, 246, 0.1); border-radius: 12px;"
+                                    style="width: 48px; height: 48px; background: rgba(10, 97, 201, 0.1); border-radius: 12px;"
                                 >
                                     <svg
                                         aria-hidden="true"
@@ -274,7 +285,7 @@ const t = texts[lang];
                             >
                                 <div
                                     class="icon-box d-flex justify-content-center align-items-center"
-                                    style="width: 48px; height: 48px; background: rgba(59, 130, 246, 0.1); border-radius: 12px;"
+                                    style="width: 48px; height: 48px; background: rgba(10, 97, 201, 0.1); border-radius: 12px;"
                                 >
                                     <svg
                                         aria-hidden="true"
@@ -316,7 +327,7 @@ const t = texts[lang];
                             >
                                 <div
                                     class="icon-box d-flex justify-content-center align-items-center"
-                                    style="width: 48px; height: 48px; background: rgba(59, 130, 246, 0.1); border-radius: 12px;"
+                                    style="width: 48px; height: 48px; background: rgba(10, 97, 201, 0.1); border-radius: 12px;"
                                 >
                                     <svg
                                         aria-hidden="true"
@@ -356,7 +367,7 @@ const t = texts[lang];
                             >
                                 <div
                                     class="icon-box d-flex justify-content-center align-items-center"
-                                    style="width: 48px; height: 48px; background: rgba(59, 130, 246, 0.1); border-radius: 12px;"
+                                    style="width: 48px; height: 48px; background: rgba(10, 97, 201, 0.1); border-radius: 12px;"
                                 >
                                     <svg
                                         aria-hidden="true"
@@ -415,7 +426,7 @@ const t = texts[lang];
     .form-control:focus {
         outline: none;
         border-color: var(--color-accent-1);
-        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+        box-shadow: 0 0 0 2px rgba(10, 97, 201, 0.25);
     }
 
     /* Unified Hover Effects for Social Cards */
@@ -435,6 +446,7 @@ const t = texts[lang];
     const contactForm = document.getElementById("contactForm");
     const submitButton = document.getElementById("submitButton");
     const successMessage = document.getElementById("formSuccessMessage");
+    const errorMessage = document.getElementById("formErrorMessage");
 
     if (contactForm) {
         contactForm.addEventListener("submit", async function (e) {
@@ -444,6 +456,8 @@ const t = texts[lang];
             const originalButtonText = submitButton.innerHTML;
             submitButton.innerHTML = "Sending...";
             submitButton.disabled = true;
+            successMessage.classList.add("d-none");
+            errorMessage.classList.add("d-none");
 
             const formData = new FormData(contactForm);
 
@@ -465,10 +479,12 @@ const t = texts[lang];
                         successMessage.classList.add("d-none");
                     }, 5000);
                 } else {
-                    console.error("Form submission failed.");
+                    console.error("Form submission failed with status", response.status);
+                    errorMessage.classList.remove("d-none");
                 }
             } catch (error) {
                 console.error("Error submitting form", error);
+                errorMessage.classList.remove("d-none");
             } finally {
                 // Restore Button state
                 submitButton.innerHTML = originalButtonText;

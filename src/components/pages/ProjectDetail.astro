@@ -48,6 +48,19 @@ if (isTextFile) {
 const subtitleRegex =
     /^(Project Overview|Role & Responsibilities|System Architecture|Results & Recognition|Aperçu du Projet|Rôle et Responsabilités|Architecture du Système|Résultats et Reconnaissance|Proje Özeti|Rol ve Sorumluluklar|Sistem Mimarisi|Sonuçlar ve Başarılar):?$/i;
 
+const escapeHtml = (value: string) =>
+    value.replace(
+        /[&<>"']/g,
+        (character) =>
+            ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;",
+            })[character] || character,
+    );
+
 const parsedLongDescription = (
     typeof descriptionContent === "string" ? descriptionContent : ""
 )
@@ -56,9 +69,9 @@ const parsedLongDescription = (
     .map((p) => {
         const trimmed = p.trim();
         if (subtitleRegex.test(trimmed)) {
-            return `<h3 class="mb-3 mt-5" style="color: var(--color-accent-1); font-size: 1.5rem;">${trimmed}</h3>`;
+            return `<h3 class="mb-3 mt-5" style="color: var(--color-accent-1); font-size: 1.5rem;">${escapeHtml(trimmed)}</h3>`;
         }
-        return `<p class="mb-3 text-muted">${trimmed}</p>`;
+        return `<p class="mb-3 text-muted">${escapeHtml(trimmed)}</p>`;
     })
     .join("");
 
@@ -124,7 +137,7 @@ const t_galleryImage = {
                 <div class="mb-4">
                     <span
                         class="badge px-4 py-2"
-                        style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.5); color: #fff; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;"
+                        style="background: rgba(10, 97, 201, 0.2); border: 1px solid rgba(10, 97, 201, 0.5); color: #fff; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;"
                     >
                         {project.category[lang]}
                     </span>
@@ -201,9 +214,16 @@ const t_galleryImage = {
                                             fullImgPath = `${bUrl}${getOptimizedImagePath(fullImgPath)}`;
                                         }
                                         return (
-                                            <div
+                                            <button
+                                                type="button"
+                                                aria-label={project.galleryAlt?.[index]?.[lang] ||
+                                                    t_galleryImage[lang](
+                                                        project.title[lang],
+                                                        index + 1,
+                                                        project.gallery.length,
+                                                    )}
                                                 class="glass overflow-hidden"
-                                                style="cursor: pointer; aspect-ratio: 1; padding: 0;"
+                                                style="cursor: pointer; aspect-ratio: 1; padding: 0; border: 0; width: 100%;"
                                             >
                                                 <img
                                                     src={imgPath}
@@ -223,7 +243,7 @@ const t_galleryImage = {
                                                     loading="lazy"
                                                     decoding="async"
                                                 />
-                                            </div>
+                                            </button>
                                         );
                                     })}
                                 </div>
@@ -286,14 +306,19 @@ const t_galleryImage = {
     </section>
 
     <!-- Custom Modal -->
-    <div id="customImageModal" class="custom-modal">
+    <div
+        id="customImageModal"
+        class="custom-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label={t_gallery[lang]}
+    >
         <div class="custom-modal-content">
-            <span
+            <button
+                type="button"
                 class="custom-modal-close"
-                role="button"
-                tabindex="0"
                 aria-label={lang === "en" ? "Close image viewer" : lang === "fr" ? "Fermer la visionneuse d’images" : "Görsel görüntüleyiciyi kapat"}
-            >&times;</span>
+            >&times;</button>
             <img id="customModalImage" src="" alt="" width="1600" height="1000" />
         </div>
     </div>
@@ -335,7 +360,7 @@ const t_galleryImage = {
         width: 100%;
         height: 100%;
         overflow: auto;
-        background-color: rgba(10, 10, 10, 0.9);
+        background-color: rgba(7, 50, 106, 0.9);
         backdrop-filter: blur(5px);
         align-items: center;
         justify-content: center;
@@ -370,6 +395,9 @@ const t_galleryImage = {
         font-size: 40px;
         font-weight: bold;
         cursor: pointer;
+        border: 0;
+        background: transparent;
+        padding: 0 0.5rem;
         transition: color 0.3s;
     }
 
@@ -418,4 +446,10 @@ const t_galleryImage = {
             }
         });
     }
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal?.classList.contains("show")) {
+            closeModal();
+        }
+    });
 </script>
