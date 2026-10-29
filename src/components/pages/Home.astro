@@ -4,6 +4,13 @@ import ProjectCard from "../ProjectCard.astro";
 import projectsData from "../../data/projects.json";
 import { useTranslatedPath } from "../../i18n/ui";
 
+import embeddedIcon from "../../assets/icons/embedded.png";
+import pcbIcon from "../../assets/icons/pcb-design.png";
+import controlIcon from "../../assets/icons/control.png";
+import linuxIcon from "../../assets/icons/linux.png";
+
+const skillIcons = [embeddedIcon, pcbIcon, controlIcon, linuxIcon];
+
 export interface Props {
     lang: "en" | "fr" | "tr";
 }
@@ -43,12 +50,12 @@ const texts = {
                 text: "Final-year Electrical and Electronics Engineering student passionate about <strong>embedded systems</strong>, firmware, control engineering, and intelligent systems.",
             },
             {
-                title: "Where software meets hardware",
-                text: "Firmware, power electronics and control: from <strong>custom PCBs</strong> to the code that runs on them. Currently building a digitally controlled buck converter with Linux telemetry.",
+                title: "OPEN TO INTERNSHIPS",
+                text: "Embedded systems and power electronics roles in the EU, starting early 2027.",
             },
             {
-                title: "Open to an internship",
-                text: "On Erasmus+ in Riga until January 2027, and looking for an <strong>embedded systems</strong> internship in Europe.",
+                title: "WHAT I BUILD",
+                text: "Firmware (STM32, PIC, Arduino), PCB design, and a digitally controlled buck converter from board to Linux telemetry.",
             },
         ],
         skillsHeading: "Skills Overview",
@@ -89,12 +96,12 @@ const texts = {
                 text: "Étudiant en dernière année de génie électrique et électronique, passionné par les <strong>systèmes embarqués</strong>, le firmware, l'automatique et les systèmes intelligents.",
             },
             {
-                title: "Là où le logiciel rencontre le matériel",
-                text: "Firmware, électronique de puissance et contrôle : des <strong>circuits imprimés sur mesure</strong> jusqu'au code qui les fait tourner. Actuellement : un convertisseur buck à commande numérique avec télémétrie Linux.",
+                title: "OUVERT AUX STAGES",
+                text: "Je recherche un stage en systèmes embarqués et électronique de puissance dans l’UE, début 2027.",
             },
             {
-                title: "Ouvert à un stage",
-                text: "En Erasmus+ à Riga jusqu'en janvier 2027, je cherche un stage en <strong>systèmes embarqués</strong>.",
+                title: "CE QUE JE CONSTRUIS",
+                text: "Firmware (STM32, PIC, Arduino), conception de PCB et un convertisseur buck à commande numérique, de la carte à la télémétrie Linux.",
             },
         ],
         skillsHeading: "Aperçu des compétences",
@@ -131,12 +138,12 @@ const texts = {
                 text: "Elektrik-Elektronik Mühendisliği son sınıf öğrencisi; <strong>gömülü sistemler</strong>, firmware, kontrol mühendisliği ve akıllı sistemler konusunda tutkulu.",
             },
             {
-                title: "Yazılımın donanımla buluştuğu yer",
-                text: "Firmware, güç elektroniği ve kontrol: <strong>özel PCB'lerden</strong> üzerinde çalışan koda kadar. Şu anda Linux telemetrili, dijital kontrollü bir buck konvertör üzerinde çalışıyorum.",
+                title: "STAJA AÇIĞIM",
+                text: "Gömülü sistemler ve güç elektroniği alanında, 2027 başlangıçlı staj arıyorum.",
             },
             {
-                title: "Avrupa'da staja açığım",
-                text: "Ocak 2027'ye kadar Riga'da Erasmus+ kapsamındayım ve Avrupa'da <strong>gömülü sistemler</strong> alanında staj arıyorum.",
+                title: "NELER GELİŞTİRİYORUM",
+                text: "Firmware (STM32, PIC, Arduino), PCB tasarımı ve karttan Linux telemetrisine kadar dijital kontrollü bir buck dönüştürücü.",
             },
         ],
         skillsHeading: "Yeteneklere Genel Bakış",
@@ -270,40 +277,55 @@ const personSchema = {
     </header>
 
     <!-- ===================== SKILLS ===================== -->
-    <section class="section">
+    <section class="skills-section">
         <div class="container">
-            <h2 class="section-title"><span>{t.skillsHeading}</span></h2>
+            <div class="skills-wrapper">
+                <h2 class="section-title skills-heading"><span>{t.skillsHeading}</span></h2>
 
-            <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-4 gap-4 animate-fade-up delay-2">
-                {
-                    t.skills.map((skill) => (
-                        <article class="surface p-4 h-100 skill-card">
-                            <h3 class="skill-title mb-3">{skill.title}</h3>
-                            <p class="small text-muted mb-0">{skill.desc}</p>
-                        </article>
-                    ))
-                }
+                <div class="grid grid-cols-1 md-grid-cols-2 gap-4 skills-grid animate-fade-up delay-2">
+                    {
+                        t.skills.map((skill, index) => {
+                            const icon = skillIcons[index];
+                            return (
+                                <article class="skill-card h-100">
+                                    <img
+                                        src={icon.src}
+                                        width="56"
+                                        height="56"
+                                        alt=""
+                                        aria-hidden="true"
+                                        class="skill-icon mb-3"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                    <h3 class="skill-title mb-2">{skill.title}</h3>
+                                    <p class="small text-secondary mb-0">{skill.desc}</p>
+                                </article>
+                            );
+                        })
+                    }
+                </div>
             </div>
         </div>
     </section>
 
     <!-- ===================== PROJECTS PREVIEW ===================== -->
-    <section class="section mb-5">
+    <section class="projects-section">
         <div class="container">
-            <div class="d-flex flex-wrap justify-content-between align-items-center mb-5 gap-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center projects-header gap-3">
                 <h2 class="section-title mb-0"><span>{t.selectedProjects}</span></h2>
                 <a href={translatePath("/projects")} class="btn btn-outline view-all">
                     {t.viewAll}
                 </a>
             </div>
 
-            <div class={`grid grid-cols-1 md-grid-cols-2 ${gridClassDesktop} gap-4 animate-fade-up delay-3`}>
+            <div class={`grid grid-cols-1 md-grid-cols-2 ${gridClassDesktop} gap-4 projects-grid animate-fade-up delay-3`}>
                 {activeProjects.map((project) => <ProjectCard project={project} lang={lang} />)}
             </div>
 
-            <div class="mt-5 text-center d-flex align-items-center justify-content-center gap-2 animate-fade-up delay-4">
+            <div class="in-development text-center d-flex align-items-center justify-content-center gap-2 animate-fade-up delay-4">
                 <span class="status-dot"></span>
-                <p class="small text-muted mb-0 fst-italic">{t.inDevelopment}</p>
+                <p class="small text-secondary mb-0 fst-italic">{t.inDevelopment}</p>
             </div>
         </div>
     </section>
@@ -444,23 +466,85 @@ const personSchema = {
         background-color: var(--color-light);
     }
 
+    /* ---------- Section Flow & Consistent Spacing ---------- */
+
+    .skills-section {
+        padding-top: var(--home-flow-gap, clamp(2.5rem, 5vw, 3.5rem));
+        padding-bottom: 0;
+    }
+
+    .skills-wrapper {
+        max-width: 960px;
+        margin-inline: auto;
+    }
+
+    .skills-heading {
+        margin-bottom: var(--home-flow-gap, clamp(2.5rem, 5vw, 3.5rem)) !important;
+        text-align: center;
+    }
+
+    .skills-grid {
+        margin-bottom: var(--home-flow-gap, clamp(2.5rem, 5vw, 3.5rem));
+    }
+
+    .projects-section {
+        padding-top: 0;
+        padding-bottom: var(--home-flow-gap, clamp(2.5rem, 5vw, 3.5rem));
+    }
+
+    .projects-header {
+        margin-bottom: var(--home-flow-gap, clamp(2.5rem, 5vw, 3.5rem));
+    }
+
+    .projects-grid {
+        margin-bottom: var(--home-flow-gap, clamp(2.5rem, 5vw, 3.5rem));
+    }
+
+    .in-development {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
     /* ---------- Skills ---------- */
 
     .skill-card {
         background-color: var(--color-bg-card);
-        border: 1px solid var(--color-border-subtle);
+        border: none !important;
+        outline: none !important;
         border-radius: var(--radius-md);
-        transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+        padding: clamp(1.75rem, 3.5vw, 2.25rem);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        transition: transform var(--transition-base), box-shadow var(--transition-base);
     }
+
     .skill-card:hover {
-        transform: translateY(-5px);
-        border-color: var(--color-accent-1);
-        box-shadow: 0 10px 28px rgba(7, 50, 106, 0.1);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(7, 50, 106, 0.08);
     }
+
+    .skill-icon {
+        width: 56px;
+        height: 56px;
+        object-fit: contain;
+        margin-inline: auto;
+        display: block;
+        flex-shrink: 0;
+    }
+
     .skill-title {
         font-size: 1.25rem;
         font-weight: 700;
         color: var(--color-text-primary);
+        text-align: center;
+    }
+
+    .skill-card p {
+        color: var(--color-text-secondary);
+        line-height: 1.6;
+        text-align: center;
     }
 
     /* ---------- Projects ---------- */
@@ -486,8 +570,8 @@ const personSchema = {
 </style>
 
 <script>
-    const AUTOPLAY_MS = 8000; // time each slide stays on screen
-    const TRANSITION_MS = 2000; // slide animation length (also drives the CSS)
+    const AUTOPLAY_MS = 7000; // time each slide stays on screen
+    const TRANSITION_MS = 1000; // slide animation length (also drives the CSS)
 
     const root = document.querySelector<HTMLElement>("[data-carousel]");
 
