@@ -39,6 +39,16 @@ const texts = {
         courses: "Courses",
         certTitle: "View Certificate",
         community: "Community Involvement",
+        timelineTitle: "Timeline",
+        timeline: [
+            { year: "2021", title: "High School Diploma (Scientific)", desc: "Lycée Privé Saint Joseph, Antsirabe. Magna Cum Laude." },
+            { year: "2021 – 2022", title: "Programmer and Robotics Trainee", desc: "ITRAS Group, Antananarivo. Path-planning algorithms, microcontroller boards, maze-solving and line-following robots." },
+            { year: "2023", title: "Started Electrical-Electronics Engineering", desc: "Selçuk Üniversitesi, Konya. Turkish Government Scholarship awardee." },
+            { year: "Dec 2025", title: "Multimedia Coordinator & Graphic Designer", desc: "Malagasy Culture and Solidarity Association in Turkey and Afrokonya." },
+            { year: "Jun – Aug 2026", title: "Data Science & Software Development Intern", desc: "Autodidactic Technologies, Istanbul. Crop-disease image classification (ResNet-18) with a FastAPI serving layer." },
+            { year: "Sep 2026 – Jan 2027", title: "Erasmus+ Exchange", desc: "Riga Technical University, Latvia." },
+            { year: "2027", title: "Curricular Internship & Graduation", desc: "Looking for an embedded systems role in the EU." },
+        ],
     },
     fr: {
         title: "À propos - Marc",
@@ -57,7 +67,17 @@ const texts = {
         experience: "Expériences",
         courses: "Cours",
         certTitle: "Voir le certificat",
-        community: "Engagement Communautaire",
+        community: "Engagement CommunautaireCannot read properties of undefined (reading 'map')",
+        timelineTitle: "Parcours",
+        timeline: [
+            { year: "2021", title: "Baccalauréat scientifique", desc: "Lycée Privé Saint Joseph, Antsirabe. Mention Bien." },
+            { year: "2021 – 2022", title: "Programmeur et stagiaire en robotique", desc: "ITRAS Group, Antananarivo. Algorithmes de planification de trajectoire, cartes à microcontrôleur, robots suiveurs de ligne et résolveurs de labyrinthe." },
+            { year: "2023", title: "Début du génie électrique et électronique", desc: "Selçuk Üniversitesi, Konya. Boursier du gouvernement turc." },
+            { year: "Déc. 2025", title: "Coordinateur multimédia et graphiste", desc: "Association malgache de culture et de solidarité en Turquie et Afrokonya." },
+            { year: "Juin – août 2026", title: "Stagiaire en science des données et développement logiciel", desc: "Autodidactic Technologies, Istanbul. Classification d'images de maladies des cultures (ResNet-18) avec une couche de service FastAPI." },
+            { year: "Sept. 2026 – janv. 2027", title: "Échange Erasmus+", desc: "Riga Technical University, Lettonie." },
+            { year: "2027", title: "Stage de fin d'études et diplôme", desc: "Recherche d'un poste en systèmes embarqués dans l'UE." },
+        ],
     },
     tr: {
         title: "Hakkımda - Marc",
@@ -77,10 +97,21 @@ const texts = {
         courses: "Kurslar",
         certTitle: "Sertifikayı Görüntüle",
         community: "Topluluk Katılımı",
+        timelineTitle: "Zaman Çizelgesi",
+        timeline: [
+            { year: "2021", title: "Lise Diploması (Fen)", desc: "Lycée Privé Saint Joseph, Antsirabe. Pekiyi derece (Magna Cum Laude)." },
+            { year: "2021 – 2022", title: "Programcı ve Robotik Stajyeri", desc: "ITRAS Group, Antananarivo. Yol planlama algoritmaları, mikrodenetleyici kartları, labirent çözen ve çizgi izleyen robotlar." },
+            { year: "2023", title: "Elektrik-Elektronik Mühendisliğine başlangıç", desc: "Selçuk Üniversitesi, Konya. Türkiye Bursları sahibi." },
+            { year: "Ara 2025", title: "Multimedya Koordinatörü ve Grafik Tasarımcı", desc: "Türkiye'deki Madagaskar Kültür ve Dayanışma Derneği ve Afrokonya." },
+            { year: "Haz – Ağu 2026", title: "Veri Bilimi ve Yazılım Geliştirme Stajyeri", desc: "Autodidactic Technologies, İstanbul. Bitki hastalığı görüntü sınıflandırma (ResNet-18) ve FastAPI servis katmanı." },
+            { year: "Eyl 2026 – Oca 2027", title: "Erasmus+ Değişim Programı", desc: "Riga Technical University, Letonya." },
+            { year: "2027", title: "Zorunlu Staj ve Mezuniyet", desc: "AB'de gömülü sistemler alanında staj arıyorum." },
+        ],
     },
 };
 
 const t = { ...texts[lang], ...aboutContent[lang] };
+const items = t.timeline ?? [];
 ---
 
 <BaseLayout title={t.title} description={t.description}>
@@ -276,185 +307,37 @@ const t = { ...texts[lang], ...aboutContent[lang] };
             </div>
     </section>
 
-<section class="section">
-    <div class="container animate-fade-up">
-        <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-2 gap-3 about-columns">
-            <!-- Left: Experience -->
-            <div class="surface p-4 p-md-5 about-experience">
-                <h3 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
-                    {t.experience}
-                </h3>
+    {items.length > 0 && (
+        <section class="section">
+            <div class="container animate-fade-up">
+                <h2 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
+                    {t.timelineTitle}
+                </h2>
 
-                {t.experienceEntries.map((entry, index) => (
-                    <div
-                        class="edu-card"
-                        style={index > 0
-                            ? "border-top: 1px solid var(--color-border-subtle); padding-top: 1.5rem; margin-top: 1.5rem;"
-                            : ""}
-                    >
-                        <h5 class="fw-bold mb-2" style="color: var(--color-text-primary);">
-                            {entry.title}
-                        </h5>
-                        <p class="mb-2 small fw-bold" style="color: var(--color-accent-1);">
-                            {entry.year}
-                        </p>
-                        <p class="small mb-3" style="color: var(--color-text-secondary);">
-                            {entry.loc}
-                        </p>
-                        <ul class="small mb-0 ps-3" style="color: var(--color-text-secondary); line-height: 1.6;">
-                            {entry.li1 && <li class="mb-2">{entry.li1}</li>}
-                            {entry.li2 && <li class="mb-2">{entry.li2}</li>}
-                            {entry.li3 && <li>{entry.li3}</li>}
-                        </ul>
-                    </div>
-                ))}
-            </div>
-            <!-- Left: Education -->
-            <div class="surface p-4 p-md-5 about-education">
-                <h3 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
-                    {t.eduHonors}
-                </h3>
-
-                {t.educationEntries.map((entry, index) => (
-                    <div
-                        class="edu-card"
-                        style={index > 0
-                            ? "border-top: 1px solid var(--color-border-subtle); padding-top: 1.5rem; margin-top: 1.5rem;"
-                            : ""}
-                    >
-                    <h5
-                        class="fw-bold mb-2"
-                        style="color: var(--color-text-primary);"
-                    >
-                        {entry.title}
-                    </h5>
-                    <p
-                        class="mb-2 small fw-bold"
-                        style="color: var(--color-accent-1);"
-                    >
-                        {entry.year}
-                    </p>
-                    <p
-                        class="small mb-3"
-                        style="color: var(--color-text-secondary);"
-                    >
-                        {entry.loc}
-                    </p>
-                    {entry.badge && (
-                        entry.badgeStyle === "scholarship" ? (
-                            showScholarship && (
-                                <div class="mt-2">
-                                    <span class="badge badge-dark px-3 py-2">{entry.badge}</span>
+                <div class="timeline-scroll">
+                    <ol class="timeline">
+                        {items.map((item, index) => (
+                            <li class={`timeline-item ${index % 2 === 0 ? "is-top" : "is-bottom"}`}>
+                                <div class="surface p-4 timeline-card">
+                                    <span class="timeline-year">{item.year}</span>
+                                    <h5 class="fw-bold mb-2" style="color: var(--color-text-primary);">
+                                        {item.title}
+                                    </h5>
+                                    <p class="small mb-0" style="color: var(--color-text-secondary);">
+                                        {item.desc}
+                                    </p>
                                 </div>
-                            )
-                        ) : (
-                            <div class="mt-2">
-                                <span
-                                    class="badge px-3 py-2"
-                                    style="background: var(--color-bg-elevated); border-color: var(--color-border); color: var(--color-text-secondary);"
-                                >
-                                    {entry.badge}
-                                </span>
-                            </div>
-                        )
-                    )}
+                                <div class="timeline-mid">
+                                    <span class="timeline-dot"></span>
+                                </div>
+                            </li>
+                        ))}
+                    </ol>
                 </div>
-            ))}
             </div>
-
-        </div> <!-- closes grid -->
-    </div> <!-- closes container -->
-</section>
-
-<section class="section">
-    <div class="container animate-fade-up">
-        <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-2 gap-3 about-columns">
-
-             <!-- Right: Courses -->
-            <div class="surface p-4 p-md-5 about-courses">
-                <h3 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
-                    {t.courses}
-                </h3>
-
-                {t.courseEntries.map((course, index) => (
-                    <a
-                        href={courseLinks[`course${index + 1}`]}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-decoration-none course-link d-block"
-                        style={index > 0
-                            ? "border-top: 1px solid var(--color-border-subtle); padding-top: 1.5rem; margin-top: 1.5rem;"
-                            : ""}
-                    >
-                        <div class="edu-card">
-                            <div class="cert-overlay">
-                                <span class="cert-btn">{t.certTitle}</span>
-                            </div>
-                            <h5
-                                class="fw-bold mb-2 course-title"
-                                style="color: var(--color-text-primary);"
-                            >
-                                {course.title}
-                            </h5>
-                            <p
-                                class="mb-2 small fw-bold"
-                                style="color: var(--color-accent-1);"
-                            >
-                                {course.year}
-                            </p>
-                            <p
-                                class="small mb-3"
-                                style="color: var(--color-text-secondary);"
-                            >
-                                {course.loc}
-                            </p>
-                            <ul
-                                class="small mb-0 ps-3"
-                                style="color: var(--color-text-secondary); line-height: 1.6;"
-                            >
-                                {course.li1 && <li class="mb-2">{course.li1}</li>}
-                                {course.li2 && <li class="mb-2">{course.li2}</li>}
-                                {course.li3 && <li>{course.li3}</li>}
-                            </ul>
-                        </div>
-                    </a>
-                ))}
-            </div>
-
-            <!-- Right: Community -->
-            <div class="surface p-4 p-md-5 about-community">
-                <h3 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
-                    {t.community}
-                </h3>
-
-                {t.communityEntries.map((entry, index) => (
-                    <div
-                        class="edu-card"
-                        style={index > 0
-                            ? "border-top: 1px solid var(--color-border-subtle); padding-top: 1.5rem; margin-top: 1.5rem;"
-                            : ""}
-                    >
-                        <h5 class="fw-bold mb-2" style="color: var(--color-text-primary);">
-                            {entry.title}
-                        </h5>
-                        <p class="mb-2 small fw-bold" style="color: var(--color-accent-1);">
-                            {entry.year}
-                        </p>
-                        <p class="small mb-3" style="color: var(--color-text-secondary);">
-                            {entry.loc}
-                        </p>
-                        <ul class="small mb-0 ps-3" style="color: var(--color-text-secondary); line-height: 1.6;">
-                            {entry.li1 && <li class="mb-2">{entry.li1}</li>}
-                            {entry.li2 && <li class="mb-2">{entry.li2}</li>}
-                            {entry.li3 && <li>{entry.li3}</li>}
-                        </ul>
-                    </div>
-                ))}
-            </div>
-
-        </div>
-    </div>
-</section>
+        </section>
+    )}
+    
 </div>
 </BaseLayout>
 
@@ -536,4 +419,142 @@ const t = { ...texts[lang], ...aboutContent[lang] };
     .course-link:hover .cert-btn {
         transform: translateY(0);
     }
+    .timeline-scroll {
+        overflow-x: auto;
+        padding-bottom: 1rem;
+    }
+
+    .timeline {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 280px;
+        grid-template-rows: auto auto auto; /* above | line | below */
+        column-gap: 1.5rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        width: max-content;
+        min-width: 100%;
+    }
+
+    .timeline-item {
+        display: grid;
+        grid-row: span 3;
+        grid-template-rows: subgrid;
+    }
+
+    .timeline-mid {
+        grid-row: 2;
+        position: relative;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+    }
+
+    /* the line, bridging the gap to the next item */
+    .timeline-mid::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: -1.5rem;
+        top: 50%;
+        height: 2px;
+        transform: translateY(-50%);
+        background: var(--color-border);
+    }
+    .timeline-item:last-child .timeline-mid::before {
+        right: 0;
+    }
+
+    .timeline-dot {
+        position: relative;
+        z-index: 1;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--color-accent-1);
+    }
+
+    .timeline-year {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: var(--color-accent-1);
+    }
+
+    /* alternate above / below */
+    .is-top .timeline-card {
+        grid-row: 1;
+        align-self: end;
+        margin-bottom: 0.5rem;
+    }
+    .is-bottom .timeline-card {
+        grid-row: 3;
+        align-self: start;
+        margin-top: 0.5rem;
+    }
+
+    /* phones: vertical list, no alternating */
+    @media (max-width: 767px) {
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            width: auto;
+            gap: 1rem;
+        }
+        .timeline-item { display: block; }
+        .timeline-mid { display: none; }
+        .is-top .timeline-card,
+        .is-bottom .timeline-card { margin: 0; }
+    }
 </style>
+
+<script>
+    const scroller = document.querySelector<HTMLElement>(".timeline-scroll");
+
+    if (scroller) {
+        let lastScrollTime = 0;
+        let edgeHoldUntil = 0;
+
+        scroller.addEventListener(
+            "wheel",
+            (e) => {
+                // Nothing to scroll sideways (e.g. mobile vertical layout)
+                if (scroller.scrollWidth <= scroller.clientWidth) return;
+
+                // Real horizontal gesture (trackpad): let the browser handle it
+                if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+
+                const now = Date.now();
+                const atStart = scroller.scrollLeft <= 0;
+                const atEnd =
+                    scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 1;
+                const pushingPastEdge =
+                    (e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd);
+
+                if (pushingPastEdge) {
+                    // First time hitting the edge in this gesture: hold the page in place
+                    if (now > edgeHoldUntil) {
+                        // gap since the last wheel event = a new gesture, so release
+                        if (now - lastScrollTime > 400 && edgeHoldUntil !== 0) {
+                            lastScrollTime = now;
+                            return;
+                        }
+                    }
+                    // Still in the same spin: swallow the event so the page doesn't move
+                    e.preventDefault();
+                    lastScrollTime = now;
+                    edgeHoldUntil = now + 400;
+                    return;
+                }
+
+                e.preventDefault();
+                lastScrollTime = now;
+                edgeHoldUntil = 0;
+                scroller.scrollLeft += e.deltaY;
+            },
+            { passive: false }
+        );
+    }
+</script>

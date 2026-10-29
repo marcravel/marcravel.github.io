@@ -1,0 +1,179 @@
+<section class="section">
+        <div class="container animate-fade-up">
+            <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-2 gap-3 about-columns">
+                <!-- Left: Experience -->
+                <div class="surface p-4 p-md-5 about-experience">
+                    <h3 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
+                        {t.experience}
+                    </h3>
+
+                    {t.experienceEntries.map((entry, index) => (
+                        <div
+                            class="edu-card"
+                            style={index > 0
+                                ? "border-top: 1px solid var(--color-border-subtle); padding-top: 1.5rem; margin-top: 1.5rem;"
+                                : ""}
+                        >
+                            <h5 class="fw-bold mb-2" style="color: var(--color-text-primary);">
+                                {entry.title}
+                            </h5>
+                            <p class="mb-2 small fw-bold" style="color: var(--color-accent-1);">
+                                {entry.year}
+                            </p>
+                            <p class="small mb-3" style="color: var(--color-text-secondary);">
+                                {entry.loc}
+                            </p>
+                            <ul class="small mb-0 ps-3" style="color: var(--color-text-secondary); line-height: 1.6;">
+                                {entry.li1 && <li class="mb-2">{entry.li1}</li>}
+                                {entry.li2 && <li class="mb-2">{entry.li2}</li>}
+                                {entry.li3 && <li>{entry.li3}</li>}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+                <!-- Left: Education -->
+                <div class="surface p-4 p-md-5 about-education">
+                    <h3 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
+                        {t.eduHonors}
+                    </h3>
+
+                    {t.educationEntries.map((entry, index) => (
+                        <div
+                            class="edu-card"
+                            style={index > 0
+                                ? "border-top: 1px solid var(--color-border-subtle); padding-top: 1.5rem; margin-top: 1.5rem;"
+                                : ""}
+                        >
+                        <h5
+                            class="fw-bold mb-2"
+                            style="color: var(--color-text-primary);"
+                        >
+                            {entry.title}
+                        </h5>
+                        <p
+                            class="mb-2 small fw-bold"
+                            style="color: var(--color-accent-1);"
+                        >
+                            {entry.year}
+                        </p>
+                        <p
+                            class="small mb-3"
+                            style="color: var(--color-text-secondary);"
+                        >
+                            {entry.loc}
+                        </p>
+                        {entry.badge && (
+                            entry.badgeStyle === "scholarship" ? (
+                                showScholarship && (
+                                    <div class="mt-2">
+                                        <span class="badge badge-dark px-3 py-2">{entry.badge}</span>
+                                    </div>
+                                )
+                            ) : (
+                                <div class="mt-2">
+                                    <span
+                                        class="badge px-3 py-2"
+                                        style="background: var(--color-bg-elevated); border-color: var(--color-border); color: var(--color-text-secondary);"
+                                    >
+                                        {entry.badge}
+                                    </span>
+                                </div>
+                            )
+                        )}
+                    </div>
+                ))}
+                </div>
+
+            </div> <!-- closes grid -->
+        </div> <!-- closes container -->
+    </section>
+
+    <section class="section">
+        <div class="container animate-fade-up">
+            <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-2 gap-3 about-columns">
+
+                <!-- Right: Courses -->
+                <div class="surface p-4 p-md-5 about-courses">
+                    <h3 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
+                        {t.courses}
+                    </h3>
+
+                    {t.courseEntries.map((course, index) => (
+                        <a
+                            href={courseLinks[`course${index + 1}`]}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-decoration-none course-link d-block"
+                            style={index > 0
+                                ? "border-top: 1px solid var(--color-border-subtle); padding-top: 1.5rem; margin-top: 1.5rem;"
+                                : ""}
+                        >
+                            <div class="edu-card">
+                                <div class="cert-overlay">
+                                    <span class="cert-btn">{t.certTitle}</span>
+                                </div>
+                                <h5
+                                    class="fw-bold mb-2 course-title"
+                                    style="color: var(--color-text-primary);"
+                                >
+                                    {course.title}
+                                </h5>
+                                <p
+                                    class="mb-2 small fw-bold"
+                                    style="color: var(--color-accent-1);"
+                                >
+                                    {course.year}
+                                </p>
+                                <p
+                                    class="small mb-3"
+                                    style="color: var(--color-text-secondary);"
+                                >
+                                    {course.loc}
+                                </p>
+                                <ul
+                                    class="small mb-0 ps-3"
+                                    style="color: var(--color-text-secondary); line-height: 1.6;"
+                                >
+                                    {course.li1 && <li class="mb-2">{course.li1}</li>}
+                                    {course.li2 && <li class="mb-2">{course.li2}</li>}
+                                    {course.li3 && <li>{course.li3}</li>}
+                                </ul>
+                            </div>
+                        </a>
+                    ))}
+                </div>
+
+                <!-- Right: Community -->
+                <div class="surface p-4 p-md-5 about-community">
+                    <h3 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
+                        {t.community}
+                    </h3>
+
+                    {t.communityEntries.map((entry, index) => (
+                        <div
+                            class="edu-card"
+                            style={index > 0
+                                ? "border-top: 1px solid var(--color-border-subtle); padding-top: 1.5rem; margin-top: 1.5rem;"
+                                : ""}
+                        >
+                            <h5 class="fw-bold mb-2" style="color: var(--color-text-primary);">
+                                {entry.title}
+                            </h5>
+                            <p class="mb-2 small fw-bold" style="color: var(--color-accent-1);">
+                                {entry.year}
+                            </p>
+                            <p class="small mb-3" style="color: var(--color-text-secondary);">
+                                {entry.loc}
+                            </p>
+                            <ul class="small mb-0 ps-3" style="color: var(--color-text-secondary); line-height: 1.6;">
+                                {entry.li1 && <li class="mb-2">{entry.li1}</li>}
+                                {entry.li2 && <li class="mb-2">{entry.li2}</li>}
+                                {entry.li3 && <li>{entry.li3}</li>}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+
+            </div>
+        </div>
+    </section>
