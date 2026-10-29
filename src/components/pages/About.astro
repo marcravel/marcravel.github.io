@@ -46,7 +46,7 @@ const texts = {
             { year: "2023", title: "Started Electrical-Electronics Engineering", desc: "Selçuk Üniversitesi, Konya. Turkish Government Scholarship awardee." },
             { year: "Dec 2025", title: "Multimedia Coordinator & Graphic Designer", desc: "Malagasy Culture and Solidarity Association in Turkey and Afrokonya." },
             { year: "Jun – Aug 2026", title: "Data Science & Software Development Intern", desc: "Autodidactic Technologies, Istanbul. Crop-disease image classification (ResNet-18) with a FastAPI serving layer." },
-            { year: "Sep 2026 – Jan 2027", title: "Erasmus+ Exchange", desc: "Riga Technical University, Latvia." },
+            { year: "Sep 2026 – Jan 2027", current: true, title: "Erasmus+ Exchange", desc: "Riga Technical University, Latvia." },
             { year: "2027", title: "Curricular Internship & Graduation", desc: "Looking for an embedded systems role in the EU." },
         ],
     },
@@ -67,7 +67,7 @@ const texts = {
         experience: "Expériences",
         courses: "Cours",
         certTitle: "Voir le certificat",
-        community: "Engagement CommunautaireCannot read properties of undefined (reading 'map')",
+        community: "Engagement Communautaire",
         timelineTitle: "Parcours",
         timeline: [
             { year: "2021", title: "Baccalauréat scientifique", desc: "Lycée Privé Saint Joseph, Antsirabe. Mention Bien." },
@@ -313,26 +313,27 @@ const items = t.timeline ?? [];
                 <h2 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
                     {t.timelineTitle}
                 </h2>
-
-                <div class="timeline-scroll">
-                    <ol class="timeline">
-                        {items.map((item, index) => (
-                            <li class={`timeline-item ${index % 2 === 0 ? "is-top" : "is-bottom"}`}>
-                                <div class="surface p-4 timeline-card">
-                                    <span class="timeline-year">{item.year}</span>
-                                    <h5 class="fw-bold mb-2" style="color: var(--color-text-primary);">
-                                        {item.title}
-                                    </h5>
-                                    <p class="small mb-0" style="color: var(--color-text-secondary);">
-                                        {item.desc}
-                                    </p>
-                                </div>
-                                <div class="timeline-mid">
-                                    <span class="timeline-dot"></span>
-                                </div>
-                            </li>
-                        ))}
-                    </ol>
+                <div class="timeline-wrap">
+                    <div class="timeline-scroll">
+                        <ol class="timeline">
+                            {items.map((item, index) => (
+                                <li class={`timeline-item ${index % 2 === 0 ? "is-top" : "is-bottom"} ${item.current ? "is-current" : ""}`}>
+                                    <div class="surface p-4 timeline-card">
+                                        <span class="timeline-year">{item.year}</span>
+                                        <h5 class="fw-bold mb-2" style="color: var(--color-text-primary);">
+                                            {item.title}
+                                        </h5>
+                                        <p class="small mb-0" style="color: var(--color-text-secondary);">
+                                            {item.desc}
+                                        </p>
+                                    </div>
+                                    <div class="timeline-mid">
+                                        <span class="timeline-dot"></span>
+                                    </div>
+                                </li>
+                            ))}
+                        </ol>
+                    </div>
                 </div>
             </div>
         </section>
@@ -420,138 +421,203 @@ const items = t.timeline ?? [];
         transform: translateY(0);
     }
     .timeline-scroll {
-        overflow-x: auto;
-        padding-bottom: 1rem;
-    }
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+}
 
+.timeline {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 280px;
+    grid-template-rows: auto auto auto; /* above | line | below */
+    column-gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0 1.5rem;          /* room so the edge fades don't hide the first/last card */
+    box-sizing: border-box;
+    width: max-content;
+    min-width: 100%;
+}
+
+.timeline-item {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+}
+
+/* middle row: line + dot + stem */
+.timeline-mid {
+    grid-row: 2;
+    position: relative;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+}
+
+/* the line, bridging the gap to the next item */
+.timeline-mid::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: -1.5rem;
+    top: 50%;
+    height: 2px;
+    transform: translateY(-50%);
+    background: var(--color-border);
+}
+.timeline-item:last-child .timeline-mid::before {
+    right: 0;
+}
+
+/* stem from the dot to the card */
+.timeline-mid::after {
+    content: "";
+    position: absolute;
+    left: 1.5rem;
+    width: 2px;
+    height: 1.5rem;
+    transform: translateX(-50%);
+    background: var(--color-accent-1);
+    opacity: 0.5;
+}
+.is-top .timeline-mid::after    { bottom: 50%; }
+.is-bottom .timeline-mid::after { top: 50%; }
+
+.timeline-dot {
+    position: relative;
+    z-index: 1;
+    margin-left: 1.5rem;        /* aligns the dot with the stem */
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-accent-1);
+    box-shadow: 0 0 0 4px var(--color-bg-elevated), 0 0 0 5px var(--color-accent-1);
+}
+
+/* year pill */
+.timeline-year {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-elevated);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    color: var(--color-accent-1);
+}
+
+/* cards: alternate above / below */
+.timeline-card {
+    border-top: 2px solid transparent;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.is-top .timeline-card {
+    grid-row: 1;
+    align-self: end;
+}
+.is-bottom .timeline-card {
+    grid-row: 3;
+    align-self: start;
+}
+
+/* hover lift */
+.timeline-item:hover .timeline-card {
+    transform: translateY(-4px);
+    border-top-color: var(--color-accent-1);
+}
+.is-bottom:hover .timeline-card {
+    transform: translateY(4px);
+}
+
+/* current item (pulsing dot + accent border) */
+.is-current .timeline-card { border-top-color: var(--color-accent-1); }
+.is-current .timeline-dot  { animation: tl-pulse 2s infinite; }
+
+.timeline-wrap {
+    position: relative;
+}
+.timeline-wrap::before,
+.timeline-wrap::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 1rem;               /* stop above the scrollbar */
+    width: 2.5rem;
+    pointer-events: none;       /* don't block scrolling or clicks */
+    z-index: 2;
+}
+.timeline-wrap::before {
+    left: 0;
+    background: linear-gradient(to right, var(--color-bg), transparent);
+}
+.timeline-wrap::after {
+    right: 0;
+    background: linear-gradient(to left, var(--color-bg), transparent);
+}
+
+@media (max-width: 767px) {
+    .timeline-wrap::before,
+    .timeline-wrap::after { display: none; }
+}
+
+@keyframes tl-pulse {
+    0%   { box-shadow: 0 0 0 4px var(--color-bg-elevated), 0 0 0 5px var(--color-accent-1), 0 0 0 5px transparent; }
+    70%  { box-shadow: 0 0 0 4px var(--color-bg-elevated), 0 0 0 5px var(--color-accent-1), 0 0 0 14px rgba(128,128,128,0.15); }
+    100% { box-shadow: 0 0 0 4px var(--color-bg-elevated), 0 0 0 5px var(--color-accent-1), 0 0 0 5px transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .is-current .timeline-dot { animation: none; }
+    .timeline-card { transition: none; }
+}
+
+/* phones: vertical list, no alternating */
+@media (max-width: 767px) {
     .timeline {
-        display: grid;
-        grid-auto-flow: column;
-        grid-auto-columns: 280px;
-        grid-template-rows: auto auto auto; /* above | line | below */
-        column-gap: 1.5rem;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        width: max-content;
-        min-width: 100%;
-    }
-
-    .timeline-item {
-        display: grid;
-        grid-row: span 3;
-        grid-template-rows: subgrid;
-    }
-
-    .timeline-mid {
-        grid-row: 2;
-        position: relative;
-        height: 2rem;
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        width: auto;
+        padding: 0;
+        gap: 1rem;
     }
-
-    /* the line, bridging the gap to the next item */
-    .timeline-mid::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: -1.5rem;
-        top: 50%;
-        height: 2px;
-        transform: translateY(-50%);
-        background: var(--color-border);
-    }
-    .timeline-item:last-child .timeline-mid::before {
-        right: 0;
-    }
-
-    .timeline-dot {
-        position: relative;
-        z-index: 1;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: var(--color-accent-1);
-    }
-
-    .timeline-year {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: 700;
-        font-size: 0.9rem;
-        color: var(--color-accent-1);
-    }
-
-    /* alternate above / below */
-    .is-top .timeline-card {
-        grid-row: 1;
-        align-self: end;
-        margin-bottom: 0.5rem;
-    }
-    .is-bottom .timeline-card {
-        grid-row: 3;
-        align-self: start;
-        margin-top: 0.5rem;
-    }
-
-    /* phones: vertical list, no alternating */
-    @media (max-width: 767px) {
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            width: auto;
-            gap: 1rem;
-        }
-        .timeline-item { display: block; }
-        .timeline-mid { display: none; }
-        .is-top .timeline-card,
-        .is-bottom .timeline-card { margin: 0; }
-    }
+    .timeline-item { display: block; }
+    .timeline-mid { display: none; }
+    .timeline-item:hover .timeline-card,
+    .is-bottom:hover .timeline-card { transform: none; }
+}
 </style>
 
 <script>
     const scroller = document.querySelector<HTMLElement>(".timeline-scroll");
 
     if (scroller) {
-        let lastScrollTime = 0;
-        let edgeHoldUntil = 0;
+        let lastWheel = 0;
 
         scroller.addEventListener(
             "wheel",
             (e) => {
-                // Nothing to scroll sideways (e.g. mobile vertical layout)
                 if (scroller.scrollWidth <= scroller.clientWidth) return;
-
-                // Real horizontal gesture (trackpad): let the browser handle it
                 if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
 
                 const now = Date.now();
+                const idle = now - lastWheel > 400;
+                lastWheel = now;
+
                 const atStart = scroller.scrollLeft <= 0;
                 const atEnd =
                     scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 1;
                 const pushingPastEdge =
                     (e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd);
 
-                if (pushingPastEdge) {
-                    // First time hitting the edge in this gesture: hold the page in place
-                    if (now > edgeHoldUntil) {
-                        // gap since the last wheel event = a new gesture, so release
-                        if (now - lastScrollTime > 400 && edgeHoldUntil !== 0) {
-                            lastScrollTime = now;
-                            return;
-                        }
-                    }
-                    // Still in the same spin: swallow the event so the page doesn't move
-                    e.preventDefault();
-                    lastScrollTime = now;
-                    edgeHoldUntil = now + 400;
-                    return;
-                }
+                if (pushingPastEdge && idle) return;
 
                 e.preventDefault();
-                lastScrollTime = now;
-                edgeHoldUntil = 0;
                 scroller.scrollLeft += e.deltaY;
             },
             { passive: false }
