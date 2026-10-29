@@ -228,32 +228,29 @@ const navItems = [
         </main>
 
         <!-- ===================== FOOTER ===================== -->
-        <footer
-            class="py-5 mt-auto surface"
-            style="border-radius: 0; border-bottom: none; border-left: none; border-right: none;"
-        >
-            <div class="container text-center small text-muted">
-                <div class="mb-3">
+        <footer class="site-footer py-5 mt-auto">
+            <div class="container text-center small">
+                <div class="mb-3 footer-copyright">
                     © <span id="currentYear"></span> Marc — Engineering Portfolio
                 </div>
-                <div class="d-flex justify-content-center gap-4">
+                <div class="d-flex justify-content-center gap-4 footer-links">
                     <a
                         href="https://github.com/marcravel"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-decoration-none hover-accent"
+                        class="footer-link"
                         >{t("footer.github")}</a
                     >
                     <a
                         href="https://www.linkedin.com/in/marc-anjaniaina-ravelontsalama/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-decoration-none hover-accent"
+                        class="footer-link"
                         >{t("footer.linkedin")}</a
                     >
                     <a
                         href={translatePath("/contacts")}
-                        class="text-decoration-none hover-accent"
+                        class="footer-link"
                         >{t("footer.contact")}</a
                     >
                 </div>
@@ -282,9 +279,9 @@ const navItems = [
                 z-index: 1000;
                 display: flex;
                 align-items: center;
-                background-color: var(--color-bg);
-                border-bottom: 1px solid var(--color-border);
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+                background-color: var(--color-navbar-bg);
+                border-bottom: 1px solid var(--color-border-subtle);
+                box-shadow: 0 4px 20px rgba(7, 50, 106, 0.18);
                 transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
             }
 
@@ -301,18 +298,18 @@ const navItems = [
                 content: "";
                 position: absolute;
                 inset: 0;
-                background: linear-gradient(to bottom, rgba(7, 50, 106, 0.75) 0%, rgba(7, 50, 106, 0.2) 70%, transparent 100%);
+                background: linear-gradient(to bottom, rgba(7, 50, 106, 0.8) 0%, rgba(7, 50, 106, 0.25) 70%, transparent 100%);
                 pointer-events: none;
                 transition: opacity 0.25s ease;
                 z-index: -1;
             }
 
-            /* When scrolled or mobile menu is open: Plain color background! */
+            /* When scrolled or mobile menu is open: Plain color background */
             .navbar-wrapper.navbar-home.is-scrolled,
             .navbar-wrapper.navbar-home.menu-open {
-                background-color: var(--color-bg);
-                border-bottom-color: var(--color-border);
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+                background-color: var(--color-navbar-bg);
+                border-bottom-color: var(--color-border-subtle);
+                box-shadow: 0 4px 20px rgba(7, 50, 106, 0.25);
             }
 
             .navbar-wrapper.navbar-home.is-scrolled::before,
@@ -334,15 +331,15 @@ const navItems = [
                 font-family: var(--font-display);
                 font-size: 1.4rem;
                 font-weight: 700;
-                color: var(--color-text-primary);
+                color: var(--color-light);
                 text-decoration: none;
                 letter-spacing: -0.02em;
                 transition: opacity 0.2s ease;
             }
 
             .navbar-brand:hover {
-                opacity: 0.85;
-                color: var(--color-text-primary);
+                opacity: 0.9;
+                color: var(--color-light);
             }
 
             /* Right Section */
@@ -371,24 +368,24 @@ const navItems = [
             .nav-link {
                 display: inline-flex;
                 align-items: center;
-                padding: 0.45rem 0.9rem;
+                padding: 0.45rem 0.95rem;
                 font-size: 0.95rem;
                 font-weight: 500;
-                color: var(--color-text-secondary);
+                color: var(--color-text-on-dark-secondary);
                 text-decoration: none;
                 border-radius: var(--radius-pill);
                 transition: color 0.2s ease, background-color 0.2s ease;
             }
 
             .nav-link:hover {
-                color: var(--color-text-primary);
-                background-color: rgba(255, 255, 255, 0.08);
+                color: var(--color-light);
+                background-color: rgba(241, 247, 249, 0.12);
             }
 
             .nav-link.active {
-                color: var(--color-text-primary);
+                color: var(--color-light);
                 font-weight: 600;
-                background-color: rgba(255, 255, 255, 0.12);
+                background-color: var(--color-accent-1);
             }
 
             /* Nav Buttons (Language & Hamburger) */
@@ -397,20 +394,20 @@ const navItems = [
                 align-items: center;
                 justify-content: center;
                 font-family: inherit;
-                background-color: rgba(255, 255, 255, 0.08);
+                background-color: rgba(241, 247, 249, 0.08);
                 border: 1px solid var(--color-border);
-                color: var(--color-text-primary);
+                color: var(--color-light);
                 cursor: pointer;
                 transition: background-color 0.2s ease, border-color 0.2s ease;
             }
 
             .nav-btn:hover {
-                background-color: rgba(255, 255, 255, 0.15);
-                border-color: var(--color-text-primary);
+                background-color: rgba(241, 247, 249, 0.18);
+                border-color: var(--color-light);
             }
 
             .nav-btn:focus-visible {
-                outline: 2px solid var(--color-text-primary);
+                outline: 2px solid var(--color-light);
                 outline-offset: 2px;
             }
 
@@ -448,11 +445,11 @@ const navItems = [
                 position: absolute;
                 top: calc(100% + 0.5rem);
                 right: 0;
-                min-width: 150px;
-                background-color: var(--color-bg);
+                min-width: 155px;
+                background-color: var(--color-navbar-bg);
                 border: 1px solid var(--color-border);
                 border-radius: var(--radius-md);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
                 padding: 0.35rem;
                 display: flex;
                 flex-direction: column;
@@ -471,21 +468,21 @@ const navItems = [
                 gap: 0.6rem;
                 padding: 0.5rem 0.75rem;
                 font-size: 0.9rem;
-                color: var(--color-text-secondary);
+                color: var(--color-text-on-dark-secondary);
                 text-decoration: none;
                 border-radius: var(--radius-sm);
                 transition: background-color 0.15s ease, color 0.15s ease;
             }
 
             .lang-option:hover {
-                background-color: rgba(255, 255, 255, 0.1);
-                color: var(--color-text-primary);
+                background-color: rgba(241, 247, 249, 0.12);
+                color: var(--color-light);
             }
 
             .lang-option.active {
-                color: var(--color-text-primary);
+                color: var(--color-light);
                 font-weight: 600;
-                background-color: rgba(255, 255, 255, 0.08);
+                background-color: var(--color-accent-1);
             }
 
             /* Hamburger Toggle */
@@ -521,10 +518,10 @@ const navItems = [
                 top: calc(100% + 0.5rem);
                 right: 1rem;
                 width: min(240px, calc(100vw - 2rem));
-                background-color: var(--color-bg);
+                background-color: var(--color-navbar-bg);
                 border: 1px solid var(--color-border);
                 border-radius: var(--radius-md);
-                box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+                box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
                 padding: 0.5rem;
                 z-index: 1010;
                 animation: dropFade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -546,25 +543,46 @@ const navItems = [
                 padding: 0.65rem 0.9rem;
                 font-size: 1rem;
                 font-weight: 500;
-                color: var(--color-text-secondary);
+                color: var(--color-text-on-dark-secondary);
                 text-decoration: none;
                 border-radius: var(--radius-sm);
                 transition: color 0.15s ease, background-color 0.15s ease;
             }
 
             .mobile-nav-link:hover {
-                color: var(--color-text-primary);
-                background-color: rgba(255, 255, 255, 0.08);
+                color: var(--color-light);
+                background-color: rgba(241, 247, 249, 0.12);
             }
 
             .mobile-nav-link.active {
-                color: var(--color-text-primary);
+                color: var(--color-light);
                 font-weight: 600;
-                background-color: rgba(255, 255, 255, 0.12);
+                background-color: var(--color-accent-1);
             }
 
-            .hover-accent:hover {
-                color: var(--color-accent-1);
+            /* Footer Styling - Dark blue background with white light text */
+            .site-footer {
+                background-color: var(--color-footer-bg);
+                border-top: 1px solid var(--color-border-subtle);
+                color: var(--color-light);
+            }
+
+            .footer-copyright {
+                color: var(--color-light);
+                opacity: 0.95;
+                font-weight: 500;
+            }
+
+            .footer-links .footer-link {
+                color: var(--color-light);
+                text-decoration: none;
+                transition: color var(--transition-fast), opacity var(--transition-fast);
+                opacity: 0.85;
+            }
+
+            .footer-links .footer-link:hover {
+                color: var(--color-palette-slate);
+                opacity: 1;
             }
 
             @keyframes dropFade {
@@ -577,6 +595,7 @@ const navItems = [
                     transform: translateY(0);
                 }
             }
+        </style>
         </style>
 
         <!-- ===================== SCRIPTS ===================== -->

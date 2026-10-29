@@ -108,7 +108,7 @@ const t = texts[lang];
                         <div
                             class="surface p-3 mb-4 d-none"
                             id="formSuccessMessage"
-                            style="background: var(--color-accent-2); border-color: var(--color-accent-1); color: var(--color-text-primary);"
+                            style="background: var(--color-accent-2); border-color: var(--color-accent-1); color: var(--color-light);"
                         >
                             {t.success}
                         </div>
@@ -116,7 +116,7 @@ const t = texts[lang];
                             class="surface p-3 mb-4 d-none"
                             id="formErrorMessage"
                             role="alert"
-                            style="background: var(--color-accent-2); border-color: var(--color-accent-1); color: var(--color-text-primary);"
+                            style="background: var(--color-accent-2); border-color: var(--color-accent-1); color: var(--color-light);"
                         >
                             {t.error}
                         </div>
@@ -227,7 +227,7 @@ const t = texts[lang];
                     >
                         <h3
                             class="mb-2 d-none lg-d-block"
-                            style="color: var(--color-accent-2); font-size: 1.5rem;"
+                            style="color: var(--color-deep); font-size: 1.5rem;"
                         >
                             {t.connect}
                         </h3>
@@ -243,7 +243,7 @@ const t = texts[lang];
                             >
                                 <div
                                     class="icon-box d-flex justify-content-center align-items-center"
-                                    style="width: 48px; height: 48px; background: var(--color-bg-card); border-radius: 12px;"
+                                    style="width: 48px; height: 48px; background: var(--color-bg-elevated); border: 1px solid var(--color-border-subtle); border-radius: 12px;"
                                 >
                                     <svg
                                         aria-hidden="true"
@@ -266,7 +266,7 @@ const t = texts[lang];
                                     >
                                         Email
                                     </h6>
-                                    <small class="text-muted"
+                                    <small class="text-secondary"
                                         >marc.anjaniaina@gmail.com</small
                                     >
                                 </div>
@@ -285,7 +285,7 @@ const t = texts[lang];
                             >
                                 <div
                                     class="icon-box d-flex justify-content-center align-items-center"
-                                    style="width: 48px; height: 48px; background: var(--color-bg-card); border-radius: 12px;"
+                                    style="width: 48px; height: 48px; background: var(--color-bg-elevated); border: 1px solid var(--color-border-subtle); border-radius: 12px;"
                                 >
                                     <svg
                                         aria-hidden="true"
@@ -308,7 +308,7 @@ const t = texts[lang];
                                     >
                                         LinkedIn
                                     </h6>
-                                    <small class="text-muted"
+                                    <small class="text-secondary"
                                         >{t.linkedinDesc}</small
                                     >
                                 </div>
@@ -327,7 +327,7 @@ const t = texts[lang];
                             >
                                 <div
                                     class="icon-box d-flex justify-content-center align-items-center"
-                                    style="width: 48px; height: 48px; background: var(--color-bg-card); border-radius: 12px;"
+                                    style="width: 48px; height: 48px; background: var(--color-bg-elevated); border: 1px solid var(--color-border-subtle); border-radius: 12px;"
                                 >
                                     <svg
                                         aria-hidden="true"
@@ -350,7 +350,7 @@ const t = texts[lang];
                                     >
                                         GitHub
                                     </h6>
-                                    <small class="text-muted">marcravel</small>
+                                    <small class="text-secondary">marcravel</small>
                                 </div>
                             </div>
                         </a>
@@ -367,7 +367,7 @@ const t = texts[lang];
                             >
                                 <div
                                     class="icon-box d-flex justify-content-center align-items-center"
-                                    style="width: 48px; height: 48px; background: var(--color-bg-card); border-radius: 12px;"
+                                    style="width: 48px; height: 48px; background: var(--color-bg-elevated); border: 1px solid var(--color-border-subtle); border-radius: 12px;"
                                 >
                                     <svg
                                         aria-hidden="true"
@@ -390,7 +390,7 @@ const t = texts[lang];
                                     >
                                         YouTube
                                     </h6>
-                                    <small class="text-muted"
+                                    <small class="text-secondary"
                                         >Code & Copper</small
                                     >
                                 </div>
@@ -408,6 +408,8 @@ const t = texts[lang];
     .form-label {
         display: block;
         margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--color-text-primary);
     }
 
     .form-control {
@@ -417,27 +419,40 @@ const t = texts[lang];
         font-size: 1rem;
         font-family: var(--font-primary);
         color: var(--color-text-primary);
-        background-color: transparent;
+        background-color: var(--color-bg-elevated);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
         transition:
             border-color 0.15s ease-in-out,
-            ;
+            box-shadow 0.15s ease-in-out;
     }
 
     .form-control:focus {
         outline: none;
         border-color: var(--color-accent-1);
+        box-shadow: 0 0 0 3px rgba(10, 97, 201, 0.15);
+    }
+
+    .form-control::placeholder {
+        color: var(--color-border);
+        opacity: 0.85;
     }
 
     /* Unified Hover Effects for Social Cards */
     .social-card {
+        background-color: var(--color-bg-card);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: var(--radius-md);
         transition:
             transform 0.3s ease,
-            border-color 0.3s ease;
+            border-color 0.3s ease,
+            box-shadow 0.3s ease;
     }
 
     .social-card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-4px);
         border-color: var(--color-accent-1);
+        box-shadow: 0 8px 24px rgba(7, 50, 106, 0.1);
     }
 </style>
 

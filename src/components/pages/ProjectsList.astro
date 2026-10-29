@@ -42,7 +42,7 @@ const t = texts[lang];
     <section class="section">
         <div class="container animate-fade-up">
             <h1 class="section-title"><span>{t.h1}</span></h1>
-            <p class="text-center text-muted lead mb-5">{t.subtitle}</p>
+            <p class="text-center text-secondary lead mb-5">{t.subtitle}</p>
             
             <div class={`grid grid-cols-1 md-grid-cols-2 ${gridClassDesktop} gap-4 mt-5`}>
                 {activeProjects.map((project) => (
@@ -52,7 +52,7 @@ const t = texts[lang];
 
             <div class="mt-5 text-center d-flex align-items-center justify-content-center gap-2 animate-fade-up" style="animation-delay: 0.4s;">
                 <span style="display: inline-block; width: 8px; height: 8px; background-color: var(--color-accent-1); border-radius: 50%; animation: pulseIndicator 2s infinite;"></span>
-                <p class="small text-muted mb-0 fst-italic">{t.in_development}</p>
+                <p class="small text-secondary mb-0 fst-italic">{t.in_development}</p>
             </div>
         </div>
     </section>

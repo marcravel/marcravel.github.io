@@ -80,7 +80,7 @@ const wrapperProps = isActive
             />
             <div
                 class="position-absolute w-100 h-100"
-                style="background: var(--color-bg-elevated); top: 0; left: 0;"
+                style="background: linear-gradient(to top, rgba(7, 50, 106, 0.5) 0%, transparent 60%); top: 0; left: 0; pointer-events: none;"
             >
             </div>
 
@@ -88,11 +88,11 @@ const wrapperProps = isActive
                 !isActive && (
                     <div
                         class="position-absolute w-100 h-100 z-2 d-flex justify-content-center align-items-center coming-soon-overlay"
-                        style="background-color: var(--color-deep); top: 0; left: 0;"
+                        style="background-color: rgba(7, 50, 106, 0.88); top: 0; left: 0;"
                     >
                         <span
                             class="badge"
-                            style="background: var(--color-accent-2); color: white;"
+                            style="background: var(--color-accent-2); color: var(--color-light); border: 1px solid var(--color-accent-1);"
                         >
                             {uiTexts[lang].soon}
                         </span>
@@ -126,14 +126,14 @@ const wrapperProps = isActive
             >
                 {project.techStack.join(", ")}
             </p>
-            <p class="small mb-auto text-muted" style="line-height: 1.5;">
+            <p class="small mb-auto text-secondary" style="line-height: 1.6;">
                 {project.description[lang]}
             </p>
             {
                 project.achievements && project.achievements[lang] && (
                     <div
                         class="mt-4 p-3 rounded"
-                        style="background: var(--color-bg); border-left: 3px solid var(--color-accent-2);"
+                        style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-subtle); border-left: 3px solid var(--color-accent-1);"
                     >
                         <p
                             class="small mb-0"
@@ -150,15 +150,19 @@ const wrapperProps = isActive
 
 <style>
     .project-card {
+        background-color: var(--color-bg-card);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: var(--radius-md);
         transition:
             transform 0.3s ease,
             border-color 0.3s ease,
-            ;
+            box-shadow 0.3s ease;
     }
 
     .project-card:hover {
         transform: translateY(-5px);
         border-color: var(--color-accent-1);
+        box-shadow: 0 12px 32px rgba(7, 50, 106, 0.12);
     }
 
     .disabled-wrapper {

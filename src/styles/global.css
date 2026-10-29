@@ -9,24 +9,44 @@
 
 /* =========================================================
    2. DESIGN TOKENS
+   Palette:
+     #F1F7F9 - White light one (cards/surfaces, text on dark blue)
+     #749DC8 - Light/mid slate blue (borders, accents, subtle outlines)
+     #0A61C9 - Primary vibrant blue (interactive buttons, highlights, focus)
+     #064089 - Dark blue (secondary dark, headers, text on light surfaces)
+     #07326A - Deepest navy blue (page titles, navbar, footer, primary text)
    ========================================================= */
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* Colors */
-  --color-bg: #07326a;
-  --color-bg-elevated: #064089;
-  --color-bg-card: #064089;
+  /* Palette */
+  --color-palette-light: #f1f7f9;
+  --color-palette-slate: #749dc8;
+  --color-palette-blue: #0a61c9;
+  --color-palette-darkblue: #064089;
+  --color-palette-navy: #07326a;
+
+  /* Semantic Theme Variables */
+  --color-bg: #ffffff;
+  --color-bg-card: #f1f7f9;
+  --color-bg-elevated: #ffffff;
   --color-border: #749dc8;
+  --color-border-subtle: rgba(116, 157, 200, 0.4);
 
-  --color-text-primary: #f1f7f9;
-  --color-text-secondary: #a8c3df;
+  --color-text-primary: #07326a;
+  --color-text-secondary: #064089;
+  --color-text-muted: #507299;
+  --color-text-on-dark: #f1f7f9;
+  --color-text-on-dark-secondary: #a8c3df;
 
   --color-accent-1: #0a61c9;
   --color-accent-2: #064089;
   --color-light: #f1f7f9;
   --color-deep: #07326a;
+
+  --color-navbar-bg: #07326a;
+  --color-footer-bg: #07326a;
 
   /* Typography */
   --font-primary: 'Inter', sans-serif;
@@ -34,10 +54,10 @@
 
   --font-size-base: 1rem;
   --line-height-base: 1.6;
-  --line-height-heading: 1.2;
+  --line-height-heading: 1.25;
 
   /* Layout */
-  --section-spacing: clamp(3rem, 8vw, 5rem);
+  --section-spacing: clamp(3rem, 7vw, 5rem);
   --navbar-height: 4.75rem;
   --radius-sm: 0.5rem;
   --radius-md: 1rem;
@@ -48,15 +68,14 @@
   --transition-fast: 0.2s ease;
   --transition-base: 0.3s ease;
 
-
   /* Bootstrap integration */
   --bs-body-font-family: var(--font-primary);
   --bs-body-font-size: var(--font-size-base);
   --bs-body-line-height: var(--line-height-base);
   --bs-body-color: var(--color-text-primary);
   --bs-body-bg: var(--color-bg);
-  --bs-link-color: var(--color-text-primary);
-  --bs-link-hover-color: var(--color-text-secondary);
+  --bs-link-color: var(--color-accent-1);
+  --bs-link-hover-color: var(--color-accent-2);
   --bs-border-color: var(--color-border);
 }
 
@@ -176,6 +195,11 @@ h6 {
 
 p {
   margin-top: 0;
+  color: inherit;
+}
+
+.lead {
+  color: var(--color-text-secondary);
 }
 
 small,
@@ -187,9 +211,13 @@ small,
   color: var(--color-text-secondary) !important;
 }
 
+.text-muted {
+  color: var(--color-text-muted) !important;
+}
+
 
 /* =========================================================
-   5. LINKS
+   5. LINKS & FOCUS
    ========================================================= */
 
 a {
@@ -199,7 +227,7 @@ a {
 }
 
 a:hover {
-  color: var(--color-text-secondary);
+  color: var(--color-accent-1);
 }
 
 a:focus-visible,
@@ -213,7 +241,7 @@ select:focus-visible {
 
 
 /* =========================================================
-   6. PORTFOLIO LAYOUT
+   6. PORTFOLIO LAYOUT & GRID SYSTEM
    ========================================================= */
 
 .section {
@@ -222,12 +250,39 @@ select:focus-visible {
 
 .section-title {
   margin-bottom: clamp(2rem, 5vw, 3rem);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2rem, 4vw, 2.75rem);
   text-align: center;
+  color: var(--color-deep);
 }
 
 .section-title span {
-  color: var(--color-text-secondary);
+  color: var(--color-deep);
+  position: relative;
+  display: inline-block;
+}
+
+/* Grid Layouts */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+@media (min-width: 768px) {
+  .md-grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .md-grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .md-col-span-2 { grid-column: span 2; }
+}
+
+@media (min-width: 992px) {
+  .lg-grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lg-grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lg-grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .lg-grid-col-span-2 { grid-column: span 2; }
 }
 
 
@@ -254,24 +309,29 @@ select:focus-visible {
 
 /* =========================================================
    8. SOLID SURFACES
+   #F1F7F9 card back with dark blue text and subtle border
    ========================================================= */
 
 .surface {
   background-color: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  box-shadow: 0 4px 20px rgba(7, 50, 106, 0.05);
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-base);
 }
 
 .solid-text {
   display: inline-block;
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
 }
 
 
 /* =========================================================
    9. BUTTONS
-   Bootstrap handles button layout and interaction states.
-   These rules customize the portfolio's visual appearance.
    ========================================================= */
 
 .btn {
@@ -283,39 +343,41 @@ select:focus-visible {
     color var(--transition-base),
     background-color var(--transition-base),
     border-color var(--transition-base),
+    box-shadow var(--transition-base),
     transform var(--transition-base);
 }
 
 .btn-primary {
-  border: 0;
+  border: 1px solid var(--color-accent-1);
   color: var(--color-light);
-  background: var(--color-accent-1);
+  background-color: var(--color-accent-1);
 }
 
 .btn-primary:hover {
   color: var(--color-light);
-  background: var(--color-accent-2);
-
+  background-color: var(--color-accent-2);
+  border-color: var(--color-accent-2);
   transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(10, 97, 201, 0.25);
 }
 
 .btn-outline {
-  color: var(--color-text-primary);
-  background: transparent;
+  color: var(--color-accent-1);
+  background-color: transparent;
   border: 1px solid var(--color-border);
-
 }
 
 .btn-outline:hover {
-  color: var(--color-text-primary);
-  background-color: var(--color-bg-card);
-  border-color: var(--color-text-secondary);
+  color: var(--color-light);
+  background-color: var(--color-accent-1);
+  border-color: var(--color-accent-1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(10, 97, 201, 0.2);
 }
 
 
 /* =========================================================
    10. BADGES
-   Custom appearance; Bootstrap retains badge structure.
    ========================================================= */
 
 .badge {
@@ -326,9 +388,16 @@ select:focus-visible {
   font-weight: 600;
   line-height: 1.2;
 
-  color: var(--color-text-primary);
+  color: var(--color-text-secondary);
   background-color: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.badge-dark {
+  color: var(--color-light);
+  background-color: var(--color-accent-2);
+  border: 1px solid var(--color-accent-1);
   border-radius: var(--radius-sm);
 }
 
