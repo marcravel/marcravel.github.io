@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import aboutContent from "../../data/about.json";
+import profileImage from "../../assets/profile.jpeg";
 
 export interface Props {
     lang: "en" | "fr" | "tr";
@@ -86,313 +87,101 @@ const t = { ...texts[lang], ...aboutContent[lang] };
     <section class="section">
         <div class="container animate-fade-up">
             <h1 class="section-title"><span>{t.h1}</span></h1>
+            <div>
+                <img
+                    src={profileImage.src}
+                    alt="Marc"
+                    style="display: block; width: 300px; height: 300px; margin: 3rem auto 5rem; object-fit: cover; border-radius: 50%;
+                    padding: 0.25rem;"
+                />
+            </div>
 
-            <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-2 gap-5 about-columns">
-                <!-- Left Column: Bio & Skills -->
-                <div>
-                    <!-- Professional Summary -->
-                    <div class="surface p-4 p-md-5 mb-5 about-summary">
-                        <h3
-                            class="mb-3"
-                            style="color: var(--color-accent-1); font-size: 1.5rem;"
-                        >
-                            {t.profSummary}
-                        </h3>
-                        <p
-                            class="lead"
-                            style="color: var(--color-text-secondary); font-size: 1.1rem; line-height: 1.8;"
-                        >
-                            {t.bioText}
-                        </p>
-                    </div>
-
-
-                    <h3
-                        class="mb-4 about-education"
-                        style="color: var(--color-deep); font-size: 1.5rem;"
-                    >
-                        {t.eduHonors}
-                    </h3>{t.educationEntries.map((entry, index) => (
-                            <>                             <Fragment set:html={`<!-- Education Card ${entry.cardLabel} -->`} />
-                            <div class="surface p-4 mb-4 edu-card about-education">
-                                <h5
-                                    class="fw-bold mb-2"
-                                    style="color: var(--color-text-primary);"
-                                >
-                                    {entry.title}
-                                </h5>
-                                <p
-                                    class="mb-2 small fw-bold"
-                                    style="color: var(--color-accent-1);"
-                                >
-                                    {entry.year}
-                                </p>
-                                <p
-                                    class="small mb-3"
-                                    style="color: var(--color-text-secondary);"
-                                >
-                                    {entry.loc}
-                                </p>
-                                {entry.badge && (
-                                    entry.badgeStyle === "scholarship" ? (
-                                    showScholarship && (
-                                        <div class="mt-2">
-                                            <span class="badge badge-dark px-3 py-2">{entry.badge}</span>
-                                        </div>
-                                    )
-                                    ) : (
-                                    <div class="mt-2">
-                                        <span class="badge px-3 py-2" style="background: var(--color-bg-elevated); border-color: var(--color-border); color: var(--color-text-secondary);">{entry.badge}</span>
-                                        </div>
-                                    )
-                                )}
-                                </div></>
-                        ))}
-            
-
-                    <h3
-                        class="mb-4 mt-5 about-courses"
-                        style="color: var(--color-deep); font-size: 1.5rem;"
-                    >
-                        {t.courses}
+            <div class="grid grid-cols-1 md-grid-cols-3 lg-grid-cols-3 gap-3 about-columns mb-5">
+                <!-- Professional Summary -->
+                <div class="surface p-4 p-md-5 about-summary">
+                    <h3 class="mb-3" style="color: var(--color-accent-1); font-size: 1.5rem;">
+                        {t.profSummary}
                     </h3>
-
-                    <!-- Courses card 1-->
-                    <a
-                        href={courseLinks.course1}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-decoration-none course-link d-block about-courses"
-                    >
-                        <div class="surface p-4 mb-4 edu-card">
-                            <div class="cert-overlay">
-                                <span class="cert-btn">{t.certTitle}</span>
-                            </div>
-                            <h5
-                                class="fw-bold mb-2 course-title"
-                                style="color: var(--color-text-primary);"
-                            >
-                                {t.courseEntries[0].title}
-                            </h5>
-                            <p
-                                class="mb-2 small fw-bold"
-                                style="color: var(--color-accent-1);"
-                            >
-                                {t.courseEntries[0].year}
-                            </p>
-                            <p
-                                class="small mb-4"
-                                style="color: var(--color-text-secondary);"
-                            >
-                                {t.courseEntries[0].loc}
-                            </p>
-                            <ul
-                                class="small mb-0 ps-3"
-                                style="color: var(--color-text-secondary); line-height: 1.6;"
-                            >
-                                <li class="mb-2">{t.courseEntries[0].li1}</li>
-                                <li>{t.courseEntries[0].li2}</li>
-                            </ul>
-                        </div>
-                    </a>
-
-                    <!-- Courses card 2-->
-                    <a
-                        href={courseLinks.course2}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-decoration-none course-link d-block about-courses"
-                    >
-                        <div class="surface p-4 mb-4 edu-card">
-                            <div class="cert-overlay">
-                                <span class="cert-btn">{t.certTitle}</span>
-                            </div>
-                            <h5
-                                class="fw-bold mb-2 course-title"
-                                style="color: var(--color-text-primary);"
-                            >
-                                {t.courseEntries[1].title}
-                            </h5>
-                            <p
-                                class="mb-2 small fw-bold"
-                                style="color: var(--color-accent-1);"
-                            >
-                                {t.courseEntries[1].year}
-                            </p>
-                            <p
-                                class="small mb-4"
-                                style="color: var(--color-text-secondary);"
-                            >
-                                {t.courseEntries[1].loc}
-                            </p>
-                            <ul
-                                class="small mb-0 ps-3"
-                                style="color: var(--color-text-secondary); line-height: 1.6;"
-                            >
-                                <li class="mb-2">{t.courseEntries[1].li1}</li>
-                                <li class="mb-2">{t.courseEntries[1].li2}</li>
-                                <li>{t.courseEntries[1].li3}</li>
-                            </ul>
-                        </div>
-                    </a>
-
-                    <!-- Courses card 3-->
-                    <a
-                        href={courseLinks.course3}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-decoration-none course-link d-block about-courses"
-                    >
-                        <div class="surface p-4 mb-4 edu-card">
-                            <div class="cert-overlay">
-                                <span class="cert-btn">{t.certTitle}</span>
-                            </div>
-                            <h5
-                                class="fw-bold mb-2 course-title"
-                                style="color: var(--color-text-primary);"
-                            >
-                                {t.courseEntries[2].title}
-                            </h5>
-                            <p
-                                class="mb-2 small fw-bold"
-                                style="color: var(--color-accent-1);"
-                            >
-                                {t.courseEntries[2].year}
-                            </p>
-                            <p
-                                class="small mb-4"
-                                style="color: var(--color-text-secondary);"
-                            >
-                                {t.courseEntries[2].loc}
-                            </p>
-                            <ul
-                                class="small mb-0 ps-3"
-                                style="color: var(--color-text-secondary); line-height: 1.6;"
-                            >
-                                <li class="mb-2">{t.courseEntries[2].li1}</li>
-                            </ul>
-                        </div>
-                    </a>
-
-                    <!-- Courses card 4-->
-                    <a
-                        href={courseLinks.course4}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-decoration-none course-link d-block about-courses"
-                    >
-                        <div class="surface p-4 mb-5 edu-card">
-                            <div class="cert-overlay">
-                                <span class="cert-btn">{t.certTitle}</span>
-                            </div>
-                            <h5
-                                class="fw-bold mb-2 course-title"
-                                style="color: var(--color-text-primary);"
-                            >
-                                {t.courseEntries[3].title}
-                            </h5>
-                            <p
-                                class="mb-2 small fw-bold"
-                                style="color: var(--color-accent-1);"
-                            >
-                                {t.courseEntries[3].year}
-                            </p>
-                            <p
-                                class="small mb-4"
-                                style="color: var(--color-text-secondary);"
-                            >
-                                {t.courseEntries[3].loc}
-                            </p>
-                            <ul
-                                class="small mb-0 ps-3"
-                                style="color: var(--color-text-secondary); line-height: 1.6;"
-                            >
-                                <li class="mb-2">{t.courseEntries[3].li1}</li>
-                            </ul>
-                        </div>
-                    </a>
-
+                    <p class="lead" style="color: var(--color-text-secondary); font-size: 1.1rem; line-height: 1.8;">
+                        {t.bioText}
+                    </p>
                 </div>
 
-                <!-- Right Column: Education & Experience -->
-                <div>
 
-                    <!-- Technical Skills Matrix -->
-                    <div class="surface p-4 p-md-5 mb-5 about-skills">
-                        <h3
-                            class="mb-4"
-                            style="color: var(--color-deep); font-size: 1.5rem;"
+                <!-- Technical Skills Matrix -->
+                <div class="surface p-4 p-md-5 about-skills">
+                    <h3
+                        class="mb-4"     
+                        style="color: var(--color-deep); font-size: 1.5rem;"
+                    >
+                        {t.techMatrix}
+                    </h3>
+
+                    <div class="mb-4">
+                        <h5
+                            class="text-uppercase mb-3 small fw-bold"
+                            style="color: var(--color-text-secondary); letter-spacing: 1px;"
                         >
-                            {t.techMatrix}
-                        </h3>
-
-                        <div class="mb-4">
-                            <h5
-                                class="text-uppercase mb-3 small fw-bold"
-                                style="color: var(--color-text-secondary); letter-spacing: 1px;"
-                            >
-                                {t.hwEmb}
-                            </h5>
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[0]}></span>
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[1]}></span>
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[2]}></span>
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[3]}></span>
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[4]}></span>
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[5]}></span>
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[6]}></span>
-                                <span class="badge px-3 py-2" set:html={t.skillItems.embedded[7]}></span>
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <h5
-                                class="text-uppercase mb-3 small fw-bold"
-                                style="color: var(--color-text-secondary); letter-spacing: 1px;"
-                            >
-                                {t.softAi}
-                            </h5>
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-secondary);" set:html={t.skillItems.control[0]}></span>
-                                <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-secondary);" set:html={t.skillItems.control[1]}></span>
-                                <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-secondary);" set:html={t.skillItems.control[2]}></span>
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <h5
-                                class="text-uppercase mb-3 small fw-bold"
-                                style="color: var(--color-text-secondary); letter-spacing: 1px;"
-                            >
-                                {t.toolsMulti}
-                            </h5>
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[0]}></span>
-                                <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[1]}></span>
-                                <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[2]}></span>
-                                <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[3]}></span>
-                                <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[4]}></span>
-                                <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[5]}></span>
-                                <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[6]}></span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h5
-                                class="text-uppercase mb-3 small fw-bold"
-                                style="color: var(--color-text-secondary); letter-spacing: 1px;"
-                            >
-                                {t.supportingSoftware}
-                            </h5>
-                            <p class="small text-muted mb-0">
-                                {t.supportingSoftwareDesc}
-                            </p>
+                            {t.hwEmb}
+                        </h5>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[0]}></span>
+                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[1]}></span>
+                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[2]}></span>
+                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[3]}></span>
+                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[4]}></span>
+                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[5]}></span>
+                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[6]}></span>
+                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[7]}></span>
                         </div>
                     </div>
 
+                    <div class="mb-4">
+                        <h5
+                            class="text-uppercase mb-3 small fw-bold"
+                            style="color: var(--color-text-secondary); letter-spacing: 1px;"
+                        >
+                            {t.softAi}
+                        </h5>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-secondary);" set:html={t.skillItems.control[0]}></span>
+                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-secondary);" set:html={t.skillItems.control[1]}></span>
+                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-secondary);" set:html={t.skillItems.control[2]}></span>
+                        </div>
+                    </div>
 
-                    <!-- Languages -->
-                    <div class="surface p-4 p-md-5 mb-5 about-languages">
+                    <div class="mb-4">
+                        <h5
+                            class="text-uppercase mb-3 small fw-bold"
+                            style="color: var(--color-text-secondary); letter-spacing: 1px;"
+                        >
+                            {t.toolsMulti}
+                        </h5>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[0]}></span>
+                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[1]}></span>
+                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[2]}></span>
+                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[3]}></span>
+                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[4]}></span>
+                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[5]}></span>
+                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[6]}></span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h5
+                            class="text-uppercase mb-3 small fw-bold"
+                            style="color: var(--color-text-secondary); letter-spacing: 1px;"
+                        >
+                            {t.supportingSoftware}
+                        </h5>
+                        <p class="small text-muted mb-0">
+                            {t.supportingSoftwareDesc}
+                        </p>
+                    </div>
+                </div>
+                <!-- Languages -->
+                    <div class="surface p-4 p-md-5 about-languages">
                         <h3
                             class="mb-4"
                             style="color: var(--color-deep); font-size: 1.5rem;"
@@ -482,117 +271,193 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                             </div>
                         </div>
                     </div>
-                    <h3
-                        class="mb-4 mt-5 about-experience"
-                        style="color: var(--color-deep); font-size: 1.5rem;"
-                    >
-                        {t.experience}
-                    </h3>{t.experienceEntries.map((entry, index) => (
-                            <> <Fragment set:html={`<!-- Experience Card ${entry.cardLabel} -->`} />
-                            <div class={`surface p-4 ${index === t.experienceEntries.length - 1 ? "mb-5" : "mb-4"} edu-card about-experience`}>
-                                <h5
-                                    class="fw-bold mb-2"
-                                    style="color: var(--color-text-primary);"
-                                >
-                                    {entry.title}
-                                </h5>
-                                <p
-                                    class="mb-2 small fw-bold"
-                                    style="color: var(--color-accent-1);"
-                                >
-                                    {entry.year}
-                                </p>
-                                <p
-                                    class="small mb-4"
-                                    style="color: var(--color-text-secondary);"
-                                >
-                                    {entry.loc}
-                                </p>
-                                <ul
-                                    class="small mb-0 ps-3"
-                                    style="color: var(--color-text-secondary); line-height: 1.6;"
-                                >
-                                    <li class={entry.li2 || entry.li3 ? "mb-2" : ""}>{entry.li1}</li>
-                                    {entry.li2 && <li class="mb-2">{entry.li2}</li>}
-                                    {entry.li3 && <li>{entry.li3}</li>}
-                                </ul>
-                            </div></>
-                        ))}
-                        <h3
-                        class="mb-4 mt-5 about-community"
-                        style="color: var(--color-deep); font-size: 1.5rem;"
-                    >
-                        {t.community}
-                    </h3>
 
-                    <!-- Community card 1-->
-                    <div class="surface p-4 mb-4 edu-card about-community">
-                        <h5
-                            class="fw-bold mb-2"
-                            style="color: var(--color-text-primary);"
-                        >
-                            {t.communityEntries[0].title}
-                        </h5>
-                        <p
-                            class="mb-2 small fw-bold"
-                            style="color: var(--color-accent-1);"
-                        >
-                            {t.communityEntries[0].year}
-                        </p>
-                        <p
-                            class="small mb-4"
-                            style="color: var(--color-text-secondary);"
-                        >
-                            {t.communityEntries[0].loc}
-                        </p>
-                        <ul
-                            class="small mb-0 ps-3"
-                            style="color: var(--color-text-secondary); line-height: 1.6;"
-                        >
-                            <li class="mb-2">{t.communityEntries[0].li1}</li>
-                            <li class="mb-2">{t.communityEntries[0].li2}</li>
-                            <li>{t.communityEntries[0].li3}</li>
-                        </ul>
-                    </div>
-
-                    <!-- Community card 2-->
-                    <div class="surface p-4 mb-4 edu-card about-community">
-                        <h5
-                            class="fw-bold mb-2"
-                            style="color: var(--color-text-primary);"
-                        >
-                            {t.communityEntries[1].title}
-                        </h5>
-                        <p
-                            class="mb-2 small fw-bold"
-                            style="color: var(--color-accent-1);"
-                        >
-                            {t.communityEntries[1].year}
-                        </p>
-                        <p
-                            class="small mb-4"
-                            style="color: var(--color-text-secondary);"
-                        >
-                            {t.communityEntries[1].loc}
-                        </p>
-                        <ul
-                            class="small mb-0 ps-3"
-                            style="color: var(--color-text-secondary); line-height: 1.6;"
-                        >
-                            <li class="mb-2">{t.communityEntries[1].li1}</li>
-                            <li>{t.communityEntries[1].li2}</li>
-                        </ul>
-                    </div>
-
-
-                </div>
             </div>
-        </div>
     </section>
+
+<section class="section">
+    <div class="container animate-fade-up">
+        <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-2 gap-3 about-columns">
+            <!-- Left: Experience -->
+            <div class="surface p-4 p-md-5 about-experience">
+                <h3 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
+                    {t.experience}
+                </h3>
+
+                {t.experienceEntries.map((entry, index) => (
+                    <div
+                        class="edu-card"
+                        style={index > 0
+                            ? "border-top: 1px solid var(--color-border-subtle); padding-top: 1.5rem; margin-top: 1.5rem;"
+                            : ""}
+                    >
+                        <h5 class="fw-bold mb-2" style="color: var(--color-text-primary);">
+                            {entry.title}
+                        </h5>
+                        <p class="mb-2 small fw-bold" style="color: var(--color-accent-1);">
+                            {entry.year}
+                        </p>
+                        <p class="small mb-3" style="color: var(--color-text-secondary);">
+                            {entry.loc}
+                        </p>
+                        <ul class="small mb-0 ps-3" style="color: var(--color-text-secondary); line-height: 1.6;">
+                            {entry.li1 && <li class="mb-2">{entry.li1}</li>}
+                            {entry.li2 && <li class="mb-2">{entry.li2}</li>}
+                            {entry.li3 && <li>{entry.li3}</li>}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+            <!-- Left: Education -->
+            <div class="surface p-4 p-md-5 about-education">
+                <h3 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
+                    {t.eduHonors}
+                </h3>
+
+                {t.educationEntries.map((entry, index) => (
+                    <div
+                        class="edu-card"
+                        style={index > 0
+                            ? "border-top: 1px solid var(--color-border-subtle); padding-top: 1.5rem; margin-top: 1.5rem;"
+                            : ""}
+                    >
+                    <h5
+                        class="fw-bold mb-2"
+                        style="color: var(--color-text-primary);"
+                    >
+                        {entry.title}
+                    </h5>
+                    <p
+                        class="mb-2 small fw-bold"
+                        style="color: var(--color-accent-1);"
+                    >
+                        {entry.year}
+                    </p>
+                    <p
+                        class="small mb-3"
+                        style="color: var(--color-text-secondary);"
+                    >
+                        {entry.loc}
+                    </p>
+                    {entry.badge && (
+                        entry.badgeStyle === "scholarship" ? (
+                            showScholarship && (
+                                <div class="mt-2">
+                                    <span class="badge badge-dark px-3 py-2">{entry.badge}</span>
+                                </div>
+                            )
+                        ) : (
+                            <div class="mt-2">
+                                <span
+                                    class="badge px-3 py-2"
+                                    style="background: var(--color-bg-elevated); border-color: var(--color-border); color: var(--color-text-secondary);"
+                                >
+                                    {entry.badge}
+                                </span>
+                            </div>
+                        )
+                    )}
+                </div>
+            ))}
+            </div>
+
+        </div> <!-- closes grid -->
+    </div> <!-- closes container -->
+</section>
+
+<section class="section">
+    <div class="container animate-fade-up">
+        <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-2 gap-3 about-columns">
+
+             <!-- Right: Courses -->
+            <div class="surface p-4 p-md-5 about-courses">
+                <h3 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
+                    {t.courses}
+                </h3>
+
+                {t.courseEntries.map((course, index) => (
+                    <a
+                        href={courseLinks[`course${index + 1}`]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-decoration-none course-link d-block"
+                        style={index > 0
+                            ? "border-top: 1px solid var(--color-border-subtle); padding-top: 1.5rem; margin-top: 1.5rem;"
+                            : ""}
+                    >
+                        <div class="edu-card">
+                            <div class="cert-overlay">
+                                <span class="cert-btn">{t.certTitle}</span>
+                            </div>
+                            <h5
+                                class="fw-bold mb-2 course-title"
+                                style="color: var(--color-text-primary);"
+                            >
+                                {course.title}
+                            </h5>
+                            <p
+                                class="mb-2 small fw-bold"
+                                style="color: var(--color-accent-1);"
+                            >
+                                {course.year}
+                            </p>
+                            <p
+                                class="small mb-3"
+                                style="color: var(--color-text-secondary);"
+                            >
+                                {course.loc}
+                            </p>
+                            <ul
+                                class="small mb-0 ps-3"
+                                style="color: var(--color-text-secondary); line-height: 1.6;"
+                            >
+                                {course.li1 && <li class="mb-2">{course.li1}</li>}
+                                {course.li2 && <li class="mb-2">{course.li2}</li>}
+                                {course.li3 && <li>{course.li3}</li>}
+                            </ul>
+                        </div>
+                    </a>
+                ))}
+            </div>
+
+            <!-- Right: Community -->
+            <div class="surface p-4 p-md-5 about-community">
+                <h3 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
+                    {t.community}
+                </h3>
+
+                {t.communityEntries.map((entry, index) => (
+                    <div
+                        class="edu-card"
+                        style={index > 0
+                            ? "border-top: 1px solid var(--color-border-subtle); padding-top: 1.5rem; margin-top: 1.5rem;"
+                            : ""}
+                    >
+                        <h5 class="fw-bold mb-2" style="color: var(--color-text-primary);">
+                            {entry.title}
+                        </h5>
+                        <p class="mb-2 small fw-bold" style="color: var(--color-accent-1);">
+                            {entry.year}
+                        </p>
+                        <p class="small mb-3" style="color: var(--color-text-secondary);">
+                            {entry.loc}
+                        </p>
+                        <ul class="small mb-0 ps-3" style="color: var(--color-text-secondary); line-height: 1.6;">
+                            {entry.li1 && <li class="mb-2">{entry.li1}</li>}
+                            {entry.li2 && <li class="mb-2">{entry.li2}</li>}
+                            {entry.li3 && <li>{entry.li3}</li>}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+
+        </div>
+    </div>
+</section>
 </BaseLayout>
 
 <style is:global>
-    @media (min-width: 768px) {
+    /* @media (min-width: 768px) {
         .about-columns > div:first-child {
             grid-column: 1;
         }
@@ -600,7 +465,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
         .about-columns > div:last-child {
             grid-column: 2;
         }
-    }
+    } */
 
     /* Hover Effects for Cards matching ProjectCards */
     .edu-card {
