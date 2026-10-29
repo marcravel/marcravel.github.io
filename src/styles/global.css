@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap');
+@import 'bootstrap/dist/css/bootstrap.min.css';
 
 :root {
   --color-bg: #07326A;
@@ -58,12 +59,6 @@ a {
 
 a:hover {
   color: var(--color-accent-1);
-}
-
-.container {
-  max-width: var(--container-width);
-  margin: 0 auto;
-  padding: 0 2rem;
 }
 
 .section {
@@ -147,64 +142,8 @@ a:hover {
 }
 
 /* --- Layout & Utility additions replacing Bootstrap --- */
-/* Typography */
-.text-center { text-align: center; }
-.text-muted { color: var(--color-text-secondary); }
-.fw-bold { font-weight: 700; }
-.fw-light { font-weight: 300; }
-.text-uppercase { text-transform: uppercase; }
-.small { font-size: 0.875rem; }
-.lead { font-size: 1.25rem; opacity: 0.9; }
-
-.fs-1 { font-size: 2.5rem; }
-.fs-2 { font-size: 2rem; }
-.fs-3 { font-size: 1.75rem; }
-.fs-4 { font-size: 1.5rem; }
-.fs-5 { font-size: 1.25rem; }
-.fs-6 { font-size: 1rem; }
-.w-100 { width: 100%; }
-.h-100 { height: 100%; }
-.img-fluid { max-width: 100%; height: auto; }
-.rounded-full { border-radius: 9999px; }
-
-/* Display & Flex */
-.d-flex { display: flex; }
-.d-none { display: none; }
-.flex-column { flex-direction: column; }
-.flex-wrap { flex-wrap: wrap; }
-.align-items-center { align-items: center; }
-.align-items-stretch { align-items: stretch; }
-.justify-content-center { justify-content: center; }
-.justify-content-between { justify-content: space-between; }
-.gap-2 { gap: 0.5rem; }
-.gap-3 { gap: 1rem; }
-.gap-4 { gap: 1.5rem; }
-
-/* Margins & Paddings */
-.m-0 { margin: 0; }
-.mb-0 { margin-bottom: 0; }
-.mb-1 { margin-bottom: 0.25rem; }
-.mb-2 { margin-bottom: 0.5rem; }
-.mb-3 { margin-bottom: 1rem; }
-.mb-4 { margin-bottom: 1.5rem; }
-.mb-5 { margin-bottom: 3rem; }
-.mt-3 { margin-top: 1rem; }
-.mt-4 { margin-top: 1.5rem; }
-.mt-5 { margin-top: 3rem; }
-.mt-auto { margin-top: auto; }
-.ms-auto { margin-left: auto; }
-.me-2 { margin-right: 0.5rem; }
-.me-3 { margin-right: 1rem; }
-.p-0 { padding: 0; }
-.p-3 { padding: 1rem; }
-.p-4 { padding: 1.5rem; }
-.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
-.py-3 { padding-top: 1rem; padding-bottom: 1rem; }
-.py-4 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
-.py-5 { padding-top: 3rem; padding-bottom: 3rem; }
-.px-3 { padding-left: 1rem; padding-right: 1rem; }
-.px-4 { padding-left: 1.5rem; padding-right: 1.5rem; }
-.p-md-5 { padding: 1.5rem; }
+/* Bootstrap utilities provide typography, display, flexbox, spacing, sizing,
+   and responsive breakpoint helpers. */
 
 /* Grid Systems */
 .grid { display: grid; gap: 1.5rem; }
@@ -215,27 +154,19 @@ a:hover {
 
 /* Responsive Media Queries */
 @media (max-width: 768px) {
-    .md-flex-column { flex-direction: column; }
-    .md-text-center { text-align: center; }
-    .md-mt-4 { margin-top: 1.5rem; }
     .section { padding: 60px 0; }
     .section-title { font-size: 2rem; }
-    .container { padding: 0 1rem; }
     h1 { font-size: clamp(2rem, 10vw, 3rem); }
 }
 
 @media (min-width: 768px) {
     .md-grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .d-md-flex { display: flex; }
-    .d-md-none { display: none; }
 }
 
 @media (min-width: 1024px) {
     .lg-grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .lg-grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .lg-grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .lg-d-flex { display: flex; }
-    .lg-d-none { display: none; }
 }
 
 /* Base Component Additions */

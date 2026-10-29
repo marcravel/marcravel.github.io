@@ -137,7 +137,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                     entry.badgeStyle === "scholarship" ? (
                                     showScholarship && (
                                         <div class="mt-2">
-                                            <span class="badge px-3 py-2" style="background: rgba(10, 97, 201, 0.1); color: #60a5fa; border-color: rgba(10, 97, 201, 0.3);">{entry.badge}</span>
+                                            <span class="badge px-3 py-2" style="background: rgba(10, 97, 201, 0.1); color: var(--color-text-secondary); border-color: rgba(10, 97, 201, 0.3);">{entry.badge}</span>
                                         </div>
                                     )
                                     ) : (
@@ -455,9 +455,9 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                 {t.softAi}
                             </h5>
                             <div class="d-flex flex-wrap gap-2">
-                                <span class="badge px-3 py-2" style="border-color: rgba(10, 97, 201, 0.5); color: #60a5fa;" set:html={t.skillItems.control[0]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(10, 97, 201, 0.5); color: #60a5fa;" set:html={t.skillItems.control[1]}></span>
-                                <span class="badge px-3 py-2" style="border-color: rgba(10, 97, 201, 0.5); color: #60a5fa;" set:html={t.skillItems.control[2]}></span>
+                                <span class="badge px-3 py-2" style="border-color: rgba(10, 97, 201, 0.5); color: var(--color-text-secondary);" set:html={t.skillItems.control[0]}></span>
+                                <span class="badge px-3 py-2" style="border-color: rgba(10, 97, 201, 0.5); color: var(--color-text-secondary);" set:html={t.skillItems.control[1]}></span>
+                                <span class="badge px-3 py-2" style="border-color: rgba(10, 97, 201, 0.5); color: var(--color-text-secondary);" set:html={t.skillItems.control[2]}></span>
                             </div>
                         </div>
 
