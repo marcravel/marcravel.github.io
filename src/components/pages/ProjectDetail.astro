@@ -142,15 +142,16 @@ const t_galleryImage = {
                         {project.category[lang]}
                     </span>
                 </div>
-                <h1 class="mb-4 solid-text" style="font-size: 3rem;">
+
+                <h1 class="mb-4 solid-text w-100 text-center" style="font-size: 3rem;">
                     {project.title[lang]}
                 </h1>
 
                 {
                     project.achievements && project.achievements[lang] && (
                         <div
-                            class="d-inline-block p-3 rounded surface mb-5"
-                            style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-subtle); border-left: 3px solid var(--color-accent-1);"
+                            class="p-3 rounded surface mb-5"
+                            style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-subtle); border-left: 3px solid var(--color-accent-1); max-width: 100%;"
                         >
                             <span style="color: var(--color-text-primary); font-weight: 600;">
                                 {project.achievements[lang]}
@@ -160,7 +161,7 @@ const t_galleryImage = {
                 }
 
                 <!-- Technologies & Architecture right under title -->
-                <div class="mb-5 d-flex flex-column align-items-center">
+                <div class="d-flex flex-column align-items-center">
                     <h4
                         class="text-uppercase mb-3 small fw-bold"
                         style="color: var(--color-text-secondary); letter-spacing: 2px;"

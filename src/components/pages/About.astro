@@ -26,7 +26,7 @@ const texts = {
             "Learn about Marc, a final-year Electrical-Electronics Engineering student focused on embedded firmware, electronics, PCB design, and control.",
         h1: "About Me",
         profSummary: "Professional Summary",
-        techMatrix: "Technical Skills Matrix",
+        techMatrix: "Skills",
         hwEmb: "Embedded Firmware",
         softAi: "Control",
         toolsMulti: "Tools & Multimedia",
@@ -45,7 +45,7 @@ const texts = {
             "Découvrez Marc, étudiant en dernière année de génie électrique et électronique, spécialisé en firmware embarqué, électronique, conception de circuits imprimés et contrôle.",
         h1: "À propos de moi",
         profSummary: "Résumé Professionnel",
-        techMatrix: "Matrice de Compétences Techniques",
+        techMatrix: "Compétences",
         hwEmb: "Firmware embarqué",
         softAi: "Contrôle",
         toolsMulti: "Outils & Multimédia",
@@ -64,7 +64,7 @@ const texts = {
             "Gömülü firmware, elektronik, PCB tasarımı ve kontrole odaklanan son sınıf Elektrik-Elektronik Mühendisliği öğrencisi Marc hakkında bilgi edinin.",
         h1: "Hakkımda",
         profSummary: "Profesyonel Özet",
-        techMatrix: "Teknik Yetenek Matrisi",
+        techMatrix: "Yetenekler",
         hwEmb: "Gömülü Firmware",
         softAi: "Kontrol",
         toolsMulti: "Araçlar ve Multimedya",
@@ -148,43 +148,7 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                 )}
                                 </div></>
                         ))}
-
-                    <h3
-                        class="mb-4 mt-5 about-experience"
-                        style="color: var(--color-deep); font-size: 1.5rem;"
-                    >
-                        {t.experience}
-                    </h3>{t.experienceEntries.map((entry, index) => (
-                            <> <Fragment set:html={`<!-- Experience Card ${entry.cardLabel} -->`} />
-                            <div class={`surface p-4 ${index === t.experienceEntries.length - 1 ? "mb-5" : "mb-4"} edu-card about-experience`}>
-                                <h5
-                                    class="fw-bold mb-2"
-                                    style="color: var(--color-text-primary);"
-                                >
-                                    {entry.title}
-                                </h5>
-                                <p
-                                    class="mb-2 small fw-bold"
-                                    style="color: var(--color-accent-1);"
-                                >
-                                    {entry.year}
-                                </p>
-                                <p
-                                    class="small mb-4"
-                                    style="color: var(--color-text-secondary);"
-                                >
-                                    {entry.loc}
-                                </p>
-                                <ul
-                                    class="small mb-0 ps-3"
-                                    style="color: var(--color-text-secondary); line-height: 1.6;"
-                                >
-                                    <li class={entry.li2 || entry.li3 ? "mb-2" : ""}>{entry.li1}</li>
-                                    {entry.li2 && <li class="mb-2">{entry.li2}</li>}
-                                    {entry.li3 && <li>{entry.li3}</li>}
-                                </ul>
-                            </div></>
-                        ))}
+            
 
                     <h3
                         class="mb-4 mt-5 about-courses"
@@ -347,72 +311,6 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                             </ul>
                         </div>
                     </a>
-
-                    <h3
-                        class="mb-4 mt-5 about-community"
-                        style="color: var(--color-deep); font-size: 1.5rem;"
-                    >
-                        {t.community}
-                    </h3>
-
-                    <!-- Community card 1-->
-                    <div class="surface p-4 mb-4 edu-card about-community">
-                        <h5
-                            class="fw-bold mb-2"
-                            style="color: var(--color-text-primary);"
-                        >
-                            {t.communityEntries[0].title}
-                        </h5>
-                        <p
-                            class="mb-2 small fw-bold"
-                            style="color: var(--color-accent-1);"
-                        >
-                            {t.communityEntries[0].year}
-                        </p>
-                        <p
-                            class="small mb-4"
-                            style="color: var(--color-text-secondary);"
-                        >
-                            {t.communityEntries[0].loc}
-                        </p>
-                        <ul
-                            class="small mb-0 ps-3"
-                            style="color: var(--color-text-secondary); line-height: 1.6;"
-                        >
-                            <li class="mb-2">{t.communityEntries[0].li1}</li>
-                            <li class="mb-2">{t.communityEntries[0].li2}</li>
-                            <li>{t.communityEntries[0].li3}</li>
-                        </ul>
-                    </div>
-
-                    <!-- Community card 2-->
-                    <div class="surface p-4 mb-4 edu-card about-community">
-                        <h5
-                            class="fw-bold mb-2"
-                            style="color: var(--color-text-primary);"
-                        >
-                            {t.communityEntries[1].title}
-                        </h5>
-                        <p
-                            class="mb-2 small fw-bold"
-                            style="color: var(--color-accent-1);"
-                        >
-                            {t.communityEntries[1].year}
-                        </p>
-                        <p
-                            class="small mb-4"
-                            style="color: var(--color-text-secondary);"
-                        >
-                            {t.communityEntries[1].loc}
-                        </p>
-                        <ul
-                            class="small mb-0 ps-3"
-                            style="color: var(--color-text-secondary); line-height: 1.6;"
-                        >
-                            <li class="mb-2">{t.communityEntries[1].li1}</li>
-                            <li>{t.communityEntries[1].li2}</li>
-                        </ul>
-                    </div>
 
                 </div>
 
@@ -583,6 +481,107 @@ const t = { ...texts[lang], ...aboutContent[lang] };
                                 >
                             </div>
                         </div>
+                    </div>
+                    <h3
+                        class="mb-4 mt-5 about-experience"
+                        style="color: var(--color-deep); font-size: 1.5rem;"
+                    >
+                        {t.experience}
+                    </h3>{t.experienceEntries.map((entry, index) => (
+                            <> <Fragment set:html={`<!-- Experience Card ${entry.cardLabel} -->`} />
+                            <div class={`surface p-4 ${index === t.experienceEntries.length - 1 ? "mb-5" : "mb-4"} edu-card about-experience`}>
+                                <h5
+                                    class="fw-bold mb-2"
+                                    style="color: var(--color-text-primary);"
+                                >
+                                    {entry.title}
+                                </h5>
+                                <p
+                                    class="mb-2 small fw-bold"
+                                    style="color: var(--color-accent-1);"
+                                >
+                                    {entry.year}
+                                </p>
+                                <p
+                                    class="small mb-4"
+                                    style="color: var(--color-text-secondary);"
+                                >
+                                    {entry.loc}
+                                </p>
+                                <ul
+                                    class="small mb-0 ps-3"
+                                    style="color: var(--color-text-secondary); line-height: 1.6;"
+                                >
+                                    <li class={entry.li2 || entry.li3 ? "mb-2" : ""}>{entry.li1}</li>
+                                    {entry.li2 && <li class="mb-2">{entry.li2}</li>}
+                                    {entry.li3 && <li>{entry.li3}</li>}
+                                </ul>
+                            </div></>
+                        ))}
+                        <h3
+                        class="mb-4 mt-5 about-community"
+                        style="color: var(--color-deep); font-size: 1.5rem;"
+                    >
+                        {t.community}
+                    </h3>
+
+                    <!-- Community card 1-->
+                    <div class="surface p-4 mb-4 edu-card about-community">
+                        <h5
+                            class="fw-bold mb-2"
+                            style="color: var(--color-text-primary);"
+                        >
+                            {t.communityEntries[0].title}
+                        </h5>
+                        <p
+                            class="mb-2 small fw-bold"
+                            style="color: var(--color-accent-1);"
+                        >
+                            {t.communityEntries[0].year}
+                        </p>
+                        <p
+                            class="small mb-4"
+                            style="color: var(--color-text-secondary);"
+                        >
+                            {t.communityEntries[0].loc}
+                        </p>
+                        <ul
+                            class="small mb-0 ps-3"
+                            style="color: var(--color-text-secondary); line-height: 1.6;"
+                        >
+                            <li class="mb-2">{t.communityEntries[0].li1}</li>
+                            <li class="mb-2">{t.communityEntries[0].li2}</li>
+                            <li>{t.communityEntries[0].li3}</li>
+                        </ul>
+                    </div>
+
+                    <!-- Community card 2-->
+                    <div class="surface p-4 mb-4 edu-card about-community">
+                        <h5
+                            class="fw-bold mb-2"
+                            style="color: var(--color-text-primary);"
+                        >
+                            {t.communityEntries[1].title}
+                        </h5>
+                        <p
+                            class="mb-2 small fw-bold"
+                            style="color: var(--color-accent-1);"
+                        >
+                            {t.communityEntries[1].year}
+                        </p>
+                        <p
+                            class="small mb-4"
+                            style="color: var(--color-text-secondary);"
+                        >
+                            {t.communityEntries[1].loc}
+                        </p>
+                        <ul
+                            class="small mb-0 ps-3"
+                            style="color: var(--color-text-secondary); line-height: 1.6;"
+                        >
+                            <li class="mb-2">{t.communityEntries[1].li1}</li>
+                            <li>{t.communityEntries[1].li2}</li>
+                        </ul>
                     </div>
 
 
