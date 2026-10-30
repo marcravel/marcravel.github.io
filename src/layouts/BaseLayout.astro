@@ -36,6 +36,11 @@ const localeUrls = {
     fr: localizedUrl("fr"),
     tr: localizedUrl("tr"),
 };
+const internshipStatus = {
+    en: "Open to internship",
+    fr: "Ouvert aux stages",
+    tr: "Staj için müsait",
+}[lang];
 
 const navItems = [
     { path: "/", label: t("nav.home"), active: route === "/" },
@@ -127,10 +132,17 @@ const navItems = [
         <!-- ===================== NAVBAR ===================== -->
         <header class:list={["navbar-wrapper", { "navbar-home": route === "/" }]}>
             <div class="container navbar-container">
-                <!-- Brand on Left -->
-                <a class="navbar-brand" href={translatePath("/")} aria-label="Marc — Home">
-                    Marc
-                </a>
+                <!-- Brand and internship status on the left -->
+                <div class="navbar-brand-group">
+                    <a class="navbar-brand" href={translatePath("/")} aria-label="Marc — Home">
+                        Marc
+                    </a>
+                    <span class="nav-btn internship-status" aria-label="Open to internship">
+                        <span class="internship-dot" aria-hidden="true"></span>
+                        {internshipStatus}
+                    </span>
+                </div>
+                
 
                 <!-- Right Section: Menu (Desktop) + Language Selector + Hamburger (Mobile) -->
                 <div class="navbar-right">
@@ -327,6 +339,12 @@ const navItems = [
             }
 
             /* Brand */
+            .navbar-brand-group {
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+            }
+
             .navbar-brand {
                 font-family: var(--font-display);
                 font-size: 1.4rem;
@@ -409,6 +427,24 @@ const navItems = [
             .nav-btn:focus-visible {
                 outline: 2px solid var(--color-light);
                 outline-offset: 2px;
+            }
+
+            .internship-status {
+                gap: 0.45rem;
+                padding: 0.4rem 0.75rem;
+                border-radius: var(--radius-pill);
+                font-size: 0.85rem;
+                font-weight: 600;
+                white-space: nowrap;
+            }
+
+            .internship-dot {
+                width: 0.5rem;
+                height: 0.5rem;
+                flex: 0 0 auto;
+                background-color: #4ade80;
+                border-radius: 50%;
+                box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.2);
             }
 
             /* Language Switcher */
