@@ -536,8 +536,8 @@ const items = t.timeline ?? [];
 }
 
 /* current item (pulsing dot + accent border) */
-.is-current .timeline-card { border-top-color: var(--color-accent-1); }
-.is-current .timeline-dot  { animation: tl-pulse 2s infinite; }
+.is-current .timeline-card { border-top-color: var(--color-accent-2); }
+.is-current .timeline-dot  { animation: tl-pulse 1.5s infinite; }
 
 .timeline-wrap {
     position: relative;
@@ -568,7 +568,7 @@ const items = t.timeline ?? [];
 
 @keyframes tl-pulse {
     0%   { box-shadow: 0 0 0 4px var(--color-bg-elevated), 0 0 0 5px var(--color-accent-1), 0 0 0 5px transparent; }
-    70%  { box-shadow: 0 0 0 4px var(--color-bg-elevated), 0 0 0 5px var(--color-accent-1), 0 0 0 14px rgba(128,128,128,0.15); }
+    70%  { box-shadow: 0 0 0 4px var(--color-bg-elevated), 0 0 0 5px var(--color-accent-1), 0 0 0 14px rgba(0, 114, 57, 0.541); }
     100% { box-shadow: 0 0 0 4px var(--color-bg-elevated), 0 0 0 5px var(--color-accent-1), 0 0 0 5px transparent; }
 }
 
