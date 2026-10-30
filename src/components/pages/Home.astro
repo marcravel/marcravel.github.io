@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectCard from "../ProjectCard.astro";
 import projectsData from "../../data/projects.json";
 import { useTranslatedPath } from "../../i18n/ui";
+import { getImage, Image } from "astro:assets";
 
 import embeddedIcon from "../../assets/icons/embedded.png";
 import pcbIcon from "../../assets/icons/pcb-design.png";
@@ -29,6 +30,11 @@ const carouselModules = import.meta.glob<{ default: ImageMetadata }>(
 const carouselImages = Object.entries(carouselModules)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([, mod]) => mod.default);
+const heroPreload = await getImage({
+    src: carouselImages[0],
+    width: 1280,
+    format: "webp",
+});
 
 const activeProjects = projectsData.filter((project) => project.active === 1);
 const gridClassDesktop =
@@ -202,6 +208,13 @@ const personSchema = {
 ---
 
 <BaseLayout title={t.title} description={t.description}>
+    <link
+        rel="preload"
+        as="image"
+        href={heroPreload.src}
+        type="image/webp"
+        fetchpriority="high"
+    />
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
     <!-- ===================== HERO CAROUSEL ===================== -->
@@ -224,15 +237,16 @@ const personSchema = {
                         aria-roledescription="slide"
                         aria-label={`${index + 1} / ${t.slides.length}`}
                     >
-                        <img
+                        <Image
                             class="hero-slide-image"
-                            src={image.src}
-                            width={image.width}
-                            height={image.height}
+                            src={image}
+                            widths={[640, 960, 1280, 1920]}
+                            sizes="100vw"
+                            format="webp"
                             alt=""
                             aria-hidden="true"
                             loading={index === 0 ? "eager" : "lazy"}
-                            fetchpriority={index === 0 ? "high" : "auto"}
+                            fetchpriority={index === 0 ? "high" : undefined}
                             decoding="async"
                         />
                         <div class="hero-slide-overlay" />
