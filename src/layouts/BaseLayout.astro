@@ -342,7 +342,7 @@ const navItems = [
             .navbar-brand-group {
                 display: flex;
                 align-items: center;
-                gap: 2rem;
+                gap: 0.5rem;
             }
 
             .navbar-brand {
@@ -445,6 +445,13 @@ const navItems = [
                 background-color: #4ade80;
                 border-radius: 50%;
                 box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.2);
+            }
+
+            /* Hide internship status on small mobile screens */
+            @media (max-width: 390px) {
+                .internship-status {
+                    display: none;
+                }
             }
 
             /* Language Switcher */
