@@ -36,9 +36,6 @@ const heroPreloadImages = await Promise.all(
         getImage({ src: carouselImages[0], width, format: "webp" }),
     ),
 );
-const heroPreloadSrcset = heroPreloadImages
-    .map((image, index) => `${image.src} ${heroWidths[index]}w`)
-    .join(", ");
 
 const activeProjects = projectsData.filter((project) => project.active === 1);
 const gridClassDesktop =
@@ -215,8 +212,17 @@ const personSchema = {
     <link
         rel="preload"
         as="image"
-        imagesrcset={heroPreloadSrcset}
-        imagesizes="100vw"
+        href={heroPreloadImages[0].src}
+        media="(max-width: 768px)"
+        type="image/webp"
+        fetchpriority="high"
+    />
+    <link
+        rel="preload"
+        as="image"
+        href={heroPreloadImages[3].src}
+        media="(min-width: 769px)"
+        type="image/webp"
         fetchpriority="high"
     />
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
