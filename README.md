@@ -29,7 +29,7 @@ public/
   docs/                   CV and localized project descriptions
   img/projects/           Project images
   robots.txt              Sitemap discovery for crawlers
-  social-preview.jpg      Local Open Graph/Twitter preview image
+  social-preview.png      Local Open Graph/Twitter preview image
 .github/workflows/        GitHub Pages deployment workflow
 astro.config.mjs          Root URL, locales, and sitemap configuration
 package.json              Scripts and dependencies
@@ -109,7 +109,7 @@ publication.
 URLs, Open Graph and Twitter metadata, locale alternates, and the document
 language. `@astrojs/sitemap` generates the sitemap during the build.
 `public/robots.txt` points crawlers to the sitemap, and the homepage includes
-Person JSON-LD structured data. `public/social-preview.jpg` is the local
+Person JSON-LD structured data. `public/social-preview.png` is the local
 social-preview image used by Open Graph and Twitter metadata.
 
 ## Conventions
