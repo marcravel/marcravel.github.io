@@ -30,11 +30,15 @@ const carouselModules = import.meta.glob<{ default: ImageMetadata }>(
 const carouselImages = Object.entries(carouselModules)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([, mod]) => mod.default);
-const heroPreload = await getImage({
-    src: carouselImages[0],
-    width: 1280,
-    format: "webp",
-});
+const heroWidths = [640, 960, 1280, 1920];
+const heroPreloadImages = await Promise.all(
+    heroWidths.map((width) =>
+        getImage({ src: carouselImages[0], width, format: "webp" }),
+    ),
+);
+const heroPreloadSrcset = heroPreloadImages
+    .map((image, index) => `${image.src} ${heroWidths[index]}w`)
+    .join(", ");
 
 const activeProjects = projectsData.filter((project) => project.active === 1);
 const gridClassDesktop =
@@ -211,8 +215,8 @@ const personSchema = {
     <link
         rel="preload"
         as="image"
-        href={heroPreload.src}
-        type="image/webp"
+        imagesrcset={heroPreloadSrcset}
+        imagesizes="100vw"
         fetchpriority="high"
     />
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
@@ -599,6 +603,7 @@ const personSchema = {
         let current = 0;
         let locked = false; // ignore clicks while a slide is animating
         let paused = false; // true while hovered or keyboard-focused
+        let isVisible = true;
         let timer: number | undefined;
 
         // Keep hidden slides out of the tab order and the accessibility tree.
@@ -644,7 +649,7 @@ const personSchema = {
             timer = undefined;
         };
         const start = () => {
-            if (reduceMotion || paused || timer !== undefined) return;
+            if (reduceMotion || paused || !isVisible || document.hidden || timer !== undefined) return;
             timer = window.setInterval(next, AUTOPLAY_MS);
         };
         const restart = () => {
@@ -652,7 +657,7 @@ const personSchema = {
             start();
         };
 
-        // Buttons (reset the 5s countdown after every manual change)
+        // Buttons reset the autoplay countdown after every manual change.
         root.querySelector("[data-next]")?.addEventListener("click", () => {
             next();
             restart();
@@ -688,14 +693,25 @@ const personSchema = {
             start();
         });
 
-        // Only slide 1 is eager; fetch the rest once the page has loaded.
-        window.addEventListener("load", () => {
-            root.querySelectorAll<HTMLImageElement>(".hero-slide-image").forEach((img) => {
-                img.loading = "eager";
-            });
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) stop();
+            else start();
         });
 
+        const visibilityObserver = new IntersectionObserver(
+            ([entry]) => {
+                isVisible = entry.isIntersecting;
+                if (isVisible) start();
+                else stop();
+            },
+            { threshold: 0.1 },
+        );
+        visibilityObserver.observe(root);
+
+        if (!document.hidden) {
+            start();
+        }
+
         render();
-        start();
     }
 </script>
