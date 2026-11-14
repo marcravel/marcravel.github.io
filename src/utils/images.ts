@@ -11,6 +11,10 @@ export function getOptimizedImagePath(
         return imagePath;
     }
 
+    if (extension.toLowerCase() === ".svg") {
+        return imagePath;
+    }
+
     return imagePath.replace(
         new RegExp(`${extension}$`),
         variant === "thumbnail" ? "-thumb.webp" : ".webp",

@@ -1,0 +1,23 @@
+Proje Özeti
+
+Bu devam eden proje, dijital kontrollü, senkron olmayan bir buck DC-DC dönüştürücünün ön tasarımını ve simülasyonunu kapsamaktadır. Belirlenen tasarım hedefleri 12 V DC giriş, regüle edilmiş 5 V DC çıkış, maksimum 1 A çıkış akımı ve 100 kHz anahtarlama frekansında maksimum 5 W çıkış gücüdür.
+
+Dönüştürücü, güç katı tasarımını ve dijital kontrolü incelemek için pratik bir platform olarak tasarlanmaktadır. Kontrolcü adayı STM32G4 mikrodenetleyicisidir ve dijital PI kontrolü daha sonraki bir geliştirme aşaması için planlanmıştır. Proje şu anda ön tasarım ve simülasyon aşamasındadır; tamamlanmış bir donanım ürünü olarak sunulmamaktadır.
+
+Rol ve Sorumluluklar
+
+Bireysel çalışmalarım arasında güç katı tasarımı, LTspice simülasyonu, komponent hesaplamaları, MOSFET ve gate driver seçimi, serbest dolaşım diyodu seçimi, çıkış endüktörü seçimi ve çıkış kapasitörü seçimi bulunmaktadır.
+
+Ayrıca teknik dokümantasyonu hazırlıyor ve giriş kapasitörü seçimi üzerinde çalışıyorum. Altium Designer ile PCB geliştirme, STM32 firmware'i, dijital PI kontrolü, UART telemetrisi ve donanım doğrulaması planlanan aşamalardır ve henüz tamamlanmamıştır.
+
+Sistem Mimarisi
+
+Planlanan güç katı; giriş filtresi, MOSFET anahtarlama katı, gate driver, serbest dolaşım diyodu, çıkış endüktörü ve çıkış kapasitöründen oluşan senkron olmayan bir buck dönüştürücüdür. Komponent değerleri ve dayanım değerleri 12 V'tan 5 V'a, 1 A ve 100 kHz tasarım hedefi için seçilmektedir.
+
+Planlanan kontrol sistemi, çıkış geri beslemesini örneklemek ve anahtarlama komutunu ayarlayan dijital PI kontrol döngüsünü uygulamak için STM32G4 kullanacaktır. Dönüştürücünün geliştirilmesi ve gözlemlenmesi için UART telemetrisi de planlanmaktadır. Mikrodenetleyici kontrolü, PCB ve telemetri henüz uygulanmamıştır.
+
+Sonuçlar ve Başarılar
+
+Ön LTspice simülasyonu, belirtilen 5 ohm yük altında yaklaşık 5 V çıkış üretmiştir; bu değer simülasyonda yaklaşık 1 A çıkış akımına karşılık gelmektedir. Bu bir simülasyon sonucudur; fiziksel ölçüm veya donanım doğrulaması değildir.
+
+Güç katı tasarımı, ana anahtarlama yolundaki komponentlerin seçimi ve ön teknik dokümantasyon tamamlanmıştır. Giriş kapasitörü seçimi devam ederken PCB geliştirme, dijital kontrol uygulaması, donanım üretimi ve doğrulama devam eden veya planlanan aşamalardır.

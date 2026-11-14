@@ -103,6 +103,71 @@ Active projects are rendered on the home and projects pages and receive
 localized detail routes. Inactive records remain available for later
 publication.
 
+### Adding a new project
+
+1. Add the project's images under `public/img/projects/<slug>/`. Use the same
+   `slug` as the folder name and as the URL-safe project identifier.
+2. Add one object to `src/data/projects.json`. The important fields are:
+   - `id`: a unique numeric ID.
+   - `active`: use `1` to show the project or `0` to keep it hidden.
+   - `slug`: a unique lowercase identifier, such as `weather-station`.
+   - `category`, `title`, and `description`: provide `en`, `fr`, and `tr`
+     values.
+   - `techStack`: an array of technologies.
+   - `image`: the main image path, relative to `public/`.
+   - `longDescription`: localized paths to the detailed text files.
+   - `gallery`: optional image paths relative to `public/`.
+   - `youtubeId`: optional YouTube video ID, without the full URL.
+
+   For example:
+
+   ```json
+   {
+     "id": 7,
+     "active": 1,
+     "slug": "weather-station",
+     "category": {
+       "en": "Embedded Systems",
+       "fr": "Systèmes embarqués",
+       "tr": "Gömülü Sistemler"
+     },
+     "title": {
+       "en": "Weather Station",
+       "fr": "Station météorologique",
+       "tr": "Hava İstasyonu"
+     },
+     "techStack": ["ESP32", "C", "Sensors"],
+     "description": {
+       "en": "Short project summary.",
+       "fr": "Résumé court du projet.",
+       "tr": "Kısa proje özeti."
+     },
+     "image": "img/projects/weather-station/hero.jpg",
+     "longDescription": {
+       "en": "docs/weather_station.txt",
+       "fr": "docs/weather_station_fr.txt",
+       "tr": "docs/weather_station_tr.txt"
+     },
+     "youtubeId": null,
+     "gallery": [
+       "img/projects/weather-station/hero.jpg"
+     ]
+   }
+   ```
+
+3. Create the three detailed description files in `public/docs/`, matching the
+   paths used in `longDescription`: `weather_station.txt`,
+   `weather_station_fr.txt`, and `weather_station_tr.txt`. Write one paragraph
+   per line. The headings `Project Overview`, `Role & Responsibilities`,
+   `System Architecture`, and `Results & Recognition` (with their French or
+   Turkish equivalents) are automatically displayed as section headings.
+4. Check every local image path. Paths are relative to `public/` and must not
+   start with `/`; for example, `img/projects/weather-station/hero.jpg`
+   refers to `public/img/projects/weather-station/hero.jpg`.
+5. Run `npm run build` and open `/projects/weather-station/` (and `/fr/` and
+   `/tr/`) to verify the generated pages. Set `active` to `0` if the project
+   should be prepared but not published yet.
+
 ## SEO
 
 `src/layouts/BaseLayout.astro` renders page titles, descriptions, canonical

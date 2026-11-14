@@ -213,5 +213,41 @@
     },
     "youtubeId": "K-mv0HUHN_M",
     "gallery": null
+  },
+  {
+    "id": 7,
+    "active": 1,
+    "slug": "digitally-controlled-buck-converter",
+    "category": {
+      "en": "Power Electronics & Embedded Systems",
+      "fr": "Électronique de puissance et systèmes embarqués",
+      "tr": "Güç Elektroniği ve Gömülü Sistemler"
+    },
+    "title": {
+      "en": "Digitally Controlled Buck DC-DC Converter",
+      "fr": "Convertisseur Buck DC-DC à Commande Numérique",
+      "tr": "Dijital Kontrollü Buck DC-DC Dönüştürücü"
+    },
+    "techStack": [
+      "LTspice",
+      "Altium Designer",
+      "STM32",
+      "Embedded C/C++",
+      "Power Electronics",
+      "Digital PI Control"
+    ],
+    "description": {
+      "en": "Design and development of a digitally controlled, non-synchronous buck converter using an STM32 microcontroller. The project combines power electronics design, component selection, circuit simulation, PCB development, and digital control implementation.",
+      "fr": "Conception et développement d'un convertisseur Buck non synchrone à commande numérique utilisant un microcontrôleur STM32. Le projet combine la conception en électronique de puissance, la sélection des composants, la simulation de circuits, le développement du PCB et l'implémentation d'une commande numérique.",
+      "tr": "STM32 mikrodenetleyici kullanılarak dijital kontrollü, senkron olmayan bir buck dönüştürücünün tasarımı ve geliştirilmesi. Proje; güç elektroniği tasarımı, bileşen seçimi, devre simülasyonu, PCB geliştirme ve dijital kontrol uygulamasını kapsamaktadır."
+    },
+    "image": "img/projects/digitally-controlled-buck-converter/buck_converter.png",
+    "longDescription": {
+      "en": "docs/buck_converter.txt",
+      "fr": "docs/buck_converter_fr.txt",
+      "tr": "docs/buck_converter_tr.txt"
+    },
+    "youtubeId": null,
+    "gallery": null
   }
 ]

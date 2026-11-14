@@ -1,0 +1,23 @@
+Project Overview
+
+This ongoing project covers the preliminary design and simulation of a digitally controlled, non-synchronous buck DC-DC converter. The selected design targets a 12 V DC input, a regulated 5 V DC output, a maximum output current of 1 A, and a maximum output power of 5 W at a 100 kHz switching frequency.
+
+The converter is intended to provide a practical platform for studying power-stage design and digital control. An STM32G4 microcontroller is the current controller candidate, and digital PI control is planned for a later development stage. The project is currently in preliminary design and simulation; it is not presented as a completed hardware product.
+
+Role & Responsibilities
+
+My individual work includes the power-stage design, LTspice simulation, component calculations, MOSFET and gate-driver selection, freewheel-diode selection, output-inductor selection, and output-capacitor selection.
+
+I am also preparing the technical documentation and continuing the input-capacitor selection. PCB development in Altium Designer, STM32 firmware, digital PI control, UART telemetry, and hardware validation are planned stages and have not yet been completed.
+
+System Architecture
+
+The intended power stage is a non-synchronous buck converter with input filtering, a MOSFET switching stage, a gate driver, a freewheel diode, an output inductor, and an output capacitor. The component values and ratings are being selected for the 12 V to 5 V, 1 A, 100 kHz design target.
+
+The planned control system will use an STM32G4 to sample the output feedback and implement a digital PI control loop that adjusts the switching command. UART telemetry is also planned for development and observation of the converter. The microcontroller control, PCB, and telemetry are not implemented yet.
+
+Results & Recognition
+
+The preliminary LTspice simulation produced approximately 5 V at the output under the specified 5 ohm load, corresponding to approximately 1 A in simulation. This is a simulation result, not a physical measurement or hardware validation.
+
+Power-stage design, component selection for the main switching path, and preliminary technical documentation are completed. Input-capacitor selection is in progress, while PCB development, digital control implementation, hardware construction, and validation remain ongoing or planned.

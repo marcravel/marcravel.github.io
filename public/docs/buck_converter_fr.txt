@@ -1,0 +1,23 @@
+Aperçu du Projet
+
+Ce projet en cours porte sur la conception préliminaire et la simulation d'un convertisseur Buck DC-DC non synchrone à commande numérique. Le cahier des charges retenu vise une entrée de 12 V continu, une sortie régulée de 5 V continu, un courant de sortie maximal de 1 A et une puissance de sortie maximale de 5 W à une fréquence de découpage de 100 kHz.
+
+Le convertisseur est conçu comme une plateforme pratique pour étudier la conception d'un étage de puissance et la commande numérique. Un microcontrôleur STM32G4 est le candidat retenu pour le contrôleur, et une commande PI numérique est prévue pour une étape ultérieure. Le projet est actuellement en phase de conception préliminaire et de simulation ; il ne s'agit pas d'un produit matériel terminé.
+
+Rôle et Responsabilités
+
+Mon travail individuel comprend la conception de l'étage de puissance, la simulation LTspice, les calculs de dimensionnement, la sélection du MOSFET et du pilote de grille, ainsi que la sélection de la diode de roue libre, de l'inductance de sortie et du condensateur de sortie.
+
+Je prépare également la documentation technique et je poursuis la sélection du condensateur d'entrée. Le développement du PCB dans Altium Designer, le firmware STM32, la commande PI numérique, la télémétrie UART et la validation matérielle sont des étapes prévues et ne sont pas encore terminés.
+
+Architecture du Système
+
+L'étage de puissance prévu est un convertisseur Buck non synchrone comprenant un filtrage d'entrée, un étage de commutation à MOSFET, un pilote de grille, une diode de roue libre, une inductance de sortie et un condensateur de sortie. Les valeurs et les calibres des composants sont sélectionnés pour la cible de conception 12 V vers 5 V, 1 A et 100 kHz.
+
+Le système de commande prévu utilisera un STM32G4 pour échantillonner le retour de sortie et implémenter une boucle PI numérique ajustant la commande de commutation. Une télémétrie UART est également prévue pour le développement et l'observation du convertisseur. La commande par microcontrôleur, le PCB et la télémétrie ne sont pas encore implémentés.
+
+Résultats et Reconnaissance
+
+La simulation LTspice préliminaire a produit environ 5 V en sortie sous la charge spécifiée de 5 ohms, ce qui correspond à environ 1 A en simulation. Il s'agit d'un résultat de simulation, et non d'une mesure physique ou d'une validation matérielle.
+
+La conception de l'étage de puissance, la sélection des composants principaux du chemin de commutation et la documentation technique préliminaire sont terminées. La sélection du condensateur d'entrée est en cours, tandis que le développement du PCB, l'implémentation de la commande numérique, la fabrication du matériel et la validation restent en cours ou sont prévus.

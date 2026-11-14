@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Digitally controlled buck converter schematic illustration</title>
+  <desc id="description">A restrained technical illustration of a simulated buck converter power stage with an STM32 control block.</desc>
+  <rect width="1600" height="900" fill="#071f42"/>
+  <rect x="70" y="70" width="1460" height="760" rx="28" fill="#0b2f5c" stroke="#56c5d0" stroke-width="3"/>
+  <text x="130" y="155" fill="#f3f7fb" font-family="Arial, sans-serif" font-size="48" font-weight="700">BUCK DC-DC CONVERTER</text>
+  <text x="132" y="202" fill="#a9c5d8" font-family="Arial, sans-serif" font-size="25">12 V DC input  |  5 V DC target  |  100 kHz  |  preliminary simulation</text>
+  <g fill="none" stroke="#56c5d0" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M170 420h115"/>
+    <path d="M350 420h115"/>
+    <path d="M565 420h105"/>
+    <path d="M790 420h115"/>
+    <path d="M1050 420h130"/>
+    <path d="M1240 420h145"/>
+    <path d="M1385 420v190H1070"/>
+    <path d="M970 610H510V510"/>
+  </g>
+  <g fill="#f3f7fb" font-family="Arial, sans-serif" font-size="25" text-anchor="middle">
+    <text x="225" y="380">INPUT FILTER</text>
+    <text x="407" y="380">MOSFET</text>
+    <text x="730" y="380">FREEWHEEL</text>
+    <text x="978" y="380">INDUCTOR</text>
+    <text x="1310" y="380">5 V OUT</text>
+  </g>
+  <g fill="#f59e0b" stroke="#f59e0b" stroke-width="5">
+    <circle cx="225" cy="420" r="13"/>
+    <path d="M315 385v70m18-70v70" fill="none"/>
+    <path d="M465 385l55 35-55 35z" fill="#f59e0b"/>
+    <path d="M670 420l55 45m0-90-55 45" fill="none"/>
+    <path d="M905 420c35-70 70 70 105 0s70 70 105 0" fill="none"/>
+    <path d="M1180 385v70m18-70v70" fill="none"/>
+  </g>
+  <g fill="#0b2f5c" stroke="#56c5d0" stroke-width="4">
+    <rect x="620" y="625" width="350" height="115" rx="14"/>
+    <rect x="1045" y="625" width="260" height="115" rx="14"/>
+  </g>
+  <g fill="#f3f7fb" font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="795" y="675" font-size="28" font-weight="700">STM32G4</text>
+    <text x="795" y="710" font-size="22">digital PI control (planned)</text>
+    <text x="1175" y="675" font-size="28" font-weight="700">UART</text>
+    <text x="1175" y="710" font-size="22">telemetry (planned)</text>
+  </g>
+  <path d="M795 625V510H730V465" fill="none" stroke="#f59e0b" stroke-width="5" stroke-dasharray="14 12"/>
+  <text x="130" y="775" fill="#a9c5d8" font-family="Arial, sans-serif" font-size="24">POWER STAGE DESIGN • LTSPICE • COMPONENT SELECTION</text>
+</svg>
