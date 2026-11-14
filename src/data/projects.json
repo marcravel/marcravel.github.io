@@ -241,6 +241,11 @@
       "fr": "Conception et développement d'un convertisseur Buck non synchrone à commande numérique utilisant un microcontrôleur STM32. Le projet combine la conception en électronique de puissance, la sélection des composants, la simulation de circuits, le développement du PCB et l'implémentation d'une commande numérique.",
       "tr": "STM32 mikrodenetleyici kullanılarak dijital kontrollü, senkron olmayan bir buck dönüştürücünün tasarımı ve geliştirilmesi. Proje; güç elektroniği tasarımı, bileşen seçimi, devre simülasyonu, PCB geliştirme ve dijital kontrol uygulamasını kapsamaktadır."
     },
+    "developmentStatus": {
+      "en": "In Development",
+      "fr": "En développement",
+      "tr": "Geliştirme Aşamasında"
+    },
     "image": "img/projects/digitally-controlled-buck-converter/buck_converter.png",
     "longDescription": {
       "en": "docs/buck_converter.txt",

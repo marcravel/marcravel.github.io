@@ -13,6 +13,7 @@ export interface Project {
     techStack: string[];
     description: LocalizedString;
     achievements?: LocalizedString;
+    developmentStatus?: LocalizedString;
     image?: string;
     // longDescription is a path string for active projects, or inline text for inactive ones
     longDescription?: LocalizedString | string;
