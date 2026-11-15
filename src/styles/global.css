@@ -749,7 +749,7 @@ textarea.form-control {
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.035em;
-  color: var(--on-night);
+  color: var(--blue);
   text-decoration: none;
   transition: transform 160ms var(--spring), opacity 160ms var(--ease);
 }
@@ -757,7 +757,7 @@ textarea.form-control {
 .navbar-brand:hover {
   opacity: 0.92;
   transform: rotate(-1deg);
-  color: var(--white);
+  color: var(--t-blue);
 }
 
 .brand-divider {
