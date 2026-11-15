@@ -310,7 +310,19 @@ const personSchema = {
                                 <p class="kicker kicker-on-night mb-2">
                                     <span>{t.kickerHero}</span>
                                 </p>
-                                <Heading class="mb-3 hero-title">{slide.title}</Heading>
+                                <Heading class="mb-3 hero-title">
+                                    {
+                                        lang === "en" && index === 0 ? (
+                                            <>Hi, I'm <span class="hero-title-accent">Marc</span> Ravelontsalama</>
+                                        ) : lang === "en" && index === 1 ? (
+                                            <>OPEN TO <span class="hero-title-accent">INTERNSHIPS</span></>
+                                        ) : lang === "en" && index === 2 ? (
+                                            <>WHAT <span class="hero-title-accent">I BUILD</span></>
+                                        ) : (
+                                            slide.title
+                                        )
+                                    }
+                                </Heading>
                                 <div class="hero-rainbow-line" aria-hidden="true"></div>
                                 <p class="lead mb-0 hero-lead" set:html={slide.text} />
                             </div>
@@ -503,6 +515,10 @@ const personSchema = {
         letter-spacing: -0.065em;
         text-transform: none;
         color: var(--on-night);
+    }
+
+    .hero-title-accent {
+        color: var(--blue);
     }
 
     .hero-rainbow-line {
