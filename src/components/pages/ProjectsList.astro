@@ -15,6 +15,7 @@ const texts = {
     en: {
         title: "Projects - Marc",
         description: "Explore Marc's embedded systems, electronics, robotics, firmware, and control projects.",
+        kicker: "Engineering Archive",
         h1: "All Projects",
         subtitle: "A comprehensive archive of my robotics, automation, and embedded systems work.",
         in_development: "Additional systems in active development."
@@ -22,6 +23,7 @@ const texts = {
     fr: {
         title: "Projets - Marc",
         description: "Découvrez les projets de Marc en systèmes embarqués, électronique, robotique, firmware et contrôle.",
+        kicker: "Répertoire d'Ingénierie",
         h1: "Tous les projets",
         subtitle: "Une archive complète de mes travaux en robotique, automatisation et systèmes embarqués.",
         in_development: "Systèmes supplémentaires en cours de développement."
@@ -29,6 +31,7 @@ const texts = {
     tr: {
         title: "Projeler - Marc",
         description: "Marc'ın gömülü sistemler, elektronik, robotik, firmware ve kontrol projelerini keşfedin.",
+        kicker: "Mühendislik Arşivi",
         h1: "Tüm Projeler",
         subtitle: "Robotik, otomasyon ve gömülü sistemler çalışmalarımın kapsamlı bir arşivi.",
         in_development: "Geliştirilme aşamasında olan ek sistemler."
@@ -39,21 +42,72 @@ const t = texts[lang];
 ---
 
 <BaseLayout title={t.title} description={t.description}>
-    <section class="section">
+    <!-- Dark Header Section with left-aligned title & kicker -->
+    <header class="page-header-dark">
         <div class="container animate-fade-up">
-            <h1 class="section-title"><span>{t.h1}</span></h1>
-            <p class="text-center text-secondary lead mb-5">{t.subtitle}</p>
-            
-            <div class={`grid grid-cols-1 md-grid-cols-2 ${gridClassDesktop} gap-4 mt-5`}>
+            <p class="kicker mb-2">
+                <span>{t.kicker}</span>
+            </p>
+            <h1 class="page-title text-start mb-3">
+                {t.h1}
+            </h1>
+            <p class="page-subtitle text-start mb-0" style="max-width: 60ch;">
+                {t.subtitle}
+            </p>
+            <div class="header-rainbow-line"></div>
+        </div>
+    </header>
+
+    <!-- Light Body Section for page content -->
+    <section class="page-body-light">
+        <div class="container animate-fade-up">
+            <div class={`grid grid-cols-1 md-grid-cols-2 ${gridClassDesktop} gap-4`}>
                 {activeProjects.map((project) => (
                     <ProjectCard project={project} lang={lang} />
                 ))}
             </div>
 
-            <div class="mt-5 text-center d-flex align-items-center justify-content-center gap-2 animate-fade-up" style="animation-delay: 0.4s;">
-                <span style="display: inline-block; width: 8px; height: 8px; background-color: var(--color-accent-1); border-radius: 50%; animation: pulseIndicator 2s infinite;"></span>
-                <p class="small text-secondary mb-0 fst-italic">{t.in_development}</p>
+            <div class="in-development-wrapper text-center mt-5">
+                <div class="in-development-pill">
+                    <span class="status-beacon"></span>
+                    <span class="in-development-text">{t.in_development}</span>
+                </div>
             </div>
         </div>
     </section>
 </BaseLayout>
+
+<style>
+    .in-development-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    .in-development-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 22px;
+        background-color: var(--white);
+        border: var(--stroke);
+        border-radius: var(--radius-full);
+        box-shadow: var(--die), var(--drop);
+    }
+
+    .status-beacon {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: var(--green);
+        box-shadow: 0 0 0 2px rgb(52 168 83 / 0.3);
+        animation: ping 2s infinite;
+    }
+
+    .in-development-text {
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--ink);
+    }
+</style>

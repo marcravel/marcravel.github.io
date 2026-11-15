@@ -20,8 +20,6 @@ const translatePath = useTranslatedPath(lang);
 
 /* ---------- Data ---------- */
 
-// Loads every JPG in the carousel folder, in filename order.
-// Slide N uses image N (so electronics_001.jpg -> slide 1, and so on).
 const carouselModules = import.meta.glob<{ default: ImageMetadata }>(
     "../../assets/carousel/*.jpg",
     { eager: true },
@@ -41,14 +39,15 @@ const gridClassDesktop =
     activeProjects.length === 2 ? "lg-grid-cols-2" : "lg-grid-cols-3";
 
 /* ---------- Copy ---------- */
-// `slides[].text` accepts inline HTML (<strong>) and is rendered with set:html.
-// It is static content you control, so that is safe.
 
 const texts = {
     en: {
         title: "Marc Ravelontsalama | Embedded Systems Engineer",
         description:
             "Embedded systems, firmware, electronics, PCB design, and control engineering projects by Marc Ravelontsalama.",
+        kickerHero: "Personal Portfolio",
+        kickerSkills: "Engineering Disciplines",
+        kickerProjects: "Featured Works",
         carousel: { prev: "Previous slide", next: "Next slide", slide: "Slide" },
         slides: [
             {
@@ -105,6 +104,9 @@ const texts = {
         title: "Marc Ravelontsalama | Ingénieur systèmes embarqués",
         description:
             "Projets de Marc Ravelontsalama en systèmes embarqués, firmware, électronique, conception de circuits imprimés et contrôle.",
+        kickerHero: "Portfolio Personnel",
+        kickerSkills: "Disciplines d'Ingénierie",
+        kickerProjects: "Travaux Sélectionnés",
         carousel: {
             prev: "Diapositive précédente",
             next: "Diapositive suivante",
@@ -165,6 +167,9 @@ const texts = {
         title: "Marc Ravelontsalama | Gömülü Sistemler Mühendisi",
         description:
             "Marc Ravelontsalama'nın gömülü sistemler, firmware, elektronik, PCB tasarımı ve kontrol projeleri.",
+        kickerHero: "Kişisel Portfolyo",
+        kickerSkills: "Mühendislik Alanları",
+        kickerProjects: "Seçili Çalışmalar",
         carousel: { prev: "Önceki slayt", next: "Sonraki slayt", slide: "Slayt" },
         slides: [
             {
@@ -278,7 +283,6 @@ const personSchema = {
         {
             t.slides.map((slide, index) => {
                 const image = carouselImages[index % carouselImages.length];
-                // Only one <h1> per page; the other slides use <h2>.
                 const Heading = index === 0 ? "h1" : "h2";
                 return (
                     <div
@@ -303,8 +307,11 @@ const personSchema = {
                         <div class="hero-slide-overlay" />
                         <div class="container hero-slide-content d-flex align-items-center justify-content-center">
                             <div class:list={["hero-copy", { "animate-fade-up": index === 0 }]}>
+                                <p class="kicker kicker-on-night mb-2">
+                                    <span>{t.kickerHero}</span>
+                                </p>
                                 <Heading class="mb-3 hero-title">{slide.title}</Heading>
-                                <p class="lead mb-0" set:html={slide.text} />
+                                <p class="lead mb-0 hero-lead" set:html={slide.text} />
                             </div>
                         </div>
                     </div>
@@ -314,7 +321,7 @@ const personSchema = {
 
         <div class="hero-controls">
             <button type="button" class="hero-arrow" data-prev aria-label={t.carousel.prev}>
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M15 18l-6-6 6-6" />
                 </svg>
             </button>
@@ -334,7 +341,7 @@ const personSchema = {
             </div>
 
             <button type="button" class="hero-arrow" data-next aria-label={t.carousel.next}>
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M9 18l6-6-6-6" />
                 </svg>
             </button>
@@ -342,31 +349,38 @@ const personSchema = {
     </header>
 
     <!-- ===================== SKILLS ===================== -->
-    <section class="skills-section">
+    <section class="section skills-section">
         <div class="container">
             <div class="skills-wrapper">
-                <h2 class="section-title skills-heading"><span>{t.skillsHeading}</span></h2>
+                <div class="text-center mb-5">
+                    <p class="kicker justify-content-center text-center">
+                        <span>{t.kickerSkills}</span>
+                    </p>
+                    <h2 class="section-title mb-0"><span>{t.skillsHeading}</span></h2>
+                </div>
 
-                <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-4 skills-grid animate-fade-up delay-2">
+                <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-4 skills-grid animate-fade-up">
                     {
                         t.skills.map((skill, index) => {
                             const icon = skillIcons[index];
                             return (
                                 <article class="skill-card">
-                                    <img
-                                        src={icon.src}
-                                        width="28"
-                                        height="28"
-                                        alt=""
-                                        aria-hidden="true"
-                                        class="skill-icon mb-3"
-                                        loading="lazy"
-                                        decoding="async"
-                                    />
+                                    <div class="stamp-icon mb-3">
+                                        <img
+                                            src={icon.src}
+                                            width="30"
+                                            height="30"
+                                            alt=""
+                                            aria-hidden="true"
+                                            class="skill-icon"
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
+                                    </div>
                                     <h3 class="skill-title mb-2">{skill.title}</h3>
-                                    <p class="skill-description">{skill.desc}</p>
+                                    <p class="skill-description mb-3">{skill.desc}</p>
                                     <ul class="skill-tags" aria-label={skill.title}>
-                                        {skill.items.map((item) => <li>{item}</li>)}
+                                        {skill.items.map((item) => <li class="tag">{item}</li>)}
                                     </ul>
                                 </article>
                             );
@@ -378,22 +392,29 @@ const personSchema = {
     </section>
 
     <!-- ===================== PROJECTS PREVIEW ===================== -->
-    <section class="projects-section">
+    <section class="section projects-section">
         <div class="container">
-            <div class="d-flex flex-wrap justify-content-between align-items-center projects-header gap-3">
-                <h2 class="section-title mb-0"><span>{t.selectedProjects}</span></h2>
+            <div class="d-flex flex-wrap justify-content-between align-items-center projects-header gap-3 mb-5">
+                <div>
+                    <p class="kicker mb-1">
+                        <span>{t.kickerProjects}</span>
+                    </p>
+                    <h2 class="section-title text-start mb-0"><span>{t.selectedProjects}</span></h2>
+                </div>
                 <a href={translatePath("/projects")} class="btn btn-outline view-all">
-                    {t.viewAll}
+                    {t.viewAll} &rarr;
                 </a>
             </div>
 
-            <div class={`grid grid-cols-1 md-grid-cols-2 ${gridClassDesktop} gap-4 projects-grid animate-fade-up delay-3`}>
+            <div class={`grid grid-cols-1 md-grid-cols-2 ${gridClassDesktop} gap-4 projects-grid animate-fade-up`}>
                 {activeProjects.map((project) => <ProjectCard project={project} lang={lang} />)}
             </div>
 
-            <div class="in-development text-center d-flex align-items-center justify-content-center gap-2 animate-fade-up delay-4">
-                <span class="status-dot"></span>
-                <p class="small text-secondary mb-0 fst-italic">{t.inDevelopment}</p>
+            <div class="in-development-wrapper text-center mt-5">
+                <div class="in-development-pill">
+                    <span class="status-beacon"></span>
+                    <span class="in-development-text">{t.inDevelopment}</span>
+                </div>
             </div>
         </div>
     </section>
@@ -401,14 +422,13 @@ const personSchema = {
 
 <style>
     /* ---------- Hero carousel ---------- */
-
-    /* Grid stacking: every slide sits in the same cell, so the hero is as tall
-       as its tallest slide (long text on mobile never gets clipped). */
     .hero-carousel {
         position: relative;
         display: grid;
-        grid-template-rows: minmax(min(760px, 88vh), auto);
+        grid-template-rows: minmax(min(640px, 80vh), auto);
         overflow: hidden;
+        background-color: var(--night);
+        border-bottom: 2px solid var(--ink);
     }
 
     .hero-slide {
@@ -416,17 +436,17 @@ const personSchema = {
         grid-area: 1 / 1;
         display: flex;
         align-items: center;
-        transform: translateX(100%); /* default: waiting on the right */
+        transform: translateX(100%);
         transition: transform var(--slide-ms, 0.8s) ease-in-out;
     }
     .hero-slide[data-state="active"] {
         transform: none;
     }
     .hero-slide[data-state="before"] {
-        transform: translateX(-100%); /* already gone, on the left */
+        transform: translateX(-100%);
     }
     .hero-slide.no-transition {
-        transition: none; /* used by the script to reposition silently */
+        transition: none;
     }
 
     .hero-slide-image {
@@ -435,42 +455,61 @@ const personSchema = {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        opacity: 0.28;
     }
+
     .hero-slide-overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(
-            90deg,
-            rgba(7, 50, 106, 0.96),
-            rgba(7, 50, 106, 0.72) 52%,
-            rgba(10, 97, 201, 0.45)
-        );
+        background:
+            linear-gradient(to right, rgb(42 42 42 / 0.65) 1px, transparent 1px),
+            linear-gradient(to bottom, rgb(42 42 42 / 0.65) 1px, transparent 1px),
+            linear-gradient(90deg, rgb(31 31 31 / 0.96), rgb(31 31 31 / 0.8));
+        background-size: 40px 40px, 40px 40px, auto;
     }
+
     .hero-slide-content {
         position: relative;
         z-index: 1;
         width: 100%;
         min-width: 0;
-        padding-block: 6rem;
+        padding-block: 5rem;
         text-align: center;
     }
+
     .hero-copy {
         width: 100%;
-        max-width: 760px;
-        color: var(--color-light);
+        max-width: 800px;
+        color: var(--on-night);
     }
+
+    .kicker-on-night {
+        color: var(--on-night-2);
+    }
+
+    .kicker-on-night::before,
+    .kicker-on-night::after {
+        color: var(--blue);
+    }
+
     .hero-title {
-        font-size: clamp(1.5rem, 4vw, 2.5rem);
-        line-height: 1.15;
+        font-size: clamp(2rem, 5vw, 3.75rem);
+        font-weight: 700;
+        line-height: 1.05;
+        letter-spacing: -0.035em;
         text-transform: uppercase;
-        color: var(--color-light);
+        color: var(--on-night);
     }
-    .hero-copy .lead {
-        color: var(--color-light);
+
+    .hero-lead {
+        color: var(--on-night);
+        font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+        line-height: 1.5;
         opacity: 0.95;
     }
+
     .hero-copy strong {
-        color: #ffffff;
+        color: var(--t-yellow);
         font-weight: 700;
     }
 
@@ -478,187 +517,175 @@ const personSchema = {
     .hero-controls {
         position: absolute;
         inset-inline: 0;
-        bottom: 1.25rem;
+        bottom: 1.5rem;
         z-index: 2;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 1rem;
     }
+
     .hero-arrow {
         display: grid;
         place-items: center;
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 44px;
+        height: 44px;
         padding: 0;
-        color: var(--color-light);
-        background-color: rgba(7, 50, 106, 0.7);
-        border: 1px solid var(--color-border);
-        border-radius: 50%;
-        -webkit-backdrop-filter: blur(8px);
-        backdrop-filter: blur(8px);
+        color: var(--white);
+        background-color: var(--night-2);
+        border: 2px solid var(--white);
+        border-radius: var(--radius-full);
+        box-shadow: 0 4px 0 0 var(--ink);
         transition:
-            background-color var(--transition-base),
-            border-color var(--transition-base),
-            color var(--transition-base);
+            transform 160ms var(--spring),
+            background-color 160ms var(--ease),
+            box-shadow 160ms var(--ease);
     }
+
     .hero-arrow:hover {
-        background-color: var(--color-accent-1);
-        border-color: var(--color-light);
-        color: var(--color-light);
+        background-color: var(--cta);
+        transform: translateY(-2px) rotate(-2deg);
+        box-shadow: 0 6px 0 0 var(--ink);
     }
+
+    .hero-arrow:active {
+        transform: translateY(2px);
+        box-shadow: 0 1px 0 0 var(--ink);
+    }
+
     .hero-dots {
         display: flex;
         align-items: center;
         gap: 0.75rem;
     }
+
     .hero-dot {
         position: relative;
-        width: 0.625rem;
-        height: 0.625rem;
+        width: 12px;
+        height: 12px;
         padding: 0;
         background: transparent;
-        border: 1px solid var(--color-light);
-        border-radius: var(--radius-pill);
+        border: 2px solid var(--white);
+        border-radius: var(--radius-full);
+        box-shadow: 0 2px 0 0 var(--ink);
         transition:
-            width var(--transition-base),
-            background-color var(--transition-base);
+            width 180ms var(--spring),
+            background-color 180ms var(--ease),
+            border-color 180ms var(--ease);
     }
+
     .hero-dot::after {
         content: "";
         position: absolute;
-        inset: -0.5rem; /* bigger tap target */
+        inset: -0.5rem;
     }
+
     .hero-dot[aria-current="true"] {
-        width: 1.75rem;
-        background-color: var(--color-light);
+        width: 32px;
+        background-color: var(--t-yellow);
+        border-color: var(--t-yellow);
     }
 
-    /* ---------- Section Flow & Consistent Spacing ---------- */
-
-    .skills-section {
-        padding-top: var(--home-flow-gap, clamp(2.5rem, 5vw, 3.5rem));
-        padding-bottom: 0;
-    }
-
-    .skills-wrapper {
-        width: 100%;
-    }
-
-    .skills-heading {
-        margin-bottom: var(--home-flow-gap, clamp(2.5rem, 5vw, 3.5rem)) !important;
-        text-align: center;
-    }
-
+    /* ---------- Skills Section ---------- */
     .skills-grid {
-        margin-bottom: var(--home-flow-gap, clamp(2.5rem, 5vw, 3.5rem));
+      margin-top: 2rem;
     }
-
-    .projects-section {
-        padding-top: 0;
-        padding-bottom: var(--home-flow-gap, clamp(2.5rem, 5vw, 3.5rem));
-    }
-
-    .projects-header {
-        margin-bottom: var(--home-flow-gap, clamp(2.5rem, 5vw, 3.5rem));
-    }
-
-    .projects-grid {
-        margin-bottom: var(--home-flow-gap, clamp(2.5rem, 5vw, 3.5rem));
-    }
-
-    .in-development {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    /* ---------- Skills ---------- */
 
     .skill-card {
-        background-color: var(--color-bg-card);
-        border: 1px solid var(--color-border-subtle);
-        border-radius: var(--radius-md);
-        padding: clamp(1.25rem, 2.5vw, 1.5rem);
+        background: var(--white);
+        border: var(--stroke);
+        border-radius: var(--radius);
+        padding: 28px 24px;
+        box-shadow: var(--die), var(--drop);
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        transition: transform var(--transition-base), box-shadow var(--transition-base);
+        transform: rotate(var(--deg, 0deg));
+        transition:
+            transform 160ms var(--spring),
+            box-shadow 160ms var(--ease);
     }
 
+    .skill-card:nth-child(1) { --deg: -0.6deg; }
+    .skill-card:nth-child(2) { --deg: 0.8deg; }
+    .skill-card:nth-child(3) { --deg: -0.5deg; }
+    .skill-card:nth-child(4) { --deg: 0.6deg; }
+    .skill-card:nth-child(5) { --deg: -0.4deg; }
+    .skill-card:nth-child(6) { --deg: 0.7deg; }
+
     .skill-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 30px rgba(7, 50, 106, 0.08);
+        transform: translateY(-4px) rotate(calc(var(--deg, 0deg) - 1.2deg));
+        box-shadow: var(--die), var(--lift);
     }
 
     .skill-icon {
-        width: 28px;
-        height: 28px;
+        width: 30px;
+        height: 30px;
         object-fit: contain;
-        margin-inline: auto;
-        display: block;
-        flex-shrink: 0;
     }
 
     .skill-title {
-        font-size: clamp(1.1rem, 2vw, 1.3rem);
+        font-size: 1.25rem;
         font-weight: 700;
-        color: var(--color-text-primary);
-        text-align: center;
-        margin-bottom: 0.75rem !important;
+        color: var(--ink);
+        letter-spacing: -0.02em;
     }
 
     .skill-description {
-        color: var(--color-text-secondary);
-        line-height: 1.45;
-        margin: 0 0 0.75rem;
+        color: var(--ink-2);
+        font-size: 0.9375rem;
+        line-height: 1.5;
     }
 
     .skill-tags {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 0.35rem;
+        gap: 6px;
         list-style: none;
         margin: 0;
         padding: 0;
     }
 
-    .skill-tags li {
-        background-color: var(--color-bg-elevated);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-pill);
-        color: var(--color-text-secondary);
-        font-size: 0.82rem;
-        line-height: 1.3;
-        padding: 0.35rem 0.65rem;
+    /* ---------- Projects Section ---------- */
+    .in-development-wrapper {
+        display: flex;
+        justify-content: center;
     }
 
-    /* ---------- Projects ---------- */
-
-    .view-all {
-        padding: 0.5rem 1.25rem;
+    .in-development-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 22px;
+        background-color: var(--white);
+        border: var(--stroke);
+        border-radius: var(--radius-full);
+        box-shadow: var(--die), var(--drop);
     }
-    .status-dot {
+
+    .status-beacon {
         display: inline-block;
-        width: 8px;
-        height: 8px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
-        background-color: var(--color-accent-1);
-        box-shadow: 0 0 8px var(--color-accent-1);
-        animation: pulseIndicator 2s infinite;
+        background-color: var(--green);
+        box-shadow: 0 0 0 2px rgb(52 168 83 / 0.3);
+        animation: ping 2s infinite;
     }
 
-    /* ---------- Staggered entrance ---------- */
-
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-    .delay-4 { animation-delay: 0.4s; }
+    .in-development-text {
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--ink);
+    }
 </style>
 
 <script>
-    const AUTOPLAY_MS = 7000; // time each slide stays on screen
-    const TRANSITION_MS = 1000; // slide animation length (also drives the CSS)
+    const AUTOPLAY_MS = 7000;
+    const TRANSITION_MS = 1000;
 
     const root = document.querySelector<HTMLElement>("[data-carousel]");
 
@@ -670,12 +697,11 @@ const personSchema = {
         root.style.setProperty("--slide-ms", `${TRANSITION_MS}ms`);
 
         let current = 0;
-        let locked = false; // ignore clicks while a slide is animating
-        let paused = false; // true while hovered or keyboard-focused
+        let locked = false;
+        let paused = false;
         let isVisible = true;
         let timer: number | undefined;
 
-        // Keep hidden slides out of the tab order and the accessibility tree.
         const render = () => {
             slides.forEach((slide, i) => {
                 slide.inert = i !== current;
@@ -687,7 +713,6 @@ const personSchema = {
             });
         };
 
-        // dir: 1 = forward (new slide enters from the right), -1 = backward.
         const goTo = (target: number, dir: 1 | -1) => {
             if (locked || target === current) return;
             locked = true;
@@ -695,13 +720,11 @@ const personSchema = {
             const outgoing = slides[current];
             const incoming = slides[target];
 
-            // Park the incoming slide on the correct side without animating...
             incoming.classList.add("no-transition");
             incoming.dataset.state = dir === 1 ? "after" : "before";
-            void incoming.offsetWidth; // flush so the browser commits that position
+            void incoming.offsetWidth;
             incoming.classList.remove("no-transition");
 
-            // ...then animate both slides.
             outgoing.dataset.state = dir === 1 ? "before" : "after";
             incoming.dataset.state = "active";
 
@@ -726,7 +749,6 @@ const personSchema = {
             start();
         };
 
-        // Buttons reset the autoplay countdown after every manual change.
         root.querySelector("[data-next]")?.addEventListener("click", () => {
             next();
             restart();
@@ -742,7 +764,6 @@ const personSchema = {
             }),
         );
 
-        // Pause while the user is hovering or navigating by keyboard.
         root.addEventListener("mouseenter", () => {
             paused = true;
             stop();
