@@ -4,7 +4,11 @@ import fs from "fs/promises";
 import path from "path";
 import { useTranslatedPath } from "../../i18n/ui";
 import type { Project, Lang } from "../../types/project";
-import { getOptimizedImagePath } from "../../utils/images";
+import {
+    getOptimizedImagePath,
+    normalizeBaseUrl,
+} from "../../utils/images";
+import { parseProjectCategories } from "../../utils/categories";
 
 export interface Props {
     lang: Lang;
@@ -12,14 +16,13 @@ export interface Props {
 }
 const { lang, project } = Astro.props;
 const translatePath = useTranslatedPath(lang);
+const baseUrl = normalizeBaseUrl(import.meta.env.BASE_URL);
 const developmentStatus = project.developmentStatus?.[lang]?.trim();
+const categories = parseProjectCategories(project.category[lang]);
 
 // Helper to determine the hero image URL with BASE_URL routing
 let heroImage = project.image;
 if (heroImage && !heroImage.startsWith("http")) {
-    const baseUrl = import.meta.env.BASE_URL.endsWith("/")
-        ? import.meta.env.BASE_URL
-        : import.meta.env.BASE_URL + "/";
     heroImage = `${baseUrl}${getOptimizedImagePath(heroImage)}`;
 }
 
@@ -70,9 +73,9 @@ const parsedLongDescription = (
     .map((p) => {
         const trimmed = p.trim();
         if (subtitleRegex.test(trimmed)) {
-            return `<h3 class="mb-3 mt-5" style="color: var(--color-accent-1); font-size: 1.5rem;">${escapeHtml(trimmed)}</h3>`;
+            return `<h3 class="detail-subtitle">${escapeHtml(trimmed)}</h3>`;
         }
-        return `<p class="mb-3 text-secondary" style="line-height: 1.7;">${escapeHtml(trimmed)}</p>`;
+        return `<p class="detail-paragraph">${escapeHtml(trimmed)}</p>`;
     })
     .join("");
 
@@ -107,123 +110,99 @@ const t_galleryImage = {
     title={`${project.title[lang]} - Marc Projects`}
     description={project.description[lang] || project.description.en}
 >
-    <section class="section">
+    <!-- Dark Header Section: Back button, Categories, Title, Achievements, Technologies -->
+    <header class="page-header-dark">
         <div class="container animate-fade-up">
             <!-- Navigation Back -->
-            <div class="mb-5">
+            <div class="mb-4">
                 <a
                     href={translatePath("/projects")}
-                    class="text-decoration-none d-inline-flex align-items-center gap-2"
-                    style="color: var(--color-accent-1);"
+                    class="btn-back-dark"
                 >
-                    <svg
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                    >
-                        <path
-                            fill-rule="evenodd"
-                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-                        ></path>
+                    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
                     </svg>
-                    <span style="font-weight: 500;">{t_back[lang]}</span>
+                    <span>{t_back[lang]}</span>
                 </a>
             </div>
 
-            <!-- Project Header -->
-            <div class="mb-5 text-center">
-                <div class="mb-4 d-flex flex-wrap justify-content-center gap-2">
+            <!-- Categories & Status (Left-aligned) -->
+            <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                {categories.map((cat) => (
                     <span
-                        class="badge px-4 py-2"
-                        style="background: var(--color-accent-2); border: 1px solid var(--color-accent-1); color: var(--color-light); font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;"
+                        class="badge badge-category"
+                        style={`background-color: ${cat.bg}; color: ${cat.fg}; border: ${cat.border};`}
                     >
-                        {project.category[lang]}
+                        {cat.label}
                     </span>
-                    {
-                        developmentStatus && (
-                            <span
-                                class="badge px-3 py-2"
-                                style="background: rgba(32, 116, 74, 0.94); border: 1px solid #78d6a0; color: #f3fff7; font-size: 0.9rem; font-weight: 600;"
-                            >
-                                {developmentStatus}
-                            </span>
-                        )
-                    }
-                </div>
-
-                <h1 class="mb-4 solid-text w-100 text-center" style="font-size: 3rem;">
-                    {project.title[lang]}
-                </h1>
-
+                ))}
                 {
-                    project.achievements && project.achievements[lang] && (
-                        <div
-                            class="p-3 rounded surface mb-5"
-                            style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-subtle); border-left: 3px solid var(--color-accent-1); max-width: 100%;"
-                        >
-                            <span style="color: var(--color-text-primary); font-weight: 600;">
-                                {project.achievements[lang]}
-                            </span>
-                        </div>
+                    developmentStatus && (
+                        <span class="badge badge-green detail-status-badge">
+                            {developmentStatus}
+                        </span>
                     )
                 }
+            </div>
 
-                <!-- Technologies & Architecture right under title -->
-                <div class="d-flex flex-column align-items-center">
-                    <h4
-                        class="text-uppercase mb-3 small fw-bold"
-                        style="color: var(--color-text-secondary); letter-spacing: 2px;"
-                    >
-                        {t_tech[lang]}
-                    </h4>
-                    <div class="d-flex flex-wrap justify-content-center gap-2">
-                        {
-                            project.techStack.map((tech) => (
-                                <span
-                                    class="badge px-3 py-2"
-                                    style="background: var(--color-bg-elevated); border: 1px solid var(--color-border); color: var(--color-text-secondary); font-size: 0.9rem;"
-                                >
-                                    {tech}
-                                </span>
-                            ))
-                        }
+            <!-- Project Title (Left-aligned) -->
+            <h1 class="page-title text-start mb-3">
+                {project.title[lang]}
+            </h1>
+
+            {
+                project.achievements && project.achievements[lang] && (
+                    <div class="achievements-banner text-start mb-4">
+                        <span class="achievements-text">
+                            {project.achievements[lang]}
+                        </span>
                     </div>
+                )
+            }
+
+            <!-- Technologies (Left-aligned) -->
+            <div class="mt-4">
+                <p class="kicker text-start mb-2">
+                    <span>{t_tech[lang]}</span>
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                    {
+                        project.techStack.map((tech) => (
+                            <span class="tag">
+                                {tech}
+                            </span>
+                        ))
+                    }
                 </div>
             </div>
 
+            <div class="header-rainbow-line mt-4"></div>
+        </div>
+    </header>
+
+    <!-- Light Body Section: Gallery, Media Hero & Overview -->
+    <section class="page-body-light">
+        <div class="container animate-fade-up">
             <div class="grid grid-cols-1 lg-grid-cols-3 gap-5">
-                <!-- Left Column: Gallery -->
+                <!-- Gallery Column -->
                 <div class="order-2 lg-order-2">
                     {
                         project.gallery && project.gallery.length > 0 && (
-                            <div
-                                class="surface p-4 sticky-top"
-                                style="top: 100px;"
-                            >
-                                <h3
-                                    class="mb-4"
-                                    style="color: var(--color-text-primary); font-size: 1.5rem;"
-                                >
+                            <div class="surface p-4 sticky-gallery">
+                                <p class="kicker mb-2">
+                                    <span>{t_gallery[lang]}</span>
+                                </p>
+                                <h3 class="gallery-heading mb-4">
                                     {t_gallery[lang]}
                                 </h3>
                                 <div class="grid grid-cols-2 gap-3">
                                     {project.gallery.map((galleryImg, index) => {
-                                        // Handle correct routing for gallery images
                                         let imgPath = galleryImg;
                                         let fullImgPath = galleryImg;
                                         if (!imgPath.startsWith("http")) {
-                                            const bUrl =
-                                                import.meta.env.BASE_URL.endsWith(
-                                                    "/",
-                                                )
-                                                    ? import.meta.env.BASE_URL
-                                                    : import.meta.env.BASE_URL +
-                                                      "/";
-                                            imgPath = `${bUrl}${getOptimizedImagePath(imgPath, "thumbnail")}`;
-                                            fullImgPath = `${bUrl}${getOptimizedImagePath(fullImgPath)}`;
+                                            imgPath = `${baseUrl}${getOptimizedImagePath(imgPath, "thumbnail")}`;
+                                            fullImgPath = `${baseUrl}${getOptimizedImagePath(fullImgPath)}`;
                                         }
                                         return (
                                             <button
@@ -234,16 +213,14 @@ const t_galleryImage = {
                                                         index + 1,
                                                         project.gallery.length,
                                                     )}
-                                                class="surface overflow-hidden"
-                                                style="cursor: pointer; aspect-ratio: 1; padding: 0; border: 0; width: 100%;"
+                                                class="gallery-thumbnail-btn"
                                             >
                                                 <img
                                                     src={imgPath}
                                                     data-full-src={fullImgPath}
                                                     width="400"
                                                     height="400"
-                                                    class="h-100 w-100 gallery-image"
-                                                    style="object-fit: cover; transition: transform 0.3s ease; display: block;"
+                                                    class="gallery-thumb-img"
                                                     alt={
                                                         project.galleryAlt?.[index]?.[lang] ||
                                                         t_galleryImage[lang](
@@ -264,18 +241,17 @@ const t_galleryImage = {
                     }
                 </div>
 
-                <!-- Right Column: Media Hero & Description -->
+                <!-- Right Column: Media Hero & Overview -->
                 <div
                     class="lg-grid-col-span-2 order-1 lg-order-1"
-                    style="grid-column: span 2;"
                 >
                     <!-- Media Hero (YouTube or Image) -->
-                    <div class="mb-5 surface overflow-hidden p-0">
+                    <div class="surface overflow-hidden p-0 mb-4 media-hero-box">
                         {
                             project.youtubeId ? (
-                                <div style="position: relative; width: 100%; padding-bottom: 56.25%;">
+                                <div class="video-container">
                                     <iframe
-                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                        class="video-iframe"
                                         src={`https://www.youtube.com/embed/${project.youtubeId}?rel=0`}
                                         title="Technical hardware overview of the project"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -292,8 +268,7 @@ const t_galleryImage = {
                                         fetchpriority="high"
                                         decoding="async"
                                         alt={`${project.title[lang]} – ${t_image[lang]}`}
-                                        class="w-100"
-                                        style="object-fit: cover; max-height: 500px; display: block;"
+                                        class="w-100 media-hero-img"
                                     />
                                 )
                             )
@@ -301,14 +276,14 @@ const t_galleryImage = {
                     </div>
 
                     <!-- Long Description -->
-                    <div class="mb-5 surface p-4 p-md-5">
-                        <h3 class="mb-4 solid-text" style="font-size: 2rem;">
+                    <div class="surface p-4 p-md-5 overview-card">
+                        <p class="kicker mb-1">
+                            <span>{t_overview[lang]}</span>
+                        </p>
+                        <h2 class="overview-title mb-4">
                             {t_overview[lang]}
-                        </h3>
-                        <div
-                            class="project-details"
-                            style="line-height: 1.8; font-size: 1.1rem;"
-                        >
+                        </h2>
+                        <div class="project-details">
                             <span set:html={parsedLongDescription} />
                         </div>
                     </div>
@@ -337,46 +312,163 @@ const t_galleryImage = {
 </BaseLayout>
 
 <style>
-    .order-1 {
-        order: 1;
-    }
-    .order-2 {
-        order: 2;
-    }
-    @media (min-width: 1024px) {
-        .lg-order-1 {
-            order: 1;
-        }
-        .lg-order-2 {
-            order: 2;
-        }
+    .project-title {
+        font-size: clamp(2rem, 4vw, 3.25rem);
+        font-weight: 700;
+        letter-spacing: -0.035em;
+        line-height: 1.1;
+        color: var(--ink);
     }
 
-    .sticky-top {
+    .detail-category-badge {
+        font-size: 0.875rem;
+        padding: 6px 16px;
+    }
+
+    .detail-status-badge {
+        font-size: 0.875rem;
+        padding: 6px 16px;
+    }
+
+    .achievements-banner {
+        display: inline-block;
+        max-width: 100%;
+        padding: 12px 20px;
+        background-color: var(--p-yellow);
+        border: 2px solid var(--white);
+        border-radius: var(--radius-s);
+        box-shadow: 0 4px 0 0 rgb(0 0 0 / 0.45);
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 0.9375rem;
+    }
+
+    .sticky-gallery {
         position: sticky;
-        top: 0;
+        top: calc(var(--appbar-h) + 1.5rem);
         z-index: 10;
     }
 
-    .gallery-image:hover {
-        transform: scale(1.1);
+    .gallery-heading {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--ink);
     }
 
-    /* Custom Modal Styles */
+    .gallery-thumbnail-btn {
+        aspect-ratio: 1;
+        padding: 0;
+        border: 2px solid var(--ink);
+        border-radius: var(--radius-s);
+        box-shadow: 0 3px 0 0 var(--ink);
+        overflow: hidden;
+        background-color: var(--surface-2);
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        transition: transform 160ms var(--spring), box-shadow 160ms var(--ease);
+    }
+
+    .gallery-thumbnail-btn:hover {
+        transform: scale(1.04) rotate(-1deg);
+        box-shadow: 0 5px 0 0 var(--ink);
+    }
+
+    .gallery-thumb-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .media-hero-box {
+        background-color: var(--night);
+    }
+
+    .video-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+    }
+
+    .video-iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    .media-hero-img {
+        object-fit: cover;
+        max-height: 520px;
+        display: block;
+    }
+
+    .overview-card {
+        background-color: var(--white);
+    }
+
+    .overview-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--ink);
+        letter-spacing: -0.025em;
+    }
+
+    :global(.detail-subtitle) {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--cta);
+        margin-top: 36px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        letter-spacing: -0.02em;
+    }
+
+    :global(.detail-subtitle::before) {
+        content: "{";
+        font-family: var(--font);
+        font-size: 1.5em;
+        line-height: 1;
+        color: var(--blue);
+        font-weight: 400;
+    }
+
+    :global(.detail-subtitle::after) {
+        content: "}";
+        font-family: var(--font);
+        font-size: 1.5em;
+        line-height: 1;
+        color: var(--blue);
+        font-weight: 400;
+    }
+
+    :global(.detail-paragraph) {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: var(--ink-2);
+        margin-bottom: 16px;
+    }
+
+    /* Custom Modal */
     .custom-modal {
         display: none;
         position: fixed;
         z-index: 9999;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(7, 50, 106, 0.94);
+        inset: 0;
+        background-color: rgb(31 31 31 / 0.95);
+        background-image:
+            linear-gradient(to right, var(--night-grid) 1px, transparent 1px),
+            linear-gradient(to bottom, var(--night-grid) 1px, transparent 1px);
+        background-size: 40px 40px;
         align-items: center;
         justify-content: center;
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity 200ms var(--ease);
     }
 
     .custom-modal.show {
@@ -392,44 +484,55 @@ const t_galleryImage = {
 
     .custom-modal-content img {
         max-width: 100%;
-        max-height: 90vh;
+        max-height: 88vh;
         object-fit: contain;
-        border-radius: 12px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        border: 3px solid var(--white);
+        border-radius: var(--radius);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
     }
 
     .custom-modal-close {
         position: absolute;
-        top: -40px;
+        top: -48px;
         right: 0;
-        color: var(--color-light);
-        font-size: 40px;
-        font-weight: bold;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 2px solid var(--white);
+        background-color: var(--night);
+        color: var(--white);
+        font-size: 28px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 0 0 #000;
         cursor: pointer;
-        border: 0;
-        background: transparent;
-        padding: 0 0.5rem;
-        transition: color 0.3s;
+        transition: transform 160ms var(--spring), background-color 160ms var(--ease);
     }
 
     .custom-modal-close:hover {
-        color: var(--color-accent-1);
+        background-color: var(--danger);
+        transform: translateY(-2px) rotate(90deg);
     }
 </style>
 
 <script>
-    const galleryImages = document.querySelectorAll(".gallery-image");
+    const galleryButtons = document.querySelectorAll<HTMLButtonElement>(".gallery-thumbnail-btn");
     const modal = document.getElementById("customImageModal");
-    const modalImg = document.getElementById("customModalImage");
+    const modalImg = document.getElementById("customModalImage") as HTMLImageElement | null;
     const closeBtn = document.querySelector(".custom-modal-close");
 
-    galleryImages.forEach((img) => {
-        img.addEventListener("click", function () {
+    galleryButtons.forEach((btn) => {
+        const img = btn.querySelector<HTMLImageElement>("img");
+        if (!img) return;
+
+        btn.addEventListener("click", () => {
             if (modal && modalImg) {
-                modalImg.src = this.dataset.fullSrc || this.src;
-                modalImg.alt = this.alt;
+                modalImg.src = img.dataset.fullSrc || img.src;
+                modalImg.alt = img.alt;
                 modal.classList.add("show");
-                document.body.style.overflow = "hidden"; // Prevent scrolling
+                document.body.style.overflow = "hidden";
             }
         });
     });
@@ -442,13 +545,6 @@ const t_galleryImage = {
     };
 
     if (closeBtn) closeBtn.addEventListener("click", closeModal);
-    if (closeBtn)
-        closeBtn.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                closeModal();
-            }
-        });
 
     if (modal) {
         modal.addEventListener("click", (e) => {

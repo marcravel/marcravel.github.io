@@ -6,8 +6,9 @@ import {
     useTranslatedPath,
     getRouteFromUrl,
     languages,
-    flags,
+    defaultLang,
 } from "../i18n/ui";
+import { normalizeBaseUrl } from "../utils/images";
 
 export interface Props {
     title?: string;
@@ -18,9 +19,7 @@ const {
     title = "Marc Ravelontsalama | Embedded Systems Engineer",
     description = "Embedded systems, firmware, electronics, PCB design, and control engineering projects by Marc Ravelontsalama.",
 } = Astro.props;
-const baseUrl = import.meta.env.BASE_URL.endsWith("/")
-    ? import.meta.env.BASE_URL
-    : `${import.meta.env.BASE_URL}/`;
+const baseUrl = normalizeBaseUrl(import.meta.env.BASE_URL);
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
@@ -37,9 +36,9 @@ const localeUrls = {
     tr: localizedUrl("tr"),
 };
 const internshipStatus = {
-    en: "Open to internship",
-    fr: "Ouvert aux stages",
-    tr: "Staj için müsait",
+    en: { line1: "Open to", line2: "internship" },
+    fr: { line1: "Ouvert aux", line2: "stages" },
+    tr: { line1: "Staj için", line2: "müsait" },
 }[lang];
 
 const navItems = [
@@ -59,7 +58,7 @@ const navItems = [
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400..700;1,400..700&family=Inter:wght@400;500;600;700;800&display=swap"
         />
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -90,13 +89,11 @@ const navItems = [
         />
 
         <!-- Client-side Routing and Language Auto-Detection -->
-        <script define:vars={{ baseUrl }}>
+        <script define:vars={{ baseUrl, defaultLang, supportedLangs: Object.keys(languages) }}>
             (function () {
                 try {
                     const storedLang = localStorage.getItem("preferredLang");
                     const browserLang = navigator.language.split("-")[0];
-                    const supportedLangs = ["en", "fr", "tr"];
-                    const defaultLang = "en";
                     const basePath = baseUrl === "/" ? "" : baseUrl.replace(/\/$/, "");
 
                     const currentPath = window.location.pathname;
@@ -146,12 +143,12 @@ const navItems = [
                     <a class="navbar-brand" href={translatePath("/")} aria-label="Marc — Home">
                         Marc
                     </a>
-                    <span class="nav-btn internship-status" aria-label="Open to internship">
-                        <span class="internship-dot" aria-hidden="true"></span>
-                        {internshipStatus}
-                    </span>
+                    <div class="brand-divider" aria-hidden="true"></div>
+                    <div class="brand-subtext" aria-label={`${internshipStatus.line1} ${internshipStatus.line2}`}>
+                        <span class="brand-subtext-line1">{internshipStatus.line1}</span>
+                        <span class="brand-subtext-line2">{internshipStatus.line2}</span>
+                    </div>
                 </div>
-                
 
                 <!-- Right Section: Menu (Desktop) + Language Selector + Hamburger (Mobile) -->
                 <div class="navbar-right">
@@ -185,7 +182,7 @@ const navItems = [
                             aria-haspopup="true"
                             aria-label={`Language: ${languages[lang]}`}
                         >
-                            <span class="lang-flag" aria-hidden="true">{flags[lang]}</span>
+                            <span class:list={["lang-flag", `lang-flag--${lang}`]} aria-hidden="true"></span>
                             <span class="lang-code">{lang.toUpperCase()}</span>
                             <svg class="dropdown-chevron" aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -200,7 +197,7 @@ const navItems = [
                                         data-lang={code}
                                         role="menuitem"
                                     >
-                                        <span class="lang-flag" aria-hidden="true">{flags[code as keyof typeof languages]}</span>
+                                        <span class:list={["lang-flag", `lang-flag--${code}`]} aria-hidden="true"></span>
                                         <span class="lang-name">{name}</span>
                                     </a>
                                 ))
@@ -254,26 +251,29 @@ const navItems = [
                 <div class="mb-3 footer-copyright">
                     © <span id="currentYear"></span> Marc — Engineering Portfolio
                 </div>
-                <div class="d-flex justify-content-center gap-4 footer-links">
+                <div class="d-flex justify-content-center flex-wrap gap-3 footer-links">
                     <a
                         href="https://github.com/marcravel"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="footer-link"
-                        >{t("footer.github")}</a
                     >
+                        {t("footer.github")}
+                    </a>
                     <a
                         href="https://www.linkedin.com/in/marc-anjaniaina-ravelontsalama/"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="footer-link"
-                        >{t("footer.linkedin")}</a
                     >
+                        {t("footer.linkedin")}
+                    </a>
                     <a
                         href={translatePath("/contacts")}
                         class="footer-link"
-                        >{t("footer.contact")}</a
                     >
+                        {t("footer.contact")}
+                    </a>
                 </div>
             </div>
         </footer>
@@ -289,196 +289,56 @@ const navItems = [
                 visibility: hidden;
             }
 
-            /* Navbar Wrapper */
-            .navbar-wrapper {
-                position: sticky;
-                top: 0;
-                left: 0;
-                right: 0;
-                width: 100%;
-                height: var(--navbar-height);
-                z-index: 1000;
-                display: flex;
-                align-items: center;
-                background-color: var(--color-navbar-bg);
-                border-bottom: 1px solid var(--color-border-subtle);
-                box-shadow: 0 4px 20px rgba(7, 50, 106, 0.18);
-                transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-            }
-
-            /* Home Page at top: Transparent so carousel image is background */
-            .navbar-wrapper.navbar-home {
-                margin-bottom: calc(-1 * var(--navbar-height));
-                background-color: transparent;
-                border-bottom-color: transparent;
-                box-shadow: none;
-            }
-
-            /* Subtle gradient overlay at top of home to guarantee legibility over any photo */
-            .navbar-wrapper.navbar-home::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(to bottom, rgba(7, 50, 106, 0.8) 0%, rgba(7, 50, 106, 0.25) 70%, transparent 100%);
-                pointer-events: none;
-                transition: opacity 0.25s ease;
-                z-index: -1;
-            }
-
-            /* When scrolled or mobile menu is open: Plain color background */
-            .navbar-wrapper.navbar-home.is-scrolled,
-            .navbar-wrapper.navbar-home.menu-open {
-                background-color: var(--color-navbar-bg);
-                border-bottom-color: var(--color-border-subtle);
-                box-shadow: 0 4px 20px rgba(7, 50, 106, 0.25);
-            }
-
-            .navbar-wrapper.navbar-home.is-scrolled::before,
-            .navbar-wrapper.navbar-home.menu-open::before {
-                opacity: 0;
-            }
-
-            /* Navbar Container */
-            .navbar-container {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                width: 100%;
-                position: relative;
-            }
-
-            /* Brand */
-            .navbar-brand-group {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
-
-            .navbar-brand {
-                font-family: var(--font-display);
-                font-size: 1.4rem;
-                font-weight: 700;
-                color: var(--color-light);
-                text-decoration: none;
-                letter-spacing: -0.02em;
-                transition: opacity 0.2s ease;
-            }
-
-            .navbar-brand:hover {
-                opacity: 0.9;
-                color: var(--color-light);
-            }
-
-            /* Right Section */
-            .navbar-right {
-                display: flex;
-                align-items: center;
-                gap: 0.75rem;
-            }
-
-            @media (min-width: 992px) {
-                .navbar-right {
-                    gap: 1.25rem;
-                }
-            }
-
-            /* Desktop Navigation */
-            .nav-links {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                list-style: none;
-                margin: 0;
-                padding: 0;
-            }
-
-            .nav-link {
-                display: inline-flex;
-                align-items: center;
-                padding: 0.45rem 0.95rem;
-                font-size: 0.95rem;
-                font-weight: 500;
-                color: var(--color-text-on-dark-secondary);
-                text-decoration: none;
-                border-radius: var(--radius-pill);
-                transition: color 0.2s ease, background-color 0.2s ease;
-            }
-
-            .nav-link:hover {
-                color: var(--color-light);
-                background-color: rgba(241, 247, 249, 0.12);
-            }
-
-            .nav-link.active {
-                color: var(--color-light);
-                font-weight: 600;
-                background-color: var(--color-accent-1);
-            }
-
-            /* Nav Buttons (Language & Hamburger) */
-            .nav-btn {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                font-family: inherit;
-                background-color: rgba(241, 247, 249, 0.08);
-                border: 1px solid var(--color-border);
-                color: var(--color-light);
-                cursor: pointer;
-                transition: background-color 0.2s ease, border-color 0.2s ease;
-            }
-
-            .nav-btn:hover {
-                background-color: rgba(241, 247, 249, 0.18);
-                border-color: var(--color-light);
-            }
-
-            .nav-btn:focus-visible {
-                outline: 2px solid var(--color-light);
-                outline-offset: 2px;
-            }
-
-            .internship-status {
-                gap: 0.45rem;
-                padding: 0.4rem 0.75rem;
-                border-radius: var(--radius-pill);
-                font-size: 0.85rem;
-                font-weight: 600;
-                white-space: nowrap;
-            }
-
-            .internship-dot {
-                width: 0.5rem;
-                height: 0.5rem;
-                flex: 0 0 auto;
-                background-color: #4ade80;
-                border-radius: 50%;
-                box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.2);
-            }
-
-            /* Hide internship status on small mobile screens */
-            @media (max-width: 390px) {
-                .internship-status {
-                    display: none;
-                }
-            }
-
-            /* Language Switcher */
-            .lang-wrapper {
-                position: relative;
-            }
-
-            .lang-toggle {
-                gap: 0.35rem;
-                padding: 0.4rem 0.65rem;
-                border-radius: var(--radius-pill);
-                font-size: 0.85rem;
-                font-weight: 600;
-            }
-
             .lang-flag {
-                font-size: 1.05rem;
-                line-height: 1;
+                position: relative;
+                display: inline-block;
+                width: 22px;
+                height: 15px;
+                overflow: hidden;
+                flex: 0 0 auto;
+                border: 1px solid rgb(255 255 255 / 0.6);
+                border-radius: 2px;
+                box-shadow: 0 1px 0 rgb(0 0 0 / 0.25);
+                vertical-align: middle;
+            }
+
+            .lang-flag--en {
+                background:
+                    linear-gradient(90deg, transparent 42%, #fff 42% 58%, transparent 58%),
+                    linear-gradient(0deg, transparent 40%, #fff 40% 60%, transparent 60%),
+                    linear-gradient(90deg, transparent 46%, #d22630 46% 54%, transparent 54%),
+                    linear-gradient(0deg, transparent 44%, #d22630 44% 56%, transparent 56%),
+                    #1f3c88;
+            }
+
+            .lang-flag--fr {
+                background: linear-gradient(90deg, #0055a4 0 33.33%, #fff 33.33% 66.66%, #ef4135 66.66%);
+            }
+
+            .lang-flag--tr {
+                background: #e30a17;
+            }
+
+            .lang-flag--tr::before {
+                position: absolute;
+                top: 3px;
+                left: 5px;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background: #fff;
+                content: "";
+            }
+
+            .lang-flag--tr::after {
+                position: absolute;
+                top: 3px;
+                left: 8px;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background: #e30a17;
+                content: "";
             }
 
             .lang-code {
@@ -486,61 +346,15 @@ const navItems = [
             }
 
             .dropdown-chevron {
-                transition: transform 0.2s ease;
+                transition: transform 160ms var(--spring);
             }
 
             .lang-toggle[aria-expanded="true"] .dropdown-chevron {
                 transform: rotate(180deg);
             }
 
-            .lang-dropdown {
-                position: absolute;
-                top: calc(100% + 0.5rem);
-                right: 0;
-                min-width: 155px;
-                background-color: var(--color-navbar-bg);
-                border: 1px solid var(--color-border);
-                border-radius: var(--radius-md);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-                padding: 0.35rem;
-                display: flex;
-                flex-direction: column;
-                gap: 0.2rem;
-                z-index: 1010;
-                animation: dropFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            }
-
-            .lang-dropdown[hidden] {
-                display: none;
-            }
-
-            .lang-option {
-                display: flex;
-                align-items: center;
-                gap: 0.6rem;
-                padding: 0.5rem 0.75rem;
-                font-size: 0.9rem;
-                color: var(--color-text-on-dark-secondary);
-                text-decoration: none;
-                border-radius: var(--radius-sm);
-                transition: background-color 0.15s ease, color 0.15s ease;
-            }
-
-            .lang-option:hover {
-                background-color: rgba(241, 247, 249, 0.12);
-                color: var(--color-light);
-            }
-
-            .lang-option.active {
-                color: var(--color-light);
-                font-weight: 600;
-                background-color: var(--color-accent-1);
-            }
-
-            /* Hamburger Toggle */
             .menu-toggle {
-                padding: 0.45rem;
-                border-radius: var(--radius-md);
+                padding: 8px;
             }
 
             .hamburger-icon {
@@ -548,7 +362,7 @@ const navItems = [
             }
 
             .hamburger-icon line {
-                transition: transform 0.25s ease, opacity 0.25s ease;
+                transition: transform 200ms var(--ease), opacity 200ms var(--ease);
                 transform-origin: center;
             }
 
@@ -564,90 +378,11 @@ const navItems = [
                 transform: translateY(-6px) rotate(-45deg);
             }
 
-            /* Mobile Collapse Menu (Anchored on the right) */
-            .mobile-collapse-menu {
-                position: absolute;
-                top: calc(100% + 0.5rem);
-                right: 1rem;
-                width: min(240px, calc(100vw - 2rem));
-                background-color: var(--color-navbar-bg);
-                border: 1px solid var(--color-border);
-                border-radius: var(--radius-md);
-                box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
-                padding: 0.5rem;
-                z-index: 1010;
-                animation: dropFade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            }
-
-            .mobile-collapse-menu[hidden] {
-                display: none;
-            }
-
             .mobile-menu-inner {
                 display: flex;
                 flex-direction: column;
-                gap: 0.25rem;
+                gap: 4px;
             }
-
-            .mobile-nav-link {
-                display: flex;
-                align-items: center;
-                padding: 0.65rem 0.9rem;
-                font-size: 1rem;
-                font-weight: 500;
-                color: var(--color-text-on-dark-secondary);
-                text-decoration: none;
-                border-radius: var(--radius-sm);
-                transition: color 0.15s ease, background-color 0.15s ease;
-            }
-
-            .mobile-nav-link:hover {
-                color: var(--color-light);
-                background-color: rgba(241, 247, 249, 0.12);
-            }
-
-            .mobile-nav-link.active {
-                color: var(--color-light);
-                font-weight: 600;
-                background-color: var(--color-accent-1);
-            }
-
-            /* Footer Styling - Dark blue background with white light text */
-            .site-footer {
-                background-color: var(--color-footer-bg);
-                border-top: 1px solid var(--color-border-subtle);
-                color: var(--color-light);
-            }
-
-            .footer-copyright {
-                color: var(--color-light);
-                opacity: 0.95;
-                font-weight: 500;
-            }
-
-            .footer-links .footer-link {
-                color: var(--color-light);
-                text-decoration: none;
-                transition: color var(--transition-fast), opacity var(--transition-fast);
-                opacity: 0.85;
-            }
-
-            .footer-links .footer-link:hover {
-                color: var(--color-palette-slate);
-                opacity: 1;
-            }
-
-            @keyframes dropFade {
-                from {
-                    opacity: 0;
-                    transform: translateY(-8px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        </style>
         </style>
 
         <!-- ===================== SCRIPTS ===================== -->
@@ -658,24 +393,6 @@ const navItems = [
 
                 const header = document.querySelector(".navbar-wrapper");
                 if (!header) return;
-
-                // Handle scroll state: plain color background when scrolling
-                const updateScroll = () => {
-                    const isScrolled = window.scrollY > 15;
-                    header.classList.toggle("is-scrolled", isScrolled);
-                };
-                window.addEventListener("scroll", updateScroll, { passive: true });
-                updateScroll();
-
-                const sentinel = document.getElementById("navSentinel");
-                if (header.classList.contains("navbar-home") && sentinel && "IntersectionObserver" in window) {
-                    new IntersectionObserver(
-                        ([entry]) => {
-                            header.classList.toggle("is-scrolled", !entry.isIntersecting || window.scrollY > 15);
-                        },
-                        { threshold: 0 }
-                    ).observe(sentinel);
-                }
 
                 // Mobile collapse menu and language dropdown controls
                 const menuBtn = document.getElementById("mobileMenuToggle");

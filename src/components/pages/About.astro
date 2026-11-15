@@ -8,23 +8,12 @@ export interface Props {
 }
 const { lang } = Astro.props;
 
-// Toggle for Turkish Scholarship badge
-const showScholarship = true;
-
-const courseLinks = {
-    course1:
-        "https://www.btkakademi.gov.tr/portal/certificate/validate?certificateId=XV1hBaa9oN",
-    course2: "https://www.coursera.org/verify/HC796LSS9QRM",
-    course3:
-        "https://api.badgr.io/public/assertions/JkBrRzqfSDaWcRq_v04m2w?identity__email=marc.anjaniaina%40gmail.com",
-    course4: "https://coursera.org/verify/XQCPABZTSJMW",
-};
-
 const texts = {
     en: {
         title: "About - Marc",
         description:
             "Learn about Marc, a final-year Electrical-Electronics Engineering student focused on embedded firmware, electronics, PCB design, and control.",
+        kicker: "Profile & Background",
         h1: "About Me",
         profSummary: "Professional Summary",
         techMatrix: "Skills",
@@ -39,6 +28,7 @@ const texts = {
         courses: "Courses",
         certTitle: "View Certificate",
         community: "Community Involvement",
+        timelineKicker: "Career Trajectory",
         timelineTitle: "Timeline",
         timeline: [
             { year: "2021", title: "High School Diploma (Scientific)", desc: "Lycée Privé Saint Joseph, Antsirabe. Magna Cum Laude." },
@@ -54,6 +44,7 @@ const texts = {
         title: "À propos - Marc",
         description:
             "Découvrez Marc, étudiant en dernière année de génie électrique et électronique, spécialisé en firmware embarqué, électronique, conception de circuits imprimés et contrôle.",
+        kicker: "Profil & Parcours",
         h1: "À propos de moi",
         profSummary: "Résumé Professionnel",
         techMatrix: "Compétences",
@@ -68,6 +59,7 @@ const texts = {
         courses: "Cours",
         certTitle: "Voir le certificat",
         community: "Engagement Communautaire",
+        timelineKicker: "Trajectoire",
         timelineTitle: "Parcours",
         timeline: [
             { year: "2021", title: "Baccalauréat scientifique", desc: "Lycée Privé Saint Joseph, Antsirabe. Mention Bien." },
@@ -83,6 +75,7 @@ const texts = {
         title: "Hakkımda - Marc",
         description:
             "Gömülü firmware, elektronik, PCB tasarımı ve kontrole odaklanan son sınıf Elektrik-Elektronik Mühendisliği öğrencisi Marc hakkında bilgi edinin.",
+        kicker: "Profil ve Geçmiş",
         h1: "Hakkımda",
         profSummary: "Profesyonel Özet",
         techMatrix: "Yetenekler",
@@ -97,6 +90,7 @@ const texts = {
         courses: "Kurslar",
         certTitle: "Sertifikayı Görüntüle",
         community: "Topluluk Katılımı",
+        timelineKicker: "Kariyer Gelişimi",
         timelineTitle: "Zaman Çizelgesi",
         timeline: [
             { year: "2021", title: "Lise Diploması (Fen)", desc: "Lycée Privé Saint Joseph, Antsirabe. Pekiyi derece (Magna Cum Laude)." },
@@ -116,481 +110,433 @@ const items = t.timeline ?? [];
 
 <BaseLayout title={t.title} description={t.description}>
 <div class="about-page">
-    <section class="section">
+    <!-- Dark Header Section with left-aligned title & kicker -->
+    <header class="page-header-dark">
         <div class="container animate-fade-up">
-            <h1 class="section-title"><span>{t.h1}</span></h1>
-            <div>
-                <img
-                    src={profileImage.src}
-                    alt="Marc"
-                    style="display: block; width: 300px; height: 300px; margin: 0 auto calc(var(--section-gap) / 2); object-fit: cover; border-radius: 50%;
-                    padding: 0.25rem;"
-                />
+            <div class="grid grid-cols-1 lg-grid-cols-3 gap-4 align-items-center">
+                <div class="lg-grid-col-span-2">
+                    <p class="kicker mb-2">
+                        <span>{t.kicker}</span>
+                    </p>
+                    <h1 class="page-title text-start mb-3">
+                        {t.h1}
+                    </h1>
+                    <p class="page-subtitle text-start mb-0" style="max-width: 58ch;">
+                        {t.description}
+                    </p>
+                    <div class="header-rainbow-line"></div>
+                </div>
+                <div class="profile-image-wrap d-flex justify-content-center justify-content-lg-end">
+                    <img
+                        src={profileImage.src}
+                        alt="Marc"
+                        class="profile-image"
+                        width="200"
+                        height="200"
+                    />
+                </div>
             </div>
+        </div>
+    </header>
 
-            <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-3 about-columns">
+    <!-- Light Body Section for page content -->
+    <section class="page-body-light">
+        <div class="container animate-fade-up">
+            <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-4 about-columns">
                 <!-- Professional Summary -->
-                <div class="surface p-4 p-md-5 about-summary">
-                    <h3 class="mb-4" style="color: var(--color-accent-1); font-size: 1.5rem;">
+                <div class="surface p-4 p-md-5 about-card about-card--summary">
+                    <p class="kicker mb-1">
+                        <span>Background</span>
+                    </p>
+                    <h3 class="about-card-title mb-4">
                         {t.profSummary}
                     </h3>
-                    <p class="lead" style="color: var(--color-text-secondary); font-size: 1.1rem; line-height: 1.8;">
+                    <p class="lead about-bio">
                         {t.bioText}
                     </p>
                 </div>
 
-
                 <!-- Technical Skills Matrix -->
-                <div class="surface p-4 p-md-5 about-skills">
-                    <h3
-                        class="mb-4"     
-                        style="color: var(--color-deep); font-size: 1.5rem;"
-                    >
+                <div class="surface p-4 p-md-5 about-card about-card--skills">
+                    <p class="kicker mb-1">
+                        <span>Expertise</span>
+                    </p>
+                    <h3 class="about-card-title mb-4">
                         {t.techMatrix}
                     </h3>
 
                     <div class="mb-4">
-                        <h5
-                            class="text-uppercase mb-3 small fw-bold"
-                            style="color: var(--color-text-secondary); letter-spacing: 1px;"
-                        >
+                        <h5 class="skill-group-title mb-3">
                             {t.hwEmb}
                         </h5>
                         <div class="d-flex flex-wrap gap-2">
-                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[0]}></span>
-                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[1]}></span>
-                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[2]}></span>
-                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[3]}></span>
-                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[4]}></span>
-                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[5]}></span>
-                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[6]}></span>
-                            <span class="badge px-3 py-2" set:html={t.skillItems.embedded[7]}></span>
+                            {
+                                t.skillItems.embedded.map((item: string) => (
+                                    <span class="tag" set:html={item}></span>
+                                ))
+                            }
                         </div>
                     </div>
 
                     <div class="mb-4">
-                        <h5
-                            class="text-uppercase mb-3 small fw-bold"
-                            style="color: var(--color-text-secondary); letter-spacing: 1px;"
-                        >
+                        <h5 class="skill-group-title mb-3">
                             {t.softAi}
                         </h5>
                         <div class="d-flex flex-wrap gap-2">
-                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-secondary);" set:html={t.skillItems.control[0]}></span>
-                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-secondary);" set:html={t.skillItems.control[1]}></span>
-                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-secondary);" set:html={t.skillItems.control[2]}></span>
+                            {
+                                t.skillItems.control.map((item: string) => (
+                                    <span class="tag" set:html={item}></span>
+                                ))
+                            }
                         </div>
                     </div>
 
                     <div class="mb-4">
-                        <h5
-                            class="text-uppercase mb-3 small fw-bold"
-                            style="color: var(--color-text-secondary); letter-spacing: 1px;"
-                        >
+                        <h5 class="skill-group-title mb-3">
                             {t.toolsMulti}
                         </h5>
                         <div class="d-flex flex-wrap gap-2">
-                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[0]}></span>
-                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[1]}></span>
-                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[2]}></span>
-                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[3]}></span>
-                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[4]}></span>
-                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[5]}></span>
-                            <span class="badge px-3 py-2" style="border-color: var(--color-border); color: var(--color-text-primary);" set:html={t.skillItems.tools[6]}></span>
+                            {
+                                t.skillItems.tools.map((item: string) => (
+                                    <span class="tag" set:html={item}></span>
+                                ))
+                            }
                         </div>
                     </div>
 
-                    <div>
-                        <h5
-                            class="text-uppercase mb-3 small fw-bold"
-                            style="color: var(--color-text-secondary); letter-spacing: 1px;"
-                        >
+                    <div class="supporting-software-box p-3">
+                        <h5 class="fw-bold mb-1 small">
                             {t.supportingSoftware}
                         </h5>
-                        <p class="small text-muted mb-0">
+                        <p class="small text-secondary mb-0">
                             {t.supportingSoftwareDesc}
                         </p>
                     </div>
                 </div>
+
                 <!-- Languages -->
-                    <div class="surface p-4 p-md-5 about-languages">
-                        <h3
-                            class="mb-4"
-                            style="color: var(--color-deep); font-size: 1.5rem;"
-                        >
-                            {t.languages}
-                        </h3>
-                        <div class="d-flex flex-column gap-3">
-                            <div
-                                class="d-flex align-items-center justify-content-between"
-                            >
-                                <strong
-                                    style="color: var(--color-text-primary);"
-                                    >{t.spokenLanguages[0].name}</strong
-                                >
-                                <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed var(--color-border); margin: 0 1rem;"
-                                >
+                <div class="surface p-4 p-md-5 about-card about-card--languages">
+                    <p class="kicker mb-1">
+                        <span>Communication</span>
+                    </p>
+                    <h3 class="about-card-title mb-4">
+                        {t.languages}
+                    </h3>
+                    <div class="d-flex flex-column gap-3">
+                        {
+                            t.spokenLanguages.map((langItem: { name: string; level: string }) => (
+                                <div class="d-flex align-items-center justify-content-between language-row">
+                                    <strong class="language-name">{langItem.name}</strong>
+                                    <div class="language-rule"></div>
+                                    <span class="badge badge-language">{langItem.level}</span>
                                 </div>
-                                <span
-                                    style="color: var(--color-text-secondary);"
-                                    >{t.spokenLanguages[0].level}</span
-                                >
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between"
-                            >
-                                <strong
-                                    style="color: var(--color-text-primary);"
-                                    >{t.spokenLanguages[1].name}</strong
-                                >
-                                <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed var(--color-border); margin: 0 1rem;"
-                                >
-                                </div>
-                                <span
-                                    style="color: var(--color-text-secondary);"
-                                    >{t.spokenLanguages[1].level}</span
-                                >
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between"
-                            >
-                                <strong
-                                    style="color: var(--color-text-primary);"
-                                    >{t.spokenLanguages[2].name}</strong
-                                >
-                                <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed var(--color-border); margin: 0 1rem;"
-                                >
-                                </div>
-                                <span
-                                    style="color: var(--color-text-secondary);"
-                                    >{t.spokenLanguages[2].level}</span
-                                >
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between"
-                            >
-                                <strong
-                                    style="color: var(--color-text-primary);"
-                                    >{t.spokenLanguages[3].name}</strong
-                                >
-                                <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed var(--color-border); margin: 0 1rem;"
-                                >
-                                </div>
-                                <span
-                                    style="color: var(--color-text-secondary);"
-                                    >{t.spokenLanguages[3].level}</span
-                                >
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between"
-                            >
-                                <strong
-                                    style="color: var(--color-text-primary);"
-                                    >{t.spokenLanguages[4].name}</strong
-                                >
-                                <div
-                                    style="flex-grow: 1; border-bottom: 1px dashed var(--color-border); margin: 0 1rem;"
-                                >
-                                </div>
-                                <span
-                                    style="color: var(--color-text-secondary);"
-                                    >{t.spokenLanguages[4].level}</span
-                                >
-                            </div>
-                        </div>
-                    </div>
-
-            </div>
-    </section>
-
-    {items.length > 0 && (
-        <section class="section">
-            <div class="container animate-fade-up">
-                <h2 class="mb-4" style="color: var(--color-deep); font-size: 1.5rem;">
-                    {t.timelineTitle}
-                </h2>
-                <div class="timeline-wrap">
-                    <div class="timeline-scroll">
-                        <ol class="timeline">
-                            {items.map((item, index) => (
-                                <li class={`timeline-item ${index % 2 === 0 ? "is-top" : "is-bottom"} ${item.current ? "is-current" : ""}`}>
-                                    <div class="surface p-4 timeline-card">
-                                        <span class="timeline-year">{item.year}</span>
-                                        <h5 class="fw-bold mb-2" style="color: var(--color-text-primary);">
-                                            {item.title}
-                                        </h5>
-                                        <p class="small mb-0" style="color: var(--color-text-secondary);">
-                                            {item.desc}
-                                        </p>
-                                    </div>
-                                    <div class="timeline-mid">
-                                        <span class="timeline-dot"></span>
-                                    </div>
-                                </li>
-                            ))}
-                        </ol>
+                            ))
+                        }
                     </div>
                 </div>
             </div>
-        </section>
-    )}
-    
+
+            <!-- Timeline Section -->
+            {items.length > 0 && (
+                <div class="timeline-section">
+                    <div class="text-start mb-5">
+                        <p class="kicker mb-2">
+                            <span>{t.timelineKicker}</span>
+                        </p>
+                        <h2 class="section-title text-start mb-0">
+                            <span>{t.timelineTitle}</span>
+                        </h2>
+                    </div>
+
+                    <div class="timeline-wrap">
+                        <div class="timeline-scroll">
+                            <ol class="timeline">
+                                {items.map((item, index) => (
+                                    <li class={`timeline-item ${index % 2 === 0 ? "is-top" : "is-bottom"} ${item.current ? "is-current" : ""}`}>
+                                        <div class="surface timeline-card">
+                                            <span class="badge badge-yellow timeline-year">{item.year}</span>
+                                            <h5 class="fw-bold mb-2 timeline-item-title">
+                                                {item.title}
+                                            </h5>
+                                            <p class="small mb-0 text-secondary timeline-item-desc">
+                                                {item.desc}
+                                            </p>
+                                        </div>
+                                        <div class="timeline-mid">
+                                            <span class="timeline-dot"></span>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    </section>
 </div>
 </BaseLayout>
 
-<style is:global>
-    .about-page .section {
-        padding-block: var(--section-gap);
+<style>
+    .profile-image-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .about-page .section + .section {
-        padding-top: 0;
+    .profile-image {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        border: 4px solid var(--white);
+        box-shadow: 0 4px 0 0 rgb(0 0 0 / 0.5), var(--drop);
+        object-fit: cover;
+        display: block;
+        background-color: var(--white);
+        padding: 4px;
+        transition: transform 160ms var(--spring), box-shadow 160ms var(--ease);
     }
 
-    .about-page .section-title {
-        margin-bottom: calc(var(--section-gap) / 2);
+    .profile-image:hover {
+        transform: scale(1.04) rotate(-2deg);
+        box-shadow: 0 8px 0 0 rgb(0 0 0 / 0.6);
     }
 
-    .about-page .grid {
-        gap: 1rem;
+    /* Bento Cards Resting Rotations */
+    .about-card {
+        transition: transform 160ms var(--spring), box-shadow 160ms var(--ease);
     }
 
-    .about-page .surface > :last-child,
-    .about-page .edu-card > :last-child {
-        margin-bottom: 0;
+    .about-card--summary {
+        transform: rotate(-0.5deg);
     }
 
-    /* Hover Effects for Cards matching ProjectCards */
-    .edu-card {
-        transition:
-            transform 0.3s ease,
-            border-color 0.3s ease;
-        position: relative;
-        overflow: hidden;
+    .about-card--skills {
+        transform: rotate(0.6deg);
     }
 
-    .edu-card:hover {
-        transform: translateY(-5px);
-        border-color: var(--color-accent-1);
+    .about-card--languages {
+        transform: rotate(-0.4deg);
     }
 
-    .ps-3 {
-        padding-left: 1rem;
+    .about-card:hover {
+        transform: translateY(-4px) rotate(0deg);
+        box-shadow: var(--die), var(--lift);
     }
 
-    .course-link {
-        color: inherit;
+    .about-card-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--ink);
+        letter-spacing: -0.025em;
     }
 
-    .cert-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
+    .about-bio {
+        font-size: 1.0625rem;
+        line-height: 1.75;
+        color: var(--ink-2);
+    }
+
+    .skill-group-title {
+        font-family: var(--font-mono);
+        font-size: 0.8125rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--cta);
+    }
+
+    .supporting-software-box {
+        background-color: var(--surface-2);
+        border: 1.5px solid var(--ink);
+        border-radius: var(--radius-s);
+    }
+
+    .language-row {
         width: 100%;
-        height: 100%;
-        background: rgba(7, 50, 106, 0.92);
+    }
+
+    .language-name {
+        color: var(--ink);
+        font-weight: 700;
+        font-size: 0.9375rem;
+    }
+
+    .language-rule {
+        flex-grow: 1;
+        border-bottom: 2px dashed var(--outline);
+        margin: 0 1rem;
+    }
+
+    .badge-language {
+        background-color: var(--surface-2);
+        border: 1.5px solid var(--ink);
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--ink);
+    }
+
+    /* ---------- Timeline ---------- */
+    .timeline-section {
+        margin-top: clamp(48px, 8vw, 96px);
+    }
+
+    .timeline-wrap {
+        position: relative;
+    }
+
+    .timeline-scroll {
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 1.5rem;
+        scrollbar-width: thin;
+        scrollbar-color: var(--ink) transparent;
+    }
+
+    .timeline {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 290px;
+        grid-template-rows: auto auto auto;
+        column-gap: 1.5rem;
+        list-style: none;
+        margin: 0;
+        padding: 0 1.5rem;
+        box-sizing: border-box;
+        width: max-content;
+        min-width: 100%;
+    }
+
+    .timeline-item {
+        display: grid;
+        grid-row: span 3;
+        grid-template-rows: subgrid;
+    }
+
+    .timeline-mid {
+        grid-row: 2;
+        position: relative;
+        height: 3rem;
         display: flex;
         align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: all 0.3s ease;
-        z-index: 10;
     }
 
-    .cert-btn {
-        background: var(--color-accent-1);
-        color: var(--color-light);
-        padding: 0.6rem 1.2rem;
-        border-radius: var(--radius-pill);
-        font-weight: 600;
-        font-size: 0.95rem;
-        transform: translateY(15px);
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    .timeline-mid::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: -1.5rem;
+        top: 50%;
+        height: 3px;
+        transform: translateY(-50%);
+        background-color: var(--ink);
     }
 
-    .course-link:hover .cert-overlay {
-        opacity: 1;
+    .timeline-item:last-child .timeline-mid::before {
+        right: 0;
     }
 
-    .course-link:hover .cert-btn {
-        transform: translateY(0);
+    .timeline-mid::after {
+        content: "";
+        position: absolute;
+        left: 1.5rem;
+        width: 2px;
+        height: 1.5rem;
+        transform: translateX(-50%);
+        background-color: var(--ink);
     }
-    .timeline-scroll {
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding-bottom: 1rem;
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-border) transparent;
-}
 
-.timeline {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 280px;
-    grid-template-rows: auto auto auto; /* above | line | below */
-    column-gap: 1.5rem;
-    list-style: none;
-    margin: 0;
-    padding: 0 1.5rem;          /* room so the edge fades don't hide the first/last card */
-    box-sizing: border-box;
-    width: max-content;
-    min-width: 100%;
-}
+    .is-top .timeline-mid::after    { bottom: 50%; }
+    .is-bottom .timeline-mid::after { top: 50%; }
 
-.timeline-item {
-    display: grid;
-    grid-row: span 3;
-    grid-template-rows: subgrid;
-}
-
-/* middle row: line + dot + stem */
-.timeline-mid {
-    grid-row: 2;
-    position: relative;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-}
-
-/* the line, bridging the gap to the next item */
-.timeline-mid::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: -1.5rem;
-    top: 50%;
-    height: 2px;
-    transform: translateY(-50%);
-    background: var(--color-border);
-}
-.timeline-item:last-child .timeline-mid::before {
-    right: 0;
-}
-
-/* stem from the dot to the card */
-.timeline-mid::after {
-    content: "";
-    position: absolute;
-    left: 1.5rem;
-    width: 2px;
-    height: 1.5rem;
-    transform: translateX(-50%);
-    background: var(--color-accent-1);
-    opacity: 0.5;
-}
-.is-top .timeline-mid::after    { bottom: 50%; }
-.is-bottom .timeline-mid::after { top: 50%; }
-
-.timeline-dot {
-    position: relative;
-    z-index: 1;
-    margin-left: 1.5rem;        /* aligns the dot with the stem */
-    transform: translateX(-50%);
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--color-accent-1);
-    box-shadow: 0 0 0 4px var(--color-bg-elevated), 0 0 0 5px var(--color-accent-1);
-}
-
-/* year pill */
-.timeline-year {
-    display: inline-block;
-    margin-bottom: 0.5rem;
-    padding: 0.15rem 0.6rem;
-    border-radius: 999px;
-    border: 1px solid var(--color-border);
-    background: var(--color-bg-elevated);
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 0.5px;
-    color: var(--color-accent-1);
-}
-
-/* cards: alternate above / below */
-.timeline-card {
-    border-top: 2px solid transparent;
-    transition: transform 0.2s ease, border-color 0.2s ease;
-}
-.is-top .timeline-card {
-    grid-row: 1;
-    align-self: end;
-}
-.is-bottom .timeline-card {
-    grid-row: 3;
-    align-self: start;
-}
-
-/* hover lift */
-.timeline-item:hover .timeline-card {
-    transform: translateY(-4px);
-    border-top-color: var(--color-accent-1);
-}
-.is-bottom:hover .timeline-card {
-    transform: translateY(4px);
-}
-
-/* current item (pulsing dot + accent border) */
-.is-current .timeline-card { border-top-color: var(--color-accent-2); }
-.is-current .timeline-dot  { animation: tl-pulse 1.5s infinite; }
-
-.timeline-wrap {
-    position: relative;
-}
-.timeline-wrap::before,
-.timeline-wrap::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 1rem;               /* stop above the scrollbar */
-    width: 2.5rem;
-    pointer-events: none;       /* don't block scrolling or clicks */
-    z-index: 2;
-}
-.timeline-wrap::before {
-    left: 0;
-    background: linear-gradient(to right, var(--color-bg), transparent);
-}
-.timeline-wrap::after {
-    right: 0;
-    background: linear-gradient(to left, var(--color-bg), transparent);
-}
-
-@media (max-width: 767px) {
-    .timeline-wrap::before,
-    .timeline-wrap::after { display: none; }
-}
-
-@keyframes tl-pulse {
-    0%   { box-shadow: 0 0 0 4px var(--color-bg-elevated), 0 0 0 5px var(--color-accent-1), 0 0 0 5px transparent; }
-    70%  { box-shadow: 0 0 0 4px var(--color-bg-elevated), 0 0 0 5px var(--color-accent-1), 0 0 0 14px rgba(0, 114, 57, 0.541); }
-    100% { box-shadow: 0 0 0 4px var(--color-bg-elevated), 0 0 0 5px var(--color-accent-1), 0 0 0 5px transparent; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .is-current .timeline-dot { animation: none; }
-    .timeline-card { transition: none; }
-}
-
-/* phones: vertical list, no alternating */
-@media (max-width: 767px) {
-    .timeline {
-        display: flex;
-        flex-direction: column;
-        width: auto;
-        padding: 0;
-        gap: 1rem;
+    .timeline-dot {
+        position: relative;
+        z-index: 1;
+        margin-left: 1.5rem;
+        transform: translateX(-50%);
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: var(--cta);
+        border: 2px solid var(--ink);
+        box-shadow: 0 0 0 3px var(--white);
     }
-    .timeline-item { display: block; }
-    .timeline-mid { display: none; }
-    .timeline-item:hover .timeline-card,
-    .is-bottom:hover .timeline-card { transform: none; }
-}
+
+    .badge-yellow {
+        background-color: var(--t-yellow);
+        color: var(--ink);
+        border: 1.5px solid var(--ink);
+        border-radius: var(--radius-full);
+        font-weight: 700;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        padding: 2px 10px;
+    }
+
+    .timeline-card {
+        padding: 20px;
+        background-color: var(--white);
+        border: var(--stroke);
+        border-radius: var(--radius-s);
+        box-shadow: var(--die), 0 4px 0 1px rgb(0 0 0 / 0.35);
+        transition: transform 160ms var(--spring), box-shadow 160ms var(--ease);
+    }
+
+    .is-top .timeline-card {
+        grid-row: 1;
+        align-self: end;
+    }
+
+    .is-bottom .timeline-card {
+        grid-row: 3;
+        align-self: start;
+    }
+
+    .timeline-item:hover .timeline-card {
+        transform: translateY(-4px) rotate(-1deg);
+        box-shadow: var(--die), var(--lift);
+    }
+
+    .is-bottom:hover .timeline-card {
+        transform: translateY(4px) rotate(1deg);
+    }
+
+    .is-current .timeline-card {
+        border-color: var(--cta);
+        border-width: 2.5px;
+    }
+
+    .is-current .timeline-dot {
+        background-color: var(--green);
+        animation: ping 2s infinite;
+    }
+
+    .timeline-item-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--ink);
+    }
+
+    .timeline-item-desc {
+        line-height: 1.45;
+        color: var(--ink-2);
+    }
+
+    /* Mobile Timeline */
+    @media (max-width: 767px) {
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            width: auto;
+            padding: 0;
+            gap: 1.25rem;
+        }
+
+        .timeline-item { display: block; }
+        .timeline-mid { display: none; }
+        .timeline-item:hover .timeline-card,
+        .is-bottom:hover .timeline-card { transform: none; }
+    }
 </style>
 
 <script>
