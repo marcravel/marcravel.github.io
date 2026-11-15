@@ -92,6 +92,75 @@
     "gallery": null
   },
   {
+    "id": 5,
+    "active": 0,
+    "slug": "maze-solver-robot",
+    "category": {
+      "en": "Robotics",
+      "fr": "Robotique",
+      "tr": "Robotik"
+    },
+    "title": {
+      "en": "Maze Solver Robot",
+      "fr": "Robot Résolveur de Labyrinthe",
+      "tr": "Labirent Çözen Robot"
+    },
+    "techStack": [
+      "Embedded Control",
+      "Sensor Logic"
+    ],
+    "description": {
+      "en": "Built an autonomous robot capable of navigating and solving maze paths. Developed navigation algorithms and sensor-based decision logic for real-time movement.",
+      "fr": "Construction d'un robot autonome capable de naviguer et de résoudre des labyrinthes. Développement d'algorithmes de navigation.",
+      "tr": "Labirent yollarında gezinebilen ve çözebilen otonom bir robot yapıldı. Gerçek zamanlı hareket için sensör tabanlı karar mantığı geliştirildi."
+    },
+    "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80",
+    "longDescription": "The Maze Solver Robot is an autonomous vehicle designed to find the shortest path from a starting point to the center of a maze. It relies on a combination of ultrasonic and infrared sensors for wall detection and distance measurement. The internal logic implements popular algorithms like Wall Follower or Flood Fill to guarantee a solution.",
+    "youtubeId": null,
+    "gallery": null
+  },
+  {
+    "id": 7,
+    "active": 1,
+    "slug": "digitally-controlled-buck-converter",
+    "category": {
+      "en": "Power Electronics & Embedded Systems",
+      "fr": "Électronique de puissance et systèmes embarqués",
+      "tr": "Güç Elektroniği ve Gömülü Sistemler"
+    },
+    "title": {
+      "en": "Digitally Controlled Buck DC-DC Converter",
+      "fr": "Convertisseur Buck DC-DC à Commande Numérique",
+      "tr": "Dijital Kontrollü Buck DC-DC Dönüştürücü"
+    },
+    "techStack": [
+      "LTspice",
+      "Altium Designer",
+      "STM32",
+      "Embedded C/C++",
+      "Power Electronics",
+      "Digital PI Control"
+    ],
+    "description": {
+      "en": "Design and development of a digitally controlled, non-synchronous buck converter using an STM32 microcontroller. The project combines power electronics design, component selection, circuit simulation, PCB development, and digital control implementation.",
+      "fr": "Conception et développement d'un convertisseur Buck non synchrone à commande numérique utilisant un microcontrôleur STM32. Le projet combine la conception en électronique de puissance, la sélection des composants, la simulation de circuits, le développement du PCB et l'implémentation d'une commande numérique.",
+      "tr": "STM32 mikrodenetleyici kullanılarak dijital kontrollü, senkron olmayan bir buck dönüştürücünün tasarımı ve geliştirilmesi. Proje; güç elektroniği tasarımı, bileşen seçimi, devre simülasyonu, PCB geliştirme ve dijital kontrol uygulamasını kapsamaktadır."
+    },
+    "developmentStatus": {
+      "en": "In Development",
+      "fr": "En développement",
+      "tr": "Geliştirme Aşamasında"
+    },
+    "image": "img/projects/digitally-controlled-buck-converter/buck_converter.png",
+    "longDescription": {
+      "en": "docs/buck_converter.txt",
+      "fr": "docs/buck_converter_fr.txt",
+      "tr": "docs/buck_converter_tr.txt"
+    },
+    "youtubeId": null,
+    "gallery": null
+  },
+  {
     "id": 4,
     "active": 1,
     "slug": "line-follower-robot",
@@ -150,112 +219,6 @@
     ]
   },
   {
-    "id": 5,
-    "active": 0,
-    "slug": "maze-solver-robot",
-    "category": {
-      "en": "Robotics",
-      "fr": "Robotique",
-      "tr": "Robotik"
-    },
-    "title": {
-      "en": "Maze Solver Robot",
-      "fr": "Robot Résolveur de Labyrinthe",
-      "tr": "Labirent Çözen Robot"
-    },
-    "techStack": [
-      "Embedded Control",
-      "Sensor Logic"
-    ],
-    "description": {
-      "en": "Built an autonomous robot capable of navigating and solving maze paths. Developed navigation algorithms and sensor-based decision logic for real-time movement.",
-      "fr": "Construction d'un robot autonome capable de naviguer et de résoudre des labyrinthes. Développement d'algorithmes de navigation.",
-      "tr": "Labirent yollarında gezinebilen ve çözebilen otonom bir robot yapıldı. Gerçek zamanlı hareket için sensör tabanlı karar mantığı geliştirildi."
-    },
-    "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80",
-    "longDescription": "The Maze Solver Robot is an autonomous vehicle designed to find the shortest path from a starting point to the center of a maze. It relies on a combination of ultrasonic and infrared sensors for wall detection and distance measurement. The internal logic implements popular algorithms like Wall Follower or Flood Fill to guarantee a solution.",
-    "youtubeId": null,
-    "gallery": null
-  },
-  {
-    "id": 6,
-    "active": 1,
-    "slug": "automatic-plant-watering",
-    "category": {
-      "en": "Automation & IoT",
-      "fr": "Automatisation & IoT",
-      "tr": "Otomasyon ve Nesnelerin İnterneti"
-    },
-    "title": {
-      "en": "Automatic Plant Watering System",
-      "fr": "Système d'Arrosage Automatique",
-      "tr": "Otomatik Bitki Sulama Sistemi"
-    },
-    "techStack": [
-      "Control Logic",
-      "Soil Moisture Sensing"
-    ],
-    "description": {
-      "en": "Designed an automated irrigation system based on soil moisture sensing, implementing control logic for efficient water usage.",
-      "fr": "Conception d'un système d'irrigation automatisé basé sur la détection de l'humidité du sol.",
-      "tr": "Verimli su kullanımı için kontrol mantığı uygulayarak, toprak nemi algılamaya dayalı otomatik bir sulama sistemi tasarlandı."
-    },
-    "achievements": {
-      "en": "🥉 3rd place at the MADA ROBOT CONTEST",
-      "fr": "🥉 3ème place au MADA ROBOT CONTEST",
-      "tr": "🥉 MADA ROBOT YARIŞMASI'nda 3.lük"
-    },
-    "image": "img/projects/automatic-watering-system/mrc2021.png",
-    "longDescription": {
-      "en": "docs/automatic_plant_watering.txt",
-      "fr": "docs/automatic_plant_watering_fr.txt",
-      "tr": "docs/automatic_plant_watering_tr.txt"
-    },
-    "youtubeId": "K-mv0HUHN_M",
-    "gallery": null
-  },
-  {
-    "id": 7,
-    "active": 1,
-    "slug": "digitally-controlled-buck-converter",
-    "category": {
-      "en": "Power Electronics & Embedded Systems",
-      "fr": "Électronique de puissance et systèmes embarqués",
-      "tr": "Güç Elektroniği ve Gömülü Sistemler"
-    },
-    "title": {
-      "en": "Digitally Controlled Buck DC-DC Converter",
-      "fr": "Convertisseur Buck DC-DC à Commande Numérique",
-      "tr": "Dijital Kontrollü Buck DC-DC Dönüştürücü"
-    },
-    "techStack": [
-      "LTspice",
-      "Altium Designer",
-      "STM32",
-      "Embedded C/C++",
-      "Power Electronics",
-      "Digital PI Control"
-    ],
-    "description": {
-      "en": "Design and development of a digitally controlled, non-synchronous buck converter using an STM32 microcontroller. The project combines power electronics design, component selection, circuit simulation, PCB development, and digital control implementation.",
-      "fr": "Conception et développement d'un convertisseur Buck non synchrone à commande numérique utilisant un microcontrôleur STM32. Le projet combine la conception en électronique de puissance, la sélection des composants, la simulation de circuits, le développement du PCB et l'implémentation d'une commande numérique.",
-      "tr": "STM32 mikrodenetleyici kullanılarak dijital kontrollü, senkron olmayan bir buck dönüştürücünün tasarımı ve geliştirilmesi. Proje; güç elektroniği tasarımı, bileşen seçimi, devre simülasyonu, PCB geliştirme ve dijital kontrol uygulamasını kapsamaktadır."
-    },
-    "developmentStatus": {
-      "en": "In Development",
-      "fr": "En développement",
-      "tr": "Geliştirme Aşamasında"
-    },
-    "image": "img/projects/digitally-controlled-buck-converter/buck_converter.png",
-    "longDescription": {
-      "en": "docs/buck_converter.txt",
-      "fr": "docs/buck_converter_fr.txt",
-      "tr": "docs/buck_converter_tr.txt"
-    },
-    "youtubeId": null,
-    "gallery": null
-  },
-  {
     "id": 8,
     "active": 1,
     "slug": "stm32-hue-measurement",
@@ -303,5 +266,42 @@
       "img/projects/stm32-rgb-measurement/etchin3.jpg",
       "img/projects/stm32-rgb-measurement/cdoe.png"
     ]
+  },
+  {
+    "id": 6,
+    "active": 1,
+    "slug": "automatic-plant-watering",
+    "category": {
+      "en": "Automation & IoT",
+      "fr": "Automatisation & IoT",
+      "tr": "Otomasyon ve Nesnelerin İnterneti"
+    },
+    "title": {
+      "en": "Automatic Plant Watering System",
+      "fr": "Système d'Arrosage Automatique",
+      "tr": "Otomatik Bitki Sulama Sistemi"
+    },
+    "techStack": [
+      "Control Logic",
+      "Soil Moisture Sensing"
+    ],
+    "description": {
+      "en": "Designed an automated irrigation system based on soil moisture sensing, implementing control logic for efficient water usage.",
+      "fr": "Conception d'un système d'irrigation automatisé basé sur la détection de l'humidité du sol.",
+      "tr": "Verimli su kullanımı için kontrol mantığı uygulayarak, toprak nemi algılamaya dayalı otomatik bir sulama sistemi tasarlandı."
+    },
+    "achievements": {
+      "en": "🥉 3rd place at the MADA ROBOT CONTEST",
+      "fr": "🥉 3ème place au MADA ROBOT CONTEST",
+      "tr": "🥉 MADA ROBOT YARIŞMASI'nda 3.lük"
+    },
+    "image": "img/projects/automatic-watering-system/mrc2021.png",
+    "longDescription": {
+      "en": "docs/automatic_plant_watering.txt",
+      "fr": "docs/automatic_plant_watering_fr.txt",
+      "tr": "docs/automatic_plant_watering_tr.txt"
+    },
+    "youtubeId": "K-mv0HUHN_M",
+    "gallery": null
   }
 ]
