@@ -6,7 +6,9 @@ import {
     useTranslatedPath,
     getRouteFromUrl,
     languages,
+    defaultLang,
 } from "../i18n/ui";
+import { normalizeBaseUrl } from "../utils/images";
 
 export interface Props {
     title?: string;
@@ -17,9 +19,7 @@ const {
     title = "Marc Ravelontsalama | Embedded Systems Engineer",
     description = "Embedded systems, firmware, electronics, PCB design, and control engineering projects by Marc Ravelontsalama.",
 } = Astro.props;
-const baseUrl = import.meta.env.BASE_URL.endsWith("/")
-    ? import.meta.env.BASE_URL
-    : `${import.meta.env.BASE_URL}/`;
+const baseUrl = normalizeBaseUrl(import.meta.env.BASE_URL);
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
@@ -89,13 +89,11 @@ const navItems = [
         />
 
         <!-- Client-side Routing and Language Auto-Detection -->
-        <script define:vars={{ baseUrl }}>
+        <script define:vars={{ baseUrl, defaultLang, supportedLangs: Object.keys(languages) }}>
             (function () {
                 try {
                     const storedLang = localStorage.getItem("preferredLang");
                     const browserLang = navigator.language.split("-")[0];
-                    const supportedLangs = ["en", "fr", "tr"];
-                    const defaultLang = "en";
                     const basePath = baseUrl === "/" ? "" : baseUrl.replace(/\/$/, "");
 
                     const currentPath = window.location.pathname;

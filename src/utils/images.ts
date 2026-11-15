@@ -1,3 +1,7 @@
+export function normalizeBaseUrl(baseUrl: string): string {
+    return baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+}
+
 export function getOptimizedImagePath(
     imagePath: string,
     variant: "full" | "thumbnail" = "full",

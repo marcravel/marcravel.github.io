@@ -1,7 +1,7 @@
 ---
 import { useTranslatedPath } from "../i18n/ui";
 import type { Project, Lang } from "../types/project";
-import { getOptimizedImagePath } from "../utils/images";
+import { getOptimizedImagePath, normalizeBaseUrl } from "../utils/images";
 import { parseProjectCategories } from "../utils/categories";
 
 export interface Props {
@@ -28,9 +28,7 @@ if (project.image) {
     if (project.image.startsWith("http")) {
         imageUrl = project.image;
     } else {
-        const baseUrl = import.meta.env.BASE_URL.endsWith("/")
-            ? import.meta.env.BASE_URL
-            : import.meta.env.BASE_URL + "/";
+        const baseUrl = normalizeBaseUrl(import.meta.env.BASE_URL);
         imageUrl = `${baseUrl}${getOptimizedImagePath(project.image)}`;
     }
 }

@@ -4,7 +4,10 @@ import fs from "fs/promises";
 import path from "path";
 import { useTranslatedPath } from "../../i18n/ui";
 import type { Project, Lang } from "../../types/project";
-import { getOptimizedImagePath } from "../../utils/images";
+import {
+    getOptimizedImagePath,
+    normalizeBaseUrl,
+} from "../../utils/images";
 import { parseProjectCategories } from "../../utils/categories";
 
 export interface Props {
@@ -13,15 +16,13 @@ export interface Props {
 }
 const { lang, project } = Astro.props;
 const translatePath = useTranslatedPath(lang);
+const baseUrl = normalizeBaseUrl(import.meta.env.BASE_URL);
 const developmentStatus = project.developmentStatus?.[lang]?.trim();
 const categories = parseProjectCategories(project.category[lang]);
 
 // Helper to determine the hero image URL with BASE_URL routing
 let heroImage = project.image;
 if (heroImage && !heroImage.startsWith("http")) {
-    const baseUrl = import.meta.env.BASE_URL.endsWith("/")
-        ? import.meta.env.BASE_URL
-        : import.meta.env.BASE_URL + "/";
     heroImage = `${baseUrl}${getOptimizedImagePath(heroImage)}`;
 }
 
@@ -200,15 +201,8 @@ const t_galleryImage = {
                                         let imgPath = galleryImg;
                                         let fullImgPath = galleryImg;
                                         if (!imgPath.startsWith("http")) {
-                                            const bUrl =
-                                                import.meta.env.BASE_URL.endsWith(
-                                                    "/",
-                                                )
-                                                    ? import.meta.env.BASE_URL
-                                                    : import.meta.env.BASE_URL +
-                                                      "/";
-                                            imgPath = `${bUrl}${getOptimizedImagePath(imgPath, "thumbnail")}`;
-                                            fullImgPath = `${bUrl}${getOptimizedImagePath(fullImgPath)}`;
+                                            imgPath = `${baseUrl}${getOptimizedImagePath(imgPath, "thumbnail")}`;
+                                            fullImgPath = `${baseUrl}${getOptimizedImagePath(fullImgPath)}`;
                                         }
                                         return (
                                             <button
