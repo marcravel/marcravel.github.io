@@ -254,5 +254,54 @@
     },
     "youtubeId": null,
     "gallery": null
+  },
+  {
+    "id": 8,
+    "active": 1,
+    "slug": "stm32-hue-measurement",
+    "category": {
+      "en": "Embedded Systems & Instrumentation",
+      "fr": "Systèmes embarqués et instrumentation",
+      "tr": "Gömülü Sistemler ve Ölçüm"
+    },
+    "title": {
+      "en": "STM32 RGB Colour Measurement System",
+      "fr": "Système de mesure des couleurs RGB avec STM32",
+      "tr": "STM32 RGB Renk Ölçüm Sistemi"
+    },
+    "techStack": [
+      "STM32F103C8T6",
+      "Embedded C",
+      "TCS34725",
+      "I²C",
+      "SSD1306 OLED",
+      "KiCad"
+    ],
+    "description": {
+      "en": "Built a portable STM32-based RGB colour measurement system using a TCS34725 sensor, I²C communication, and an SSD1306 OLED display to identify a surface's dominant colour.",
+      "fr": "Réalisation d'un système portable de mesure des couleurs basé sur STM32, utilisant un capteur TCS34725, une communication I²C et un écran OLED SSD1306 pour identifier la couleur dominante d'une surface.",
+      "tr": "Bir yüzeyin baskın rengini belirlemek için TCS34725 sensörü, I²C haberleşmesi ve SSD1306 OLED ekran kullanan STM32 tabanlı taşınabilir bir RGB renk ölçüm sistemi geliştirildi."
+    },
+    "image": "img/projects/stm32-rgb-measurement/hero_rgb.png",
+    "longDescription": {
+      "en": "docs/stm32_hue_measurement.txt",
+      "fr": "docs/stm32_hue_measurement_fr.txt",
+      "tr": "docs/stm32_hue_measurement_tr.txt"
+    },
+    "youtubeId": "BykhvSAu1Ic",
+    "gallery": [
+      "img/projects/stm32-rgb-measurement/hero_rgb.png",
+      "img/projects/stm32-rgb-measurement/PXL_20260604_211509264.jpg",
+      "img/projects/stm32-rgb-measurement/prototype.jpg",
+      "img/projects/stm32-rgb-measurement/soldered.jpg",
+      "img/projects/stm32-rgb-measurement/components.jpg",
+      "img/projects/stm32-rgb-measurement/schematic.png",
+      "img/projects/stm32-rgb-measurement/pcb.png",
+      "img/projects/stm32-rgb-measurement/3d_pcb.jpg",
+      "img/projects/stm32-rgb-measurement/etching.jpg",
+      "img/projects/stm32-rgb-measurement/etching2.jpg",
+      "img/projects/stm32-rgb-measurement/etchin3.jpg",
+      "img/projects/stm32-rgb-measurement/cdoe.png"
+    ]
   }
 ]

@@ -1,0 +1,23 @@
+Project Overview
+
+This project is a portable STM32-based RGB colour measurement system. It acquires red, green, blue, and clear-channel readings from a surface with a TCS34725 digital colour sensor, then identifies the dominant primary colour and presents the result visually in real time.
+
+The device combines an STM32F103C8T6 Blue Pill board, a TCS34725 sensor, and a 128×64 SSD1306 OLED display. A push button starts a scan, while a white illumination LED helps provide consistent lighting for the target surface.
+
+Role & Responsibilities
+
+My work covered the embedded firmware, sensor communication, RGB data acquisition, result processing, OLED user interface, and hardware integration. The firmware configures the sensor, controls the measurement cycle, reads the RGBC registers over I²C, averages samples, normalizes the RGB channels, and reports the dominant colour.
+
+I also worked on the portable hardware implementation and PCB-related design files. The project documentation describes hardware filtering and a stable regulated supply as part of the implementation, while the firmware uses an optimized auto-increment I²C transaction to read all eight RGBC data bytes together.
+
+System Architecture
+
+A 9 V battery feeds an SPDT switch and a 1N4007 protection diode, followed by an L7805 linear regulator. The regulated supply feeds the STM32 board, whose onboard 3.3 V regulator supplies the TCS34725 sensor and SSD1306 OLED.
+
+The STM32 communicates with both the sensor and display through I²C2 on PB10/SCL and PB11/SDA. When a scan starts, the firmware enables the illumination LED and the sensor ADC, polls the sensor's data-ready status, and reads clear, red, green, and blue values in one burst transaction. Samples are accumulated and averaged during the scan before normalized channel values and the dominant colour are drawn as bars and a label on the OLED.
+
+Results & Recognition
+
+In the reported red-screwdriver test, the measured channel readings were R = 196, G = 28, and B = 29. The substantially higher Red reading demonstrates that the system successfully detected the red-dominant characteristic of the test object.
+
+The report attributes the intended practical result to the combination of hardware filtering, a stable power supply, and optimized I²C reading algorithms. These readings document a successful demonstration; they are not presented as calibrated physical measurements or as a universal accuracy or response-time benchmark.

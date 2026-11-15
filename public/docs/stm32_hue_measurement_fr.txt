@@ -1,0 +1,23 @@
+Aperçu du Projet
+
+Ce projet est un système portable de mesure des couleurs RGB basé sur STM32. Il acquiert les composantes rouge, verte, bleue et claire d'une surface avec un capteur de couleur numérique TCS34725, puis identifie la couleur primaire dominante et affiche le résultat en temps réel.
+
+Le dispositif associe une carte Blue Pill STM32F103C8T6, un capteur TCS34725 et un écran OLED SSD1306 de 128×64 pixels. Un bouton-poussoir lance la mesure, tandis qu'une LED blanche d'éclairage contribue à fournir une illumination constante de la surface ciblée.
+
+Rôle et Responsabilités
+
+Mon travail a porté sur le firmware embarqué, la communication avec le capteur, l'acquisition des données RGB, le traitement des résultats, l'interface OLED et l'intégration matérielle. Le firmware configure le capteur, contrôle le cycle de mesure, lit les registres RGBC par I²C, moyenne les échantillons, normalise les canaux RGB et indique la couleur dominante.
+
+J'ai également travaillé sur l'implémentation matérielle portable et les fichiers de conception liés au PCB. La documentation du projet décrit un filtrage matériel et une alimentation régulée stable comme éléments de l'implémentation, tandis que le firmware utilise une transaction I²C optimisée en mode auto-incrémenté pour lire ensemble les huit octets de données RGBC.
+
+Architecture du Système
+
+Une batterie de 9 V alimente un interrupteur SPDT et une diode de protection 1N4007, suivis d'un régulateur linéaire L7805. L'alimentation régulée fournit l'énergie à la carte STM32, dont le régulateur 3,3 V intégré alimente le capteur TCS34725 et l'écran OLED SSD1306.
+
+Le STM32 communique avec le capteur et l'écran par le bus I²C2, sur PB10/SCL et PB11/SDA. Lorsqu'une mesure commence, le firmware active la LED d'éclairage et l'ADC du capteur, vérifie l'état de disponibilité des données, puis lit les valeurs clear, rouge, verte et bleue dans une seule transaction en rafale. Les échantillons sont accumulés et moyennés pendant la mesure avant que les valeurs normalisées et la couleur dominante soient affichées sous forme de barres et d'un libellé sur l'écran OLED.
+
+Résultats et Reconnaissance
+
+Lors du test rapporté avec un tournevis rouge, les valeurs mesurées étaient R = 196, G = 28 et B = 29. La valeur nettement supérieure du canal Rouge démontre que le système a correctement détecté le caractère dominant rouge de l'objet testé.
+
+Le rapport attribue le résultat pratique visé à la combinaison du filtrage matériel, d'une alimentation stable et d'algorithmes de lecture I²C optimisés. Ces valeurs documentent une démonstration réussie ; elles ne sont pas présentées comme des mesures physiques étalonnées ni comme une preuve d'une précision ou d'un temps de réponse universels.

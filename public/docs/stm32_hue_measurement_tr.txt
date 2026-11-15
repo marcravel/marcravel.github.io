@@ -1,0 +1,23 @@
+Proje Özeti
+
+Bu proje, STM32 tabanlı taşınabilir bir RGB renk ölçüm sistemidir. Sistem, TCS34725 dijital renk sensörüyle bir yüzeyin kırmızı, yeşil, mavi ve clear kanal değerlerini alır; ardından baskın ana rengi belirler ve sonucu gerçek zamanlı olarak görsel biçimde sunar.
+
+Cihaz; STM32F103C8T6 Blue Pill kartı, TCS34725 sensörü ve 128×64 SSD1306 OLED ekranı bir araya getirir. Bir buton taramayı başlatırken beyaz aydınlatma LED'i hedef yüzey için daha kararlı bir aydınlatma sağlamaya yardımcı olur.
+
+Rol ve Sorumluluklar
+
+Çalışmalarım gömülü firmware, sensör haberleşmesi, RGB veri alımı, sonuç işleme, OLED kullanıcı arayüzü ve donanım entegrasyonunu kapsadı. Firmware sensörü yapılandırır, ölçüm döngüsünü kontrol eder, RGBC kayıtlarını I²C üzerinden okur, örneklerin ortalamasını alır, RGB kanallarını normalize eder ve baskın rengi bildirir.
+
+Ayrıca taşınabilir donanım uygulaması ve PCB ile ilgili tasarım dosyaları üzerinde çalıştım. Proje raporu donanım filtreleme ve kararlı regüle beslemeyi uygulamanın parçaları olarak belirtirken firmware, sekiz RGBC veri baytını birlikte okumak için optimize edilmiş otomatik artırmalı bir I²C işlemi kullanır.
+
+Sistem Mimarisi
+
+9 V pil, SPDT anahtarını ve 1N4007 koruma diyodunu besler; bunların ardından L7805 lineer regülatörü bulunur. Regüle edilmiş besleme STM32 kartını çalıştırır ve kartın dahili 3,3 V regülatörü TCS34725 sensörünü ve SSD1306 OLED ekranını besler.
+
+STM32, sensör ve ekranla PB10/SCL ve PB11/SDA hatlarındaki I²C2 üzerinden haberleşir. Tarama başladığında firmware aydınlatma LED'ini ve sensör ADC'sini etkinleştirir, sensörün veri hazır durumunu kontrol eder ve clear, kırmızı, yeşil ve mavi değerlerini tek bir burst işlemiyle okur. Tarama boyunca örnekler toplanıp ortalaması alınır; ardından normalize edilmiş kanal değerleri ve baskın renk OLED üzerinde çubuklar ve bir etiket olarak gösterilir.
+
+Sonuçlar ve Başarılar
+
+Raporlanan kırmızı tornavida testinde ölçülen kanal değerleri R = 196, G = 28 ve B = 29 olmuştur. Kırmızı kanalın diğerlerinden belirgin biçimde yüksek olması, sistemin test nesnesinin kırmızı ağırlıklı karakterini başarıyla algıladığını gösterir.
+
+Rapor, hedeflenen pratik sonuca donanım filtreleme, kararlı güç kaynağı ve optimize edilmiş I²C okuma algoritmalarının birlikte katkı sağladığını belirtir. Bu değerler başarılı bir gösterimi belgeler; kalibre edilmiş fiziksel ölçümler veya evrensel doğruluk ve tepki süresi kıstası olarak sunulmaz.
