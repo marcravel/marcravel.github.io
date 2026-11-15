@@ -353,6 +353,12 @@ small,
   color: var(--on-night-2);
 }
 
+.page-body-light .kicker,
+.section .kicker,
+.about-page > :not(.page-header-dark) .kicker {
+  color: var(--ink-2);
+}
+
 /* Page Titles */
 .page-title {
   color: var(--on-night);

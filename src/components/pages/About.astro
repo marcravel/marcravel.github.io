@@ -238,8 +238,8 @@ const items = t.timeline ?? [];
 
             <!-- Timeline Section -->
             {items.length > 0 && (
-                <div class="mt-5 pt-4">
-                    <div class="text-start mb-4">
+                <div class="timeline-section">
+                    <div class="text-start mb-5">
                         <p class="kicker mb-2">
                             <span>{t.timelineKicker}</span>
                         </p>
@@ -377,6 +377,10 @@ const items = t.timeline ?? [];
     }
 
     /* ---------- Timeline ---------- */
+    .timeline-section {
+        margin-top: clamp(48px, 8vw, 96px);
+    }
+
     .timeline-wrap {
         position: relative;
     }
