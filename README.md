@@ -72,7 +72,8 @@ in `src/components/pages/`.
 
 ## Editing content
 
-- `src/data/home.json` contains the localized home hero copy.
+- Homepage hero and skills copy is defined in `src/components/pages/Home.astro`
+  alongside its presentation model.
 - `src/data/about.json` contains the localized bio, skills, education,
   experience, courses, community entries, and spoken languages.
 - Every editable field in these files must include `en`, `fr`, and `tr`.

@@ -4,12 +4,6 @@ export const languages = {
   tr: 'Türkçe',
 };
 
-export const flags = {
-  en: '🇬🇧',
-  fr: '🇫🇷',
-  tr: '🇹🇷',
-};
-
 export const defaultLang = 'en';
 
 export const ui = {
