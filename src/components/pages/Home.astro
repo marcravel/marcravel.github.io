@@ -753,7 +753,6 @@ const personSchema = {
     if (root) {
         const slides = Array.from(root.querySelectorAll<HTMLElement>(".hero-slide"));
         const dots = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-dot]"));
-        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         root.style.setProperty("--slide-ms", `${TRANSITION_MS}ms`);
 
@@ -802,7 +801,7 @@ const personSchema = {
             timer = undefined;
         };
         const start = () => {
-            if (reduceMotion || paused || !isVisible || document.hidden || timer !== undefined) return;
+            if (paused || !isVisible || document.hidden || timer !== undefined) return;
             timer = window.setInterval(next, AUTOPLAY_MS);
         };
         const restart = () => {
