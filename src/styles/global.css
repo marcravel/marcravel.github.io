@@ -1015,6 +1015,7 @@ textarea.form-control {
 .align-items-start { align-items: flex-start; }
 .justify-content-center { justify-content: center; }
 .justify-content-between { justify-content: space-between; }
+.justify-content-start { justify-content: flex-start; }
 .justify-content-end { justify-content: flex-end; }
 .text-center { text-align: center; }
 .text-start { text-align: left; }

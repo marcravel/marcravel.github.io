@@ -305,12 +305,13 @@ const personSchema = {
                             decoding="async"
                         />
                         <div class="hero-slide-overlay" />
-                        <div class="container hero-slide-content d-flex align-items-center justify-content-center">
+                        <div class="container hero-slide-content d-flex align-items-center justify-content-start text-start">
                             <div class:list={["hero-copy", { "animate-fade-up": index === 0 }]}>
                                 <p class="kicker kicker-on-night mb-2">
                                     <span>{t.kickerHero}</span>
                                 </p>
                                 <Heading class="mb-3 hero-title">{slide.title}</Heading>
+                                <div class="hero-rainbow-line" aria-hidden="true"></div>
                                 <p class="lead mb-0 hero-lead" set:html={slide.text} />
                             </div>
                         </div>
@@ -425,7 +426,7 @@ const personSchema = {
     .hero-carousel {
         position: relative;
         display: grid;
-        grid-template-rows: minmax(min(640px, 80vh), auto);
+        grid-template-rows: minmax(min(720px, 86vh), auto);
         overflow: hidden;
         background-color: var(--night);
         border-bottom: 2px solid var(--ink);
@@ -455,7 +456,7 @@ const personSchema = {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        opacity: 0.28;
+        opacity: 0.04;
     }
 
     .hero-slide-overlay {
@@ -464,7 +465,7 @@ const personSchema = {
         background:
             linear-gradient(to right, rgb(42 42 42 / 0.65) 1px, transparent 1px),
             linear-gradient(to bottom, rgb(42 42 42 / 0.65) 1px, transparent 1px),
-            linear-gradient(90deg, rgb(31 31 31 / 0.96), rgb(31 31 31 / 0.8));
+            linear-gradient(90deg, rgb(31 31 31 / 0.98), rgb(31 31 31 / 0.98));
         background-size: 40px 40px, 40px 40px, auto;
     }
 
@@ -473,13 +474,13 @@ const personSchema = {
         z-index: 1;
         width: 100%;
         min-width: 0;
-        padding-block: 5rem;
-        text-align: center;
+        padding-block: clamp(5rem, 11vw, 9rem);
+        text-align: left;
     }
 
     .hero-copy {
         width: 100%;
-        max-width: 800px;
+        max-width: 1100px;
         color: var(--on-night);
     }
 
@@ -493,18 +494,27 @@ const personSchema = {
     }
 
     .hero-title {
-        font-size: clamp(2rem, 5vw, 3.75rem);
-        font-weight: 700;
-        line-height: 1.05;
-        letter-spacing: -0.035em;
-        text-transform: uppercase;
+        max-width: 1050px;
+        font-size: clamp(3.5rem, 8.8vw, 8.5rem);
+        font-weight: 400;
+        line-height: 0.92;
+        letter-spacing: -0.065em;
+        text-transform: none;
         color: var(--on-night);
+    }
+
+    .hero-rainbow-line {
+        width: min(100%, 980px);
+        height: 8px;
+        margin-bottom: 1.25rem;
+        background: var(--u4);
     }
 
     .hero-lead {
         color: var(--on-night);
-        font-size: clamp(1.1rem, 1.8vw, 1.35rem);
-        line-height: 1.5;
+        max-width: 72ch;
+        font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+        line-height: 1.45;
         opacity: 0.95;
     }
 
@@ -521,8 +531,9 @@ const personSchema = {
         z-index: 2;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         gap: 1rem;
+        padding-inline: var(--pad);
     }
 
     .hero-arrow {
@@ -584,6 +595,24 @@ const personSchema = {
         width: 32px;
         background-color: var(--t-yellow);
         border-color: var(--t-yellow);
+    }
+
+    @media (max-width: 767.98px) {
+        .hero-carousel {
+            grid-template-rows: minmax(620px, 78vh);
+        }
+
+        .hero-slide-content {
+            padding-block: 4rem 7rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 14vw, 5rem);
+        }
+
+        .hero-rainbow-line {
+            height: 5px;
+        }
     }
 
     /* ---------- Skills Section ---------- */
