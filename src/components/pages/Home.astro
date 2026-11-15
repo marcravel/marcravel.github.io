@@ -4,13 +4,12 @@ import ProjectCard from "../ProjectCard.astro";
 import projectsData from "../../data/projects.json";
 import { useTranslatedPath } from "../../i18n/ui";
 import { getImage, Image } from "astro:assets";
-
 import embeddedIcon from "../../assets/icons/embedded.png";
 import pcbIcon from "../../assets/icons/pcb-design.png";
 import controlIcon from "../../assets/icons/control.png";
 import linuxIcon from "../../assets/icons/linux.png";
 
-const skillIcons = [embeddedIcon, pcbIcon, controlIcon, linuxIcon];
+const skillIcons = [embeddedIcon, pcbIcon, controlIcon, embeddedIcon, controlIcon, linuxIcon];
 
 export interface Props {
     lang: "en" | "fr" | "tr";
@@ -69,19 +68,33 @@ const texts = {
         skills: [
             {
                 title: "Embedded Firmware",
-                desc: "C/C++ on microcontrollers. STM32, ESP32, PIC, Arduino, bare-metal and HAL firmware.",
+                desc: "Microcontroller programming and low-level firmware development.",
+                items: ["C / C++", "STM32, ESP32, PIC, Arduino", "Bare-metal Programming", "HAL & Peripheral Drivers"],
             },
             {
                 title: "Electronics & PCB Design",
-                desc: "Schematic and PCB design, circuit design, power stages, sensor and actuator interfacing.",
+                desc: "Electronic circuit design, board development, and hardware integration.",
+                items: ["Analog & Digital Electronics", "Circuit Design", "Altium Designer", "PCB Layout", "Component Selection", "Hardware Prototyping"],
             },
             {
-                title: "Control",
-                desc: "Digital control loops, sensors and actuators, PID and fuzzy logic.",
+                title: "Control Systems",
+                desc: "Design and implementation of feedback control systems.",
+                items: ["PID / PI / PD Control", "Fuzzy Logic", "Digital Control", "Feedback Systems", "System Modeling"],
             },
             {
-                title: "Linux & Tooling",
-                desc: "Linux development environment, Python, Git, serial and device interfaces, telemetry and frontend/API glue. Familiar with ML fundamentals and OpenCV.",
+                title: "Sensors & Instrumentation",
+                desc: "Measurement systems, data acquisition, and hardware communication.",
+                items: ["Sensor Integration", "ADC", "I²C, SPI, UART", "Data Acquisition", "Signal Conditioning", "Measurement Systems"],
+            },
+            {
+                title: "Power Electronics",
+                desc: "Power conversion and electronic power-stage design.",
+                items: ["DC-DC Converters", "Buck Converters", "MOSFETs & Gate Drivers", "Power Management", "LTspice", "Circuit Simulation"],
+            },
+            {
+                title: "Linux & Development Tools",
+                desc: "Software development environments and engineering workflows.",
+                items: ["Linux", "Python", "Git", "Bash", "Debugging & Testing", "Serial Communication", "Telemetry & API Integration"],
             },
         ],
         selectedProjects: "Selected Projects",
@@ -115,19 +128,33 @@ const texts = {
         skills: [
             {
                 title: "Firmware embarqué",
-                desc: "C/C++ sur microcontrôleurs. STM32, ESP32, PIC, Arduino, firmware bare-metal et HAL.",
+                desc: "Programmation de microcontrôleurs et développement de firmware bas niveau.",
+                items: ["C / C++", "STM32, ESP32, PIC, Arduino", "Programmation bare-metal", "HAL et pilotes de périphériques"],
             },
             {
-                title: "Électronique et conception de circuits imprimés",
-                desc: "Schémas et conception de circuits imprimés, conception de circuits, étages de puissance, interfaces capteurs et actionneurs.",
+                title: "Électronique et conception de PCB",
+                desc: "Conception de circuits électroniques, développement de cartes et intégration matérielle.",
+                items: ["Électronique analogique et numérique", "Conception de circuits", "Altium Designer", "Routage PCB", "Sélection des composants", "Prototypage matériel"],
             },
             {
-                title: "Contrôle",
-                desc: "Boucles de contrôle numériques, capteurs et actionneurs, PID et logique floue.",
+                title: "Systèmes de contrôle",
+                desc: "Conception et implémentation de systèmes de contrôle en boucle fermée.",
+                items: ["Contrôle PID / PI / PD", "Logique floue", "Contrôle numérique", "Systèmes en rétroaction", "Modélisation des systèmes"],
             },
             {
-                title: "Linux et outils",
-                desc: "Environnement de développement Linux, Python, Git, interfaces série et périphériques, télémétrie et intégration frontend/API. Connaissances des fondamentaux du ML et d'OpenCV.",
+                title: "Capteurs et instrumentation",
+                desc: "Systèmes de mesure, acquisition de données et communication matérielle.",
+                items: ["Intégration de capteurs", "ADC", "I²C, SPI, UART", "Acquisition de données", "Conditionnement du signal", "Systèmes de mesure"],
+            },
+            {
+                title: "Électronique de puissance",
+                desc: "Conversion de puissance et conception d'étages de puissance électroniques.",
+                items: ["Convertisseurs DC-DC", "Convertisseurs Buck", "MOSFET et pilotes de grille", "Gestion de l'énergie", "LTspice", "Simulation de circuits"],
+            },
+            {
+                title: "Linux et outils de développement",
+                desc: "Environnements de développement logiciel et flux de travail d'ingénierie.",
+                items: ["Linux", "Python", "Git", "Bash", "Débogage et tests", "Communication série", "Télémétrie et intégration d'API"],
             },
         ],
         selectedProjects: "Projets Sélectionnés",
@@ -157,19 +184,33 @@ const texts = {
         skills: [
             {
                 title: "Gömülü Firmware",
-                desc: "Mikrodenetleyiciler üzerinde C/C++. STM32, ESP32, PIC, Arduino, bare-metal ve HAL firmware.",
+                desc: "Mikrodenetleyici programlama ve düşük seviyeli firmware geliştirme.",
+                items: ["C / C++", "STM32, ESP32, PIC, Arduino", "Bare-metal Programlama", "HAL ve Çevre Birimi Sürücüleri"],
             },
             {
                 title: "Elektronik ve PCB Tasarımı",
-                desc: "Şematik ve PCB tasarımı, devre tasarımı, güç katları, sensör ve aktüatör arayüzleri.",
+                desc: "Elektronik devre tasarımı, kart geliştirme ve donanım entegrasyonu.",
+                items: ["Analog ve Dijital Elektronik", "Devre Tasarımı", "Altium Designer", "PCB Yerleşimi", "Bileşen Seçimi", "Donanım Prototipleme"],
             },
             {
-                title: "Kontrol",
-                desc: "Dijital kontrol döngüleri, sensörler ve aktüatörler, PID ve bulanık mantık.",
+                title: "Kontrol Sistemleri",
+                desc: "Geri beslemeli kontrol sistemlerinin tasarımı ve uygulanması.",
+                items: ["PID / PI / PD Kontrol", "Bulanık Mantık", "Dijital Kontrol", "Geri Besleme Sistemleri", "Sistem Modellemesi"],
             },
             {
-                title: "Linux ve Araçlar",
-                desc: "Linux geliştirme ortamı, Python, Git, seri ve cihaz arayüzleri, telemetri ve frontend/API entegrasyonu. ML temelleri ve OpenCV hakkında bilgi sahibi.",
+                title: "Sensörler ve Ölçüm Sistemleri",
+                desc: "Ölçüm sistemleri, veri toplama ve donanım haberleşmesi.",
+                items: ["Sensör Entegrasyonu", "ADC", "I²C, SPI, UART", "Veri Toplama", "Sinyal Koşullandırma", "Ölçüm Sistemleri"],
+            },
+            {
+                title: "Güç Elektroniği",
+                desc: "Güç dönüşümü ve elektronik güç katı tasarımı.",
+                items: ["DC-DC Dönüştürücüler", "Buck Dönüştürücüler", "MOSFET'ler ve Gate Driver'lar", "Güç Yönetimi", "LTspice", "Devre Simülasyonu"],
+            },
+            {
+                title: "Linux ve Geliştirme Araçları",
+                desc: "Yazılım geliştirme ortamları ve mühendislik iş akışları.",
+                items: ["Linux", "Python", "Git", "Bash", "Hata Ayıklama ve Test", "Seri Haberleşme", "Telemetri ve API Entegrasyonu"],
             },
         ],
         selectedProjects: "Seçili Projeler",
@@ -306,16 +347,16 @@ const personSchema = {
             <div class="skills-wrapper">
                 <h2 class="section-title skills-heading"><span>{t.skillsHeading}</span></h2>
 
-                <div class="grid grid-cols-1 md-grid-cols-2 gap-4 skills-grid animate-fade-up delay-2">
+                <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-4 skills-grid animate-fade-up delay-2">
                     {
                         t.skills.map((skill, index) => {
                             const icon = skillIcons[index];
                             return (
-                                <article class="skill-card h-100">
+                                <article class="skill-card">
                                     <img
                                         src={icon.src}
-                                        width="56"
-                                        height="56"
+                                        width="28"
+                                        height="28"
                                         alt=""
                                         aria-hidden="true"
                                         class="skill-icon mb-3"
@@ -323,7 +364,10 @@ const personSchema = {
                                         decoding="async"
                                     />
                                     <h3 class="skill-title mb-2">{skill.title}</h3>
-                                    <p class="small text-secondary mb-0">{skill.desc}</p>
+                                    <p class="skill-description">{skill.desc}</p>
+                                    <ul class="skill-tags" aria-label={skill.title}>
+                                        {skill.items.map((item) => <li>{item}</li>)}
+                                    </ul>
                                 </article>
                             );
                         })
@@ -498,8 +542,7 @@ const personSchema = {
     }
 
     .skills-wrapper {
-        max-width: 960px;
-        margin-inline: auto;
+        width: 100%;
     }
 
     .skills-heading {
@@ -533,10 +576,9 @@ const personSchema = {
 
     .skill-card {
         background-color: var(--color-bg-card);
-        border: none !important;
-        outline: none !important;
+        border: 1px solid var(--color-border-subtle);
         border-radius: var(--radius-md);
-        padding: clamp(1.75rem, 3.5vw, 2.25rem);
+        padding: clamp(1.25rem, 2.5vw, 1.5rem);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -550,8 +592,8 @@ const personSchema = {
     }
 
     .skill-icon {
-        width: 56px;
-        height: 56px;
+        width: 28px;
+        height: 28px;
         object-fit: contain;
         margin-inline: auto;
         display: block;
@@ -559,16 +601,37 @@ const personSchema = {
     }
 
     .skill-title {
-        font-size: 1.25rem;
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
         font-weight: 700;
         color: var(--color-text-primary);
         text-align: center;
+        margin-bottom: 0.75rem !important;
     }
 
-    .skill-card p {
+    .skill-description {
         color: var(--color-text-secondary);
-        line-height: 1.6;
-        text-align: center;
+        line-height: 1.45;
+        margin: 0 0 0.75rem;
+    }
+
+    .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.35rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .skill-tags li {
+        background-color: var(--color-bg-elevated);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-pill);
+        color: var(--color-text-secondary);
+        font-size: 0.82rem;
+        line-height: 1.3;
+        padding: 0.35rem 0.65rem;
     }
 
     /* ---------- Projects ---------- */
