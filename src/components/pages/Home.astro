@@ -545,13 +545,15 @@ const personSchema = {
     .hero-controls {
         position: absolute;
         inset-inline: 0;
+        width: min(100% - (2 * var(--pad)), var(--container));
+        margin-inline: auto;
         bottom: 1.5rem;
         z-index: 2;
         display: flex;
         align-items: center;
         justify-content: flex-start;
         gap: 1rem;
-        padding-inline: var(--pad);
+        padding-inline: 0;
     }
 
     .hero-arrow {
