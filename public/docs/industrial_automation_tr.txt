@@ -1,0 +1,23 @@
+Proje Özeti
+
+Bu akademik çalışma, Selçuk Üniversitesi Elektrik-Elektronik Mühendisliği Bölümü bünyesinde gerçekleştirilmiştir (Mart 2026). Proje; AutoCAD kullanılarak endüstriyel motor kumanda sistemlerinin ve PLC arayüz devrelerinin elektriksel tasarımı, şema çizimi ve bağlantı dokümantasyonuna odaklanmaktadır.
+
+Çalışma, klasik elektromekanik motor kumanda devrelerinin yanı sıra PLC tabanlı kontrol mimarilerini kapsamakta; üç fazlı asenkron motorlar için güç dağıtımı, 24 VDC kumanda devreleri, röle arayüzleri ve sıralı çalışma yapılarını belgelemektedir.
+
+Rol ve Sorumluluklar
+
+Çalışmalarım; beş temel endüstriyel kumanda senaryosu üzerinden devre tasarımı, AutoCAD teknik çizimleri ve sistem dokümantasyonunu kapsamaktadır.
+
+Kesikli (jog) çalıştırma, sürekli (mühürlemeli) çalıştırma ve elektriksel kilitlemeli ileri-geri motor kontrolü için kumanda şemaları tasarladım. Ayrıca yıldız-üçgen motor yol verme güç ve kumanda şemalarını geliştirdim, ara röleli 24 VDC PLC giriş/çıkış bağlantılarını dokümante ettim ve zaman röleleri, dahili hafıza bitleri ve röle kontrollü çıkışlar kullanarak iki asenkron motorun sıralı çalışma mantığını oluşturdum.
+
+Sistem Mimarisi
+
+Elektriksel mimari, üç fazlı 380/400 VAC güç devreleri ile 24 VDC ve 220 VAC kumanda devrelerini birbirinden ayırmaktadır. Güç devreleri şemalarında; koruma sigortaları, termik aşırı akım röleleri ve üç fazlı sincap kafesli asenkron motorları süren kontaktörler, faz sırası değiştirme ve yıldız-üçgen bağlantı konfigürasyonlarıyla yer almaktadır.
+
+Kumanda bölümünde ise klasik kumanda şemaları ve bunlara karşılık gelen PLC G/Ç bağlantı şemaları hazırlanmıştır. Start, stop ve yön butonları 24 VDC dijital girişlere bağlanmıştır. Dijital çıkışlar, PLC çıkışlarını doğrudan yükten izole etmek için 24 VDC ara röleleri (R1–R5) tetiklemekte ve bu röleler güç kontaktörlerinin 220 VAC bobinlerini kontrol etmektedir. İki motorlu sistemde ise sıralı kalkış ve gecikmeli duruş döngüleri, zamanlayıcı hafıza bitleri ve elektriksel kilitlemeler üzerinden koordine edilmiştir.
+
+Sonuçlar ve Başarılar
+
+Tamamlanan mühendislik dokümantasyonu; her biri klasik kumanda devresini, Ladder diyagramını, güç devresini ve eksiksiz PLC G/Ç bağlantı şemasını içeren AutoCAD ortamında çizilmiş beş teknik paftadan oluşmaktadır.
+
+Proje; standartlara uygun şema çizimi, bileşen etiketleme, elektriksel izolasyon prensipleri ve yapılandırılmış sıralı motor kumandası tasarımını başarıyla ortaya koyarak temel elektrik mühendisliği ilkeleri ile endüstriyel kontrol entegrasyonunu birleştirmektedir.

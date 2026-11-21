@@ -1,0 +1,23 @@
+Project Overview
+
+This academic project was developed in the Department of Electrical and Electronics Engineering at Selçuk University (March 2026). It focuses on the electrical design, schematic drafting, and wiring documentation of industrial motor-control systems and PLC interface circuits using AutoCAD.
+
+The work encompasses conventional electromechanical motor control alongside PLC-based control architectures, documenting power distribution, 24 VDC control circuits, relay interfaces, and sequential operation for industrial three-phase induction motors.
+
+Role & Responsibilities
+
+My work encompassed the circuit design, AutoCAD drafting, and technical documentation of both electromechanical and PLC-controlled systems across five standard industrial control topologies.
+
+I designed control schematics for jogging (inching) operation, continuous latching operation, and forward-reverse motor control with electrical interlocking. In addition, I developed power and control schematics for star-delta motor starting, documented 24 VDC PLC input/output interface wiring with intermediate relays, and designed sequential control documentation for two induction motors using on-delay timers, internal memory bits, and relay-driven contactor outputs.
+
+System Architecture
+
+The electrical architecture separates the three-phase 380/400 VAC power circuits from the 24 VDC and 220 VAC control circuits. Power distribution schematics incorporate circuit protection fuses, thermal overload relays (TCB), and contactors driving 3-phase squirrel-cage induction motors, including reversible phase-swapping topologies and star-delta starting connections.
+
+For the control section, conventional ladder logic and corresponding PLC I/O wiring diagrams were prepared. Push-button inputs (start, stop, forward, reverse) interface to 24 VDC digital inputs. The digital outputs actuate 24 VDC interposing relays (R1–R5), which safely isolate and switch 220 VAC coils of the main power contactors, preventing direct loading of the PLC outputs. In the dual-motor setup, sequential starting and delayed shutdown cycles are coordinated through timed memory-bit networks and interlocked relay stages.
+
+Results & Recognition
+
+The completed engineering documentation consists of five standardized AutoCAD electrical drawings, each detailing the conventional control circuit, ladder logic network, power circuit, and complete PLC I/O connection schematic.
+
+The project demonstrates rigorous schematic drafting, clear component referencing, electrical isolation principles, and structured sequential motor control design, bridging core electrical engineering principles with industrial control integration.

@@ -1,0 +1,23 @@
+Aperçu du Projet
+
+Ce projet académique a été réalisé au sein du département de génie électrique et électronique de l'Université de Selçuk (mars 2026). Il porte sur la conception électrique, le dessin de schémas et la documentation du câblage de systèmes de commande de moteurs industriels et d'interfaces d'automates programmables industriels (API) sous AutoCAD.
+
+Les travaux englobent les circuits de commande électromécaniques traditionnels ainsi que les architectures de contrôle par automate, documentant la distribution de puissance, les circuits de commande en 24 VCC, les interfaces à relais et le fonctionnement séquentiel de moteurs asynchrones triphasés.
+
+Rôle et Responsabilités
+
+Mon travail a couvert la conception des circuits, la réalisation des schémas sous AutoCAD et la documentation technique des systèmes électromécaniques et automatisés à travers cinq topologies de commande industrielle.
+
+J'ai conçu les schémas de commande pour le fonctionnement par impulsions (jogging), le fonctionnement continu avec auto-maintien et la commande avant-arrière avec verrouillage électrique. J'ai également développé les schémas de puissance et de commande pour le démarrage étoile-triangle, documenté le câblage d'entrées/sorties API en 24 VCC avec relais d'interface, et élaboré la commande séquentielle de deux moteurs asynchrones à l'aide de temporisations, de bits de mémoire interne et de sorties de relais.
+
+Architecture du Système
+
+L'architecture électrique sépare distinctement les circuits de puissance triphasés 380/400 VCA des circuits de commande en 24 VCC et 220 VCA. Les schémas de puissance intègrent les fusibles de protection, les relais thermiques de surcharge et les contacteurs commandant les moteurs asynchrones, y compris l'inversion de phases et le couplage étoile-triangle.
+
+Pour la partie commande, les schémas conventionnels et les diagrammes de câblage E/S de l'automate ont été modélisés. Les boutons-poussoirs de commande sont raccordés aux entrées numériques 24 VCC. Les sorties numériques pilotent des relais d'interface 24 VCC (R1 à R5) assurant l'isolation galvanique et la commande des bobines 220 VCA des contacteurs de puissance. Dans la configuration à deux moteurs, le démarrage séquentiel et les arrêts différés sont coordonnés par des réseaux de temporisations et de bits mémoire avec verrouillages mutuels.
+
+Résultats et Reconnaissance
+
+La documentation d'ingénierie finalisée regroupe cinq planches de schémas normalisés sous AutoCAD, comprenant chacune le circuit de commande classique, le réseau Ladder associé, le circuit de puissance et le schéma complet de raccordement de l'automate.
+
+Le projet illustre une maîtrise rigoureuse du dessin de schémas électriques, du repérage des composants, des principes d'isolation électrique et de la commande séquentielle de moteurs, renforçant les compétences fondamentales en intégration de systèmes de contrôle industriel.

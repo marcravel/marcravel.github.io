@@ -219,6 +219,75 @@
     ]
   },
   {
+    "id": 9,
+    "active": 1,
+    "slug": "industrial-automation",
+    "category": {
+      "en": "Electrical Design & Industrial Automation",
+      "fr": "Conception électrique & Automatisation industrielle",
+      "tr": "Elektrik Tasarımı ve Endüstriyel Otomasyon"
+    },
+    "title": {
+      "en": "Industrial Automation — Electrical Schematics and PLC Wiring",
+      "fr": "Automatisation industrielle — Schémas électriques et câblage API",
+      "tr": "Endüstriyel Otomasyon — Elektrik Şemaları ve PLC Bağlantısı"
+    },
+    "techStack": [
+      "AutoCAD",
+      "Electrical Schematics",
+      "PLC I/O Wiring",
+      "Motor Control Circuits",
+      "Relay and Contactor Interfaces",
+      "Industrial Automation"
+    ],
+    "description": {
+      "en": "Designed and documented industrial electrical control systems and PLC wiring diagrams using AutoCAD. The project covers conventional motor-control circuits, PLC I/O connections, and sequential operation of two induction motors.",
+      "fr": "Conception et documentation de systèmes de commande électrique industrielle et de schémas de câblage API sous AutoCAD. Le projet couvre les circuits de commande moteur classiques, les raccordements E/S d'automate et le fonctionnement séquentiel de deux moteurs asynchrones.",
+      "tr": "AutoCAD kullanılarak endüstriyel elektrik kontrol sistemleri ve PLC bağlantı şemaları tasarlandı ve belgelendi. Proje; klasik motor kumanda devrelerini, PLC G/Ç bağlantılarını ve iki asenkron motorun sıralı çalışmasını kapsamaktadır."
+    },
+    "image": "img/projects/industrial-automation/star-delta.png",
+    "longDescription": {
+      "en": "docs/industrial_automation.txt",
+      "fr": "docs/industrial_automation_fr.txt",
+      "tr": "docs/industrial_automation_tr.txt"
+    },
+    "youtubeId": null,
+    "gallery": [
+      "img/projects/industrial-automation/star-delta.png",
+      "img/projects/industrial-automation/forward-reverse.png",
+      "img/projects/industrial-automation/two-induction.png",
+      "img/projects/industrial-automation/continuous-op.png",
+      "img/projects/industrial-automation/jog-op.png"
+    ],
+    "galleryAlt": [
+      {
+        "en": "Star-Delta Motor Starter Circuit",
+        "fr": "Circuit de démarrage étoile-triangle pour moteur",
+        "tr": "Yıldız-Üçgen Motor Yol Verme Devresi"
+      },
+      {
+        "en": "Forward-Reverse Motor Control Circuit",
+        "fr": "Circuit de commande avant-arrière pour moteur",
+        "tr": "İleri-Geri Motor Kumanda Devresi"
+      },
+      {
+        "en": "Sequential Control of Two Induction Motors",
+        "fr": "Commande séquentielle de deux moteurs asynchrones",
+        "tr": "İki Asenkron Motorun Sıralı Kontrolü"
+      },
+      {
+        "en": "Continuous Operation Control Circuit",
+        "fr": "Circuit de commande de fonctionnement continu",
+        "tr": "Sürekli Çalıştırma Kumanda Devresi"
+      },
+      {
+        "en": "Jogging Control Circuit",
+        "fr": "Circuit de commande par impulsions (jogging)",
+        "tr": "Jog (Kesikli) Çalıştırma Kumanda Devresi"
+      }
+    ]
+  },
+  {
     "id": 8,
     "active": 1,
     "slug": "stm32-hue-measurement",
